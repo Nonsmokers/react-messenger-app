@@ -1,0 +1,36 @@
+.message {
+  display: flex;
+  max-width: 440px;
+  margin-bottom: 15px;
+
+  &__avatar {
+    display: flex;
+    flex-direction: column-reverse;
+
+    img {
+      border-radius: 50px;
+      width: 33px;
+      height: 33px;
+      margin-right: 13px;
+      margin-bottom: 22px;
+    }
+  }
+
+  &__bubble {
+    background: #3674FF;
+    box-shadow: 0 5px 5px rgba(54, 116, 255, 0.196733);
+    border-radius: 12px 12px 12px 0;
+    padding: 15px;
+    margin-bottom: 8px;
+  }
+
+  &__date {
+    font-size: 12px;
+    opacity: 0.5;
+  }
+
+  &__text {
+    color: #ffffff;
+    line-height: 20px;
+  }
+}

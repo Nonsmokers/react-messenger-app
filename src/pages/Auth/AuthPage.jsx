@@ -1,8 +1,8 @@
 import React from 'react';
+import {Route} from "react-router";
 import './AuthPage.scss'
 import SignInForm from "../../modules/SignInForm/SignInForm";
 import SignUpForm from "../../modules/SignUpForm/SignUpForm";
-import {Route} from "react-router";
 
 const AuthPage = () => {
     return (

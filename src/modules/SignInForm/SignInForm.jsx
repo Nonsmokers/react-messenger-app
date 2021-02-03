@@ -1,12 +1,11 @@
 import React from "react";
 import {Form, Input} from "antd";
-import Button from "../../components/Button/Button";
 import {UserOutlined, LockOutlined} from '@ant-design/icons';
-import WrapperBlock from "../../components/WrapperBlock/WrapperBlock";
 import {Link} from "react-router-dom";
+import Button from "../../components/Button/Button";
+import WrapperBlock from "../../components/WrapperBlock/WrapperBlock";
 
 const SignInForm = () => {
-
     const onFinish = (values) => {
         console.log('Success:', values);
     };

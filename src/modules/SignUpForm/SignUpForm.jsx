@@ -1,9 +1,9 @@
 import React from "react";
 import {Form, Input} from "antd";
-import Button from "../../components/Button/Button";
 import {MailOutlined, LockOutlined, UserOutlined, InfoCircleTwoTone} from '@ant-design/icons';
-import WrapperBlock from "../../components/WrapperBlock/WrapperBlock";
 import {Link} from "react-router-dom";
+import WrapperBlock from "../../components/WrapperBlock/WrapperBlock";
+import Button from "../../components/Button/Button";
 
 const SignUpForm = () => {
 
@@ -11,6 +11,7 @@ const SignUpForm = () => {
         console.log('Success:', values);
     };
     const Success = false;
+
     return (
         <>
             <div className='auth__title'>
@@ -82,11 +83,11 @@ const SignUpForm = () => {
                         <Link className='auth__register-link' to='/sign-in'>Войти в аккаунт</Link>
                     </Form>
                 ) : (<div className='auth__success-block'>
-                        <div>
-                            <InfoCircleTwoTone />
-                        </div>
-                        <h3>Подтвердите свой аккаунт</h3>
-                        <p>На Вашу почту отправлено письмо с ссылкой на подтверждение аккаунта.</p>
+                    <div>
+                        <InfoCircleTwoTone/>
+                    </div>
+                    <h3>Подтвердите свой аккаунт</h3>
+                    <p>На Вашу почту отправлено письмо с ссылкой на подтверждение аккаунта.</p>
                 </div>)}
             </WrapperBlock>
         </>

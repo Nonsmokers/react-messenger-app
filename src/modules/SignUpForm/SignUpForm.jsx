@@ -1,16 +1,15 @@
 import React from "react";
-import {Form, Input} from "antd";
-import {MailOutlined, LockOutlined, UserOutlined, InfoCircleTwoTone} from '@ant-design/icons';
 import {Link} from "react-router-dom";
+import {Form, Input} from "antd";
+import {InfoCircleTwoTone, LockOutlined, MailOutlined, UserOutlined} from '@ant-design/icons';
 import WrapperBlock from "../../components/WrapperBlock/WrapperBlock";
 import Button from "../../components/Button/Button";
 
-const SignUpForm = () => {
 
-    const onFinish = (values) => {
-        console.log('Success:', values);
-    };
-    const Success = false;
+const SignUpForm = (props) => {
+
+    const {values, touched, errors, handleChange, handleBlur, handleSubmit} = props;
+    const success = false;
 
     return (
         <>
@@ -19,66 +18,68 @@ const SignUpForm = () => {
                 <p>Для входа в чат, вам нужно зарегистрироваться</p>
             </div>
             <WrapperBlock>
-                {!Success ? (
-                    <Form
-                        name='normal_login'
-                        className='login-form'
-                        //initialValues={{remember: true}}
-                        onFinish={onFinish}
-                        size={"large"}
-                    >
-                        <Form.Item
-                            name='mail'
-                            className='auth__wrapper-input'
-                            rules={[{required: true, message: 'Please input your Username!'}]}
-                            hasFeedback //validateStatus='success'
+                {!success ? (
+                    <Form name='normal_login'
+                          className='login-form'
+                          onSubmit={handleSubmit}
+                          size={"large"}>
+                        <Form.Item className='auth__wrapper-input'
+                                   validateStatus={!touched.email ? '' : errors.email ? 'error' : 'success'}
+                                   help={!touched.email ? ' ' : errors.email}
+                                   hasFeedback
                         >
-                            <Input className='auth__login-input'
+                            <Input id='email'
+                                   className='auth__login-input'
                                    prefix={<MailOutlined className='site-form-item-icon'/>}
                                    placeholder='E-mail'
+                                   value={values.email}
+                                   onChange={handleChange}
+                                   onBlur={handleBlur}
                             />
                         </Form.Item>
-                        <Form.Item
-                            name='username'
-                            className='auth__wrapper-input'
-                            rules={[{required: true, message: 'Please input your Username!'}]}
-                            hasFeedback //validateStatus='success'
+                        <Form.Item className='auth__wrapper-input'
+                                   hasFeedback
                         >
-                            <Input className='auth__login-input'
+                            <Input id={'username'}
+                                   className='auth__login-input'
                                    prefix={<UserOutlined className='site-form-item-icon'/>}
                                    placeholder='Ваше имя'
+                                   value={values.username}
+                                   onChange={handleChange}
+                                   onBlur={handleBlur}
                             />
                         </Form.Item>
-
-                        <Form.Item
-                            name="password"
-                            className='auth__wrapper-input'
-                            rules={[{required: true, message: 'Please input your Password!'}]}
-                            hasFeedback //validateStatus='success'
+                        <Form.Item className='auth__wrapper-input'
+                                   validateStatus={!touched.password ? '' : errors.password ? 'error' : 'success'}
+                                   help={!touched.password ? ' ' : errors.password}
+                                   hasFeedback
                         >
-                            <Input
-                                className='auth__login-input'
-                                prefix={<LockOutlined className='site-form-item-icon'/>}
-                                type="password"
-                                placeholder="Пароль"
+                            <Input id='password'
+                                   className='auth__login-input'
+                                   prefix={<LockOutlined className='site-form-item-icon'/>}
+                                   type="password"
+                                   placeholder="Пароль"
+                                   onChange={handleChange}
+                                   value={values.password}
+                                   onBlur={handleBlur}
                             />
                         </Form.Item>
-                        <Form.Item
-                            name="password"
-                            className='auth__wrapper-input'
-                            rules={[{required: true, message: 'Please input your Password!'}]}
-                            hasFeedback //validateStatus='success'
+                        <Form.Item className='auth__wrapper-input'
+                                   validateStatus={!touched.password2 ? '' : errors.password2 ? 'error' : 'success'}
+                                   hasFeedback
                         >
-                            <Input
-                                className='auth__login-input'
-                                prefix={<LockOutlined className='site-form-item-icon'/>}
-                                type="password"
-                                placeholder="Повторить Пароль"
+                            <Input id='password2'
+                                   className='auth__login-input'
+                                   prefix={<LockOutlined className='site-form-item-icon'/>}
+                                   type="password"
+                                   placeholder="Повторить Пароль"
+                                   value={values.password2}
+                                   onChange={handleChange}
+                                   onBlur={handleBlur}
                             />
                         </Form.Item>
-
                         <Form.Item>
-                            <Button type="primary" size="large">Зарегистрироваться</Button>
+                            <Button onClick={handleSubmit} type="primary" size="large">Зарегистрироваться</Button>
                         </Form.Item>
                         <Link className='auth__register-link' to='/sign-in'>Войти в аккаунт</Link>
                     </Form>
@@ -88,7 +89,8 @@ const SignUpForm = () => {
                     </div>
                     <h3>Подтвердите свой аккаунт</h3>
                     <p>На Вашу почту отправлено письмо с ссылкой на подтверждение аккаунта.</p>
-                </div>)}
+                </div>)
+                }
             </WrapperBlock>
         </>
     )

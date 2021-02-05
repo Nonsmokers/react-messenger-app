@@ -7,30 +7,44 @@ import messageReaded from '../../assets/img/messageReaded.svg';
 import messageNotReaded from '../../assets/img/messageNotReaded.svg';
 import './Message.scss';
 
-const Message = ({avatar, text, date, isMe, isReaded, attachments}) => {
+const Message = ({avatar, text, date, isMe, isReaded, attachments, isTyping}) => {
     return (
-        <section className={className('message', {'message__isme': isMe})}>
+        <section className={className('message', {
+            'message__isme': isMe,
+            'message__istyping': isTyping,
+            'message__image': attachments && attachments.length === 1,
+
+        })}>
             <div className={'message__content'}>
-                {isMe && isReaded ?
-                    <img className='message__icon-readed'
-                         src={messageReaded}
-                         alt="checked icon"/>
-                    :
-                    <img className='message__icon-readed message__icon-readed--no'
-                         src={messageNotReaded}
-                         alt="checked icon"/>
-                }
+                {isMe && (isReaded ?
+                        <img className='message__icon-readed'
+                             src={messageReaded}
+                             alt="checked icon"/>
+                        :
+                        <img className='message__icon-readed message__icon-readed--no'
+                             src={messageNotReaded}
+                             alt="checked icon"/>
+                )}
                 <div className='message__avatar'>
                     <img src={avatar} alt='avatar'/>
                 </div>
                 <div className='message__info'>
-                    <div className='message__bubble'>
-                        <p className='message__text'>{text}</p>
-                    </div>
+                    {(text || isTyping) && (
+                        <div className='message__bubble'>
+                            <p className='message__text'>{text}</p>
+                            {isTyping && (
+                                <div className="message__typing">
+                                    <span/>
+                                    <span/>
+                                    <span/>
+                                </div>
+                            )}
+                        </div>
+                    )}
                     <div className="message__attachments">
                         {attachments &&
-                        attachments.map(item => (
-                            <div className="message__attachments-item">
+                        attachments.map((item, i) => (
+                            <div key={i} className="message__attachments-item">
                                 <img src={item.url} alt={item.filename}/>
                             </div>
                         ))}
@@ -45,41 +59,3 @@ const Message = ({avatar, text, date, isMe, isReaded, attachments}) => {
 }
 
 export default Message;
-
-/*
-const Message = ({avatar, user, text, date, isMe, isReaded, attachments, isTyping}) => (
-    <div
-        className={classNames("message", {
-            "message--isme": isMe,
-            "message--is-typing": isTyping,
-            "message--image": attachments && attachments.length === 1
-        })}
-    >
-        <div className="message__content">
-            <IconReaded isMe={isMe} isReaded={isReaded}/>
-            <div className="message__avatar">
-                <img src={avatar} alt={`Avatar ${user.fullname}`}/>
-            </div>
-            <div className="message__info">
-                {(text || isTyping) && (
-                    <div className="message__bubble">
-                        {text && <p className="message__text">{text}</p>}
-                    </div>
-                )}
-                <div className="message__attachments">
-                    {attachments &&
-                    attachments.map(item => (
-                        <div className="message__attachments-item">
-                            <img src={item.url} alt={item.filename}/>
-                        </div>
-                    ))}
-                </div>
-                {date && (
-                    <span className="message__date">
-                        <Time date={date}/>
-                    </span>
-                )}
-            </div>
-        </div>
-    </div>
-);*/

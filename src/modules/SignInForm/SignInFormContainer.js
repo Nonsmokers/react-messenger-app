@@ -10,7 +10,7 @@ export default withFormik({
     }),
     validate: values => {
         let errors = {};
-        validate({isAuth: false, values, errors});
+        validate({isAuth: true, values, errors});
         return errors;
     },
     handleSubmit: (values, {setSubmitting}) => {

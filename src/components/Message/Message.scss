@@ -23,8 +23,9 @@
   }
 
   &__bubble {
-    background: $blue;
-    box-shadow: 0 5px 5px rgba(54, 116, 255, 0.196733);
+    background: $white;
+    border: 1px solid #ececec;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.0220444);
     border-radius: 12px 12px 12px 0;
     padding: 15px;
     margin-bottom: 8px;
@@ -36,7 +37,7 @@
   }
 
   &__text {
-    color: #ffffff;
+    color: $black;
     line-height: 20px;
   }
 
@@ -80,14 +81,71 @@
     #{$self}__info {
       text-align: right;
     }
+    #{$self}__attachments {
+      flex-direction: row-reverse;
+    }
     #{$self}__bubble {
-      background: #ffffff;
-      border: 1px solid #ececec;
-      box-shadow: 0 4px 4px rgba(0, 0, 0, 0.0220444);
+      background:$blue;
+      box-shadow: 0 5px 5px rgba(54, 116, 255, 0.196733);
       border-radius: 12px 12px 0 12px;
       #{$self}__text {
-        color: $black;
+        color: $white;
       }
     }
+  }
+
+  &__image {
+    #{$self}__attachments {
+      &-item {
+        img {
+          width: 150px;
+          height: 150px;
+        }
+      }
+    }
+  }
+
+  &__istyping {
+    #{$self}__bubble {
+      background-color: $message-typing-blue;
+      box-shadow: 0 5px 5px rgba(54, 116, 255, 0.04);
+      padding: 15px 18px;
+      margin-bottom: 0;
+    }
+  }
+
+  &__typing {
+    span {
+      height: 8px;
+      width: 8px;
+      border-radius: 50%;
+      background: $message-typing-circle;
+      display: inline-block;
+      margin-right: 8px;
+      animation: 0.8s typingAnimation infinite ease-out 0.1s;
+
+      &:nth-of-type(2) {
+        animation: 0.8s typingAnimation infinite ease-out 0.2s;
+      }
+      &:nth-of-type(3) {
+        animation: 0.8s typingAnimation infinite ease-out 0.3s;
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+@keyframes typingAnimation {
+  from {
+    opacity: 0.2;
+    transform: translateY(0px);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateY(-1.5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-1px);
   }
 }

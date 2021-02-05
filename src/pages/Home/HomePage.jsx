@@ -9,7 +9,7 @@ const HomePage = () => {
                 avatar={'https://www.womanhit.ru/media/CACHE/images/articleimage2/2019/5/mountains-3959204960720-1/18848e6b932508789a3d23d92302fb01.jpg'}
                 text={'Мы тут недавно войска Ариовиста разбили, чуваки хотели закрепиться на галльских землях, лол 🌝'}
                 date={'Wed Feb 03 2021 13:21:25'}
-                isMe={false}
+                isMe={true}
                 isReaded={true}
                 attachments={[
                     {
@@ -32,6 +32,23 @@ const HomePage = () => {
                 date={'Wed Feb 03 2021 13:21:25'}
                 isMe={true}
                 isReaded={true}
+            />
+            <Message
+                avatar={'https://www.womanhit.ru/media/CACHE/images/articleimage2/2019/5/mountains-3959204960720-1/18848e6b932508789a3d23d92302fb01.jpg'}
+                isTyping={true}
+                date={null}// посмотреть что прокидывать
+            />
+            <Message
+                avatar={'https://www.womanhit.ru/media/CACHE/images/articleimage2/2019/5/mountains-3959204960720-1/18848e6b932508789a3d23d92302fb01.jpg'}
+                date={'Wed Feb 03 2021 13:21:25'}
+                isMe={false}
+                isReaded={false}
+                attachments={[
+                    {
+                        filename: "image.jpg",
+                        url: "https://source.unsplash.com/100x100/?random=1&nature,water"
+                    }
+                ]}
             />
         </div>
     );

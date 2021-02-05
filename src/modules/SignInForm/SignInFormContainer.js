@@ -1,6 +1,6 @@
 import {withFormik} from "formik";
 import SignInForm from "./SignInForm";
-import validateForm from "utils/validate";
+import validate from "../../utils/validation";
 
 export default withFormik({
     enableReinitialize: true,
@@ -10,7 +10,7 @@ export default withFormik({
     }),
     validate: values => {
         let errors = {};
-        validateForm({isAuth: false, values, errors});
+        validate({isAuth: false, values, errors});
         return errors;
     },
     handleSubmit: (values, {setSubmitting}) => {

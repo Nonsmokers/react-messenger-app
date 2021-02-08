@@ -1,9 +1,9 @@
-import React from "react";
-import {Link} from "react-router-dom";
-import {Form, Input} from "antd";
+import React from 'react';
+import {Link} from 'react-router-dom';
+import {Form, Input} from 'antd';
 import {InfoCircleTwoTone, LockOutlined, MailOutlined, UserOutlined} from '@ant-design/icons';
-import WrapperBlock from "../../components/WrapperBlock/WrapperBlock";
-import Button from "../../components/Button/Button";
+import WrapperBlock from '../../components/WrapperBlock/WrapperBlock';
+import Button from '../../components/Button/Button';
 
 
 const SignUpForm = (props) => {
@@ -22,7 +22,7 @@ const SignUpForm = (props) => {
                     <Form name='normal_login'
                           className='login-form'
                           onSubmit={handleSubmit}
-                          size={"large"}>
+                          size={'large'}>
                         <Form.Item className='auth__wrapper-input'
                                    validateStatus={!touched.email ? '' : errors.email ? 'error' : 'success'}
                                    help={!touched.email ? ' ' : errors.email}
@@ -57,8 +57,8 @@ const SignUpForm = (props) => {
                             <Input id='password'
                                    className='auth__login-input'
                                    prefix={<LockOutlined className='site-form-item-icon'/>}
-                                   type="password"
-                                   placeholder="Пароль"
+                                   type='password'
+                                   placeholder='Пароль'
                                    onChange={handleChange}
                                    value={values.password}
                                    onBlur={handleBlur}
@@ -79,7 +79,7 @@ const SignUpForm = (props) => {
                             />
                         </Form.Item>
                         <Form.Item>
-                            <Button onClick={handleSubmit} type="primary" size="large">Зарегистрироваться</Button>
+                            <Button onClick={handleSubmit} type='primary' size='large'>Зарегистрироваться</Button>
                         </Form.Item>
                         <Link className='auth__register-link' to='/sign-in'>Войти в аккаунт</Link>
                     </Form>

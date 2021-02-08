@@ -1,11 +1,9 @@
 import React from 'react';
 import className from 'classnames'
-import formatDistanceToNow from 'date-fns/formatDistanceToNow';
-import ruLocale from 'date-fns/locale/ru';
 
-import messageReaded from '../../assets/img/messageReaded.svg';
-import messageNotReaded from '../../assets/img/messageNotReaded.svg';
 import './Message.scss';
+import SendingTime from '../SendingTime/SendingTime';
+import MessageStatusIcon from "../MessageStatusIcon/MessageStatusIcon";
 
 const Message = ({avatar, text, date, isMe, isReaded, attachments, isTyping}) => {
     return (
@@ -16,15 +14,7 @@ const Message = ({avatar, text, date, isMe, isReaded, attachments, isTyping}) =>
 
         })}>
             <div className={'message__content'}>
-                {isMe && (isReaded ?
-                        <img className='message__icon-readed'
-                             src={messageReaded}
-                             alt="checked icon"/>
-                        :
-                        <img className='message__icon-readed message__icon-readed--no'
-                             src={messageNotReaded}
-                             alt="checked icon"/>
-                )}
+                <MessageStatusIcon isMe={isMe} isReaded={isReaded}/>
                 <div className='message__avatar'>
                     <img src={avatar} alt='avatar'/>
                 </div>
@@ -33,7 +23,7 @@ const Message = ({avatar, text, date, isMe, isReaded, attachments, isTyping}) =>
                         <div className='message__bubble'>
                             <p className='message__text'>{text}</p>
                             {isTyping && (
-                                <div className="message__typing">
+                                <div className='message__typing'>
                                     <span/>
                                     <span/>
                                     <span/>
@@ -41,17 +31,18 @@ const Message = ({avatar, text, date, isMe, isReaded, attachments, isTyping}) =>
                             )}
                         </div>
                     )}
-                    <div className="message__attachments">
+                    <div className='message__attachments'>
                         {attachments &&
                         attachments.map((item, i) => (
-                            <div key={i} className="message__attachments-item">
+                            <div key={i} className='message__attachments-item'>
                                 <img src={item.url} alt={item.filename}/>
                             </div>
                         ))}
                     </div>
-                    <span className='message__date'>{formatDistanceToNow(
-                        new Date(date), {addSuffix: true, locale: ruLocale})}
-                </span>
+                    {date &&
+                    <span className='message__date'>
+                        <SendingTime date={date ? date : null}/>
+                    </span>}
                 </div>
             </div>
         </section>

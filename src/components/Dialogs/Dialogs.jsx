@@ -12,8 +12,7 @@ const Dialogs = (props) => {
             {copyOfArr.map(item => (
                 <DialogItem
                     key={item._id}
-                    user={item.user}
-                    message={item}
+                    {...item}
                     unReaded={3}
                     isMe={item._id === props.userId}
                 />))}

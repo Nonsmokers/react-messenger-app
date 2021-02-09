@@ -15,24 +15,24 @@ const getMessage = (sendingDate) => {
 
 const DialogItem = (props) => {
     return (
-        <div className={classnames('dialogs__item', {'dialogs__item--online': props.message.user.isOnline})}>
+        <div className={classnames('dialogs__item', {'dialogs__item--online': props.user.isOnline})}>
             <div className={'dialogs__item-avatar'}>
                 <img
-                    src={props.message.user.avatar}
+                    src={props.user.avatar}
                     alt={'user avatar'}/>
             </div>
             <div className='dialogs__item--info'>
                 <div className='dialogs__item--info-title'>
-                    <b>{props.message.user.fullName}</b>
+                    <b>{props.user.fullName}</b>
                     <span>
-                        {getMessage(props.message.sendingTime)}
+                        {getMessage(props.sendingTime)}
                     </span>
                 </div>
                 <div className='dialogs__item--info-bottom'>
-                    <p>{props.message.text}</p>
+                    <p>{props.text}</p>
                     {props.unReaded > 0 ?
-                        <MessageStatusIcon isMe={props.isMe} isReaded={false}/> :
-                        <div className={'dialogs__item--info-bottom-count'}>{props.unReaded}</div>
+                        <div className={'dialogs__item--info-bottom-count'}>{props.unReaded}</div> :
+                        <MessageStatusIcon isMe={props.isMe} isReaded={false}/>
                     }
                 </div>
             </div>

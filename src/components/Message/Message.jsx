@@ -1,48 +1,120 @@
-import React from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import className from 'classnames'
 
 import './Message.scss';
-import SendingTime from '../SendingTime/SendingTime';
 import MessageStatusIcon from "../MessageStatusIcon/MessageStatusIcon";
+import SendingTime from "../SendingTime/SendingTime";
+import waveSvg from "../../assets/img/Wave.svg";
+import pauseSvg from "../../assets/img/pause.svg";
+import playSvg from "../../assets/img/play.svg";
+import audio from "../../assets/audio_test.mp3";
 
-const Message = ({avatar, text, date, isMe, isReaded, attachments, isTyping}) => {
+const convertCurrentTime = (number) => {
+    const mins = Math.floor(number / 60);
+    const secs = (number % 60).toFixed();
+    return `${mins < 10 ? "0" : ""}${mins}:${secs < 10 ? "0" : ""}${secs}`;
+};
+
+
+const Message = (props) => {
+
+    const audioElem = useRef(null)
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [progress, setProgress] = useState(0);
+    const [currentTime, setCurrentTime] = useState(0);
+
+    const togglePlay = () => {
+        if (!isPlaying) {
+            audioElem.current.play()
+        } else {
+            audioElem.current.pause()
+        }
+    };
+
+    useEffect(() => {
+        audioElem.current.addEventListener("playing", () => {
+            setIsPlaying(true)
+        });
+        audioElem.current.addEventListener("pause", () => {
+            setIsPlaying(false);
+        });
+        audioElem.current.addEventListener("ended", () => {
+                setIsPlaying(false);
+                setProgress(0);
+                setCurrentTime(0);
+            }
+        );
+        audioElem.current.addEventListener("timeupdate", () => {
+            const duration = (audioElem.current && audioElem.current.duration) || 0;
+            setCurrentTime(audioElem.current.currentTime);
+            setProgress((audioElem.current.currentTime / duration) * 100);
+        });
+    }, [])
+
+
     return (
         <section className={className('message', {
-            'message__isme': isMe,
-            'message__istyping': isTyping,
-            'message__image': attachments && attachments.length === 1,
+            'message__isme': props.isMe,
+            'message__istyping': props.isTyping,
+            'message__isimage': props.attachments && props.attachments.length === 1,
+            'message__isaudio': props.audio,
 
         })}>
             <div className={'message__content'}>
-                <MessageStatusIcon isMe={isMe} isReaded={isReaded}/>
+                <MessageStatusIcon isMe={props.isMe} isReaded={props.isReaded}/>
                 <div className='message__avatar'>
-                    <img src={avatar} alt='avatar'/>
+                    <img src={props.avatar} alt='avatar'/>
                 </div>
                 <div className='message__info'>
-                    {(text || isTyping) && (
+                    {(props.audio || props.text || props.isTyping) && (
                         <div className='message__bubble'>
-                            <p className='message__text'>{text}</p>
-                            {isTyping && (
+                            <p className='message__text'>{props.text}</p>
+                            {props.isTyping && (
                                 <div className='message__typing'>
                                     <span/>
                                     <span/>
                                     <span/>
                                 </div>
                             )}
+                            {props.audio &&
+                            <div className="message__audio">
+                                <audio ref={audioElem} src={audio} preload="auto"/>
+                                <div className="message__audio-progress"
+                                     style={{width: progress + '%'}}
+                                />
+                                <div className="message__audio-info">
+                                    <div className="message__audio-btn">
+                                        <button onClick={togglePlay}>
+                                            {isPlaying ? (
+                                                <img src={pauseSvg} alt="Pause svg"/>
+                                            ) : (
+                                                <img src={playSvg} alt="Play svg"/>
+                                            )}
+                                        </button>
+                                    </div>
+                                    <div className="message__audio-wave">
+                                        <img src={waveSvg} alt="Wave svg"/>
+                                    </div>
+                                    <span className="message__audio-duration">
+                                        {convertCurrentTime(currentTime)}
+                                    </span>
+                                </div>
+                            </div>}
                         </div>
                     )}
+                    {props.attachments &&
                     <div className='message__attachments'>
-                        {attachments &&
-                        attachments.map((item, i) => (
+                        {props.attachments.map((item, i) => (
                             <div key={i} className='message__attachments-item'>
                                 <img src={item.url} alt={item.filename}/>
                             </div>
                         ))}
                     </div>
-                    {date &&
+                    }
+                    {props.sendingTime &&
                     <span className='message__date'>
-                        <SendingTime date={date ? date : null}/>
-                    </span>}
+                        <SendingTime date={props.sendingTime ? props.sendingTime : null}/>
+                        </span>}
                 </div>
             </div>
         </section>

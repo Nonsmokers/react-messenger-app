@@ -6,7 +6,7 @@
   &__content {
     display: inline-flex;
     max-width: 440px;
-    margin-bottom: 15px;
+    margin: 0 0 15px 20px;
     position: relative;
   }
   &__avatar {
@@ -63,9 +63,10 @@
   &__isme {
     display: flex;
     flex-direction: row-reverse;
+
     #{$self}__content {
-      margin-bottom: 15px;
       flex-direction: row-reverse;
+      margin: 0 20px 15px 0;
     }
     #{$self}__avatar {
       img {
@@ -87,7 +88,6 @@
         color: $white;
       }
     }
-
     #{$self}__icon-readed {
       position: absolute;
       bottom: 20px;

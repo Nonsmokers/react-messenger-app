@@ -3,7 +3,8 @@
 
   .chat {
     display: flex;
-    height: 100%;
+    //height: 100%;
+    height: 90vh;
     background-color: #fff;
     width: 1140px;
     margin: 0 auto;
@@ -32,6 +33,9 @@
       }
 
       &-dialogs {
+        padding-top: 20px;
+        height: calc(100% - 110px);
+        overflow: auto;
         .dialogs {
           &__item {
             padding: 10px 20px;
@@ -86,7 +90,7 @@
       }
 
       &-messages {
-        padding: 20px 20px 0;
+        padding-top: 20px;
         overflow: auto;
         height: calc(100% - 138px);
       }

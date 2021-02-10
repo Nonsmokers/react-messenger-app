@@ -4,12 +4,11 @@
   $self: &;
 
   &__content {
-    display: flex;
+    display: inline-flex;
     max-width: 440px;
     margin-bottom: 15px;
     position: relative;
   }
-
   &__avatar {
     display: flex;
     flex-direction: column-reverse;
@@ -21,7 +20,6 @@
       margin-bottom: 22px;
     }
   }
-
   &__bubble {
     background: $white;
     border: 1px solid #ececec;
@@ -30,24 +28,21 @@
     padding: 15px;
     margin-bottom: 8px;
   }
-
   &__date {
     font-size: 12px;
     opacity: 0.5;
   }
-
   &__text {
     color: $black;
     line-height: 20px;
   }
-
   &__icon-readed {
     position: absolute;
-    bottom: 22px;
-    left: -25px;
-
+    bottom: 20px;
+    right: -20px;
     &--no {
-      left: -20px;
+      right: -20px;
+      bottom: 20px;
     }
   }
 
@@ -90,6 +85,15 @@
       border-radius: 12px 12px 0 12px;
       #{$self}__text {
         color: $white;
+      }
+    }
+
+    #{$self}__icon-readed {
+      position: absolute;
+      bottom: 20px;
+      left: -25px;
+      &--no {
+        left: -25px;
       }
     }
   }

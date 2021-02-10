@@ -7,7 +7,6 @@ import SendingTime from "../SendingTime/SendingTime";
 import waveSvg from "../../assets/img/Wave.svg";
 import pauseSvg from "../../assets/img/pause.svg";
 import playSvg from "../../assets/img/play.svg";
-import audio from "../../assets/audio_test.mp3";
 
 const convertCurrentTime = (number) => {
     const mins = Math.floor(number / 60);
@@ -16,9 +15,9 @@ const convertCurrentTime = (number) => {
 };
 
 
-const Message = (props) => {
+const MessageAudio = (props) => {
 
-    const audioElem = useRef(null)
+    const audioElem = useRef('')
     const [isPlaying, setIsPlaying] = useState(false);
     const [progress, setProgress] = useState(0);
     const [currentTime, setCurrentTime] = useState(0);
@@ -53,6 +52,35 @@ const Message = (props) => {
 
 
     return (
+        <div className="message__audio">
+            <audio ref={audioElem} src={props.audio} preload="auto"/>
+            <div className="message__audio-progress"
+                 style={{width: progress + '%'}}
+            />
+            <div className="message__audio-info">
+                <div className="message__audio-btn">
+                    <button onClick={togglePlay}>
+                        {isPlaying ? (
+                            <img src={pauseSvg} alt="Pause svg"/>
+                        ) : (
+                            <img src={playSvg} alt="Play svg"/>
+                        )}
+                    </button>
+                </div>
+                <div className="message__audio-wave">
+                    <img src={waveSvg} alt="Wave svg"/>
+                </div>
+                <span className="message__audio-duration">
+                    {convertCurrentTime(currentTime)}
+                </span>
+            </div>
+        </div>
+    )
+}
+
+const Message = (props) => {
+
+    return (
         <section className={className('message', {
             'message__isme': props.isMe,
             'message__istyping': props.isTyping,
@@ -76,30 +104,7 @@ const Message = (props) => {
                                     <span/>
                                 </div>
                             )}
-                            {props.audio &&
-                            <div className="message__audio">
-                                <audio ref={audioElem} src={audio} preload="auto"/>
-                                <div className="message__audio-progress"
-                                     style={{width: progress + '%'}}
-                                />
-                                <div className="message__audio-info">
-                                    <div className="message__audio-btn">
-                                        <button onClick={togglePlay}>
-                                            {isPlaying ? (
-                                                <img src={pauseSvg} alt="Pause svg"/>
-                                            ) : (
-                                                <img src={playSvg} alt="Play svg"/>
-                                            )}
-                                        </button>
-                                    </div>
-                                    <div className="message__audio-wave">
-                                        <img src={waveSvg} alt="Wave svg"/>
-                                    </div>
-                                    <span className="message__audio-duration">
-                                        {convertCurrentTime(currentTime)}
-                                    </span>
-                                </div>
-                            </div>}
+                            {props.audio && <MessageAudio audio={props.audio}/>}
                         </div>
                     )}
                     {props.attachments &&
@@ -109,12 +114,11 @@ const Message = (props) => {
                                 <img src={item.url} alt={item.filename}/>
                             </div>
                         ))}
-                    </div>
-                    }
+                    </div>}
                     {props.sendingTime &&
                     <span className='message__date'>
                         <SendingTime date={props.sendingTime ? props.sendingTime : null}/>
-                        </span>}
+                    </span>}
                 </div>
             </div>
         </section>

@@ -1,5 +1,4 @@
 import React from 'react';
-import './DialogItem.scss';
 import classnames from 'classnames';
 import MessageStatusIcon from '../MessageStatusIcon/MessageStatusIcon';
 import format from 'date-fns/format';

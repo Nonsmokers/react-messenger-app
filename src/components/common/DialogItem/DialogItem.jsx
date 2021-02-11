@@ -16,15 +16,13 @@ const DialogItem = (props) => {
     return (
         <div className={classnames('dialogs__item', {'dialogs__item--online': props.user.isOnline})}>
             <div className={'dialogs__item-avatar'}>
-                <img
-                    src={props.user.avatar}
-                    alt={'user avatar'}/>
+                <img src={props.user.avatar} alt={'user avatar'}/>
             </div>
             <div className='dialogs__item--info'>
                 <div className='dialogs__item--info-title'>
-                    <b>{props.user.fullName}</b>
+                    <b>{props.user.fullname}</b>
                     <span>
-                        {getMessage(props.sendingTime)}
+                        {getMessage(new Date(props.sendingTime))}
                     </span>
                 </div>
                 <div className='dialogs__item--info-bottom'>

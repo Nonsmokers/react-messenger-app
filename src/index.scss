@@ -1,7 +1,15 @@
 @import "~antd/dist/antd.css";
 @import "~reset-css";
+@import "src/styles/variables";
 
+::-webkit-scrollbar { /* chrome based */
+  width: 0;  /* ширина scrollbar'a */
+  background: transparent;  /* опционально */
+}
+body { overflow: -moz-scrollbars-none; }
 body, html, #root, .wrapper {
+  margin: 0;
+  padding: 0;
   height: 100%;
   color: #202020;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",

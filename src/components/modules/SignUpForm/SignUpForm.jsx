@@ -2,9 +2,8 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {Form, Input} from 'antd';
 import {InfoCircleTwoTone, LockOutlined, MailOutlined, UserOutlined} from '@ant-design/icons';
-import WrapperBlock from '../../components/WrapperBlock/WrapperBlock';
-import Button from '../../components/Button/Button';
-
+import WrapperBlock from '../../../components/common/WrapperBlock/WrapperBlock';
+import Button from '../../../components/common/Button/Button';
 
 const SignUpForm = (props) => {
 

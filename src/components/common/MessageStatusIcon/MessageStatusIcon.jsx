@@ -1,6 +1,6 @@
 import React from 'react';
-import messageReaded from '../../assets/img/messageReaded.svg';
-import messageNotReaded from '../../assets/img/messageNotReaded.svg';
+import messageReaded from '../../../assets/img/messageReaded.svg';
+import messageNotReaded from '../../../assets/img/messageNotReaded.svg';
 
 const MessageStatusIcon = ({isMe, isReaded}) => {
     return (

@@ -9,9 +9,11 @@
     margin: 0 0 15px 20px;
     position: relative;
   }
+
   &__avatar {
     display: flex;
     flex-direction: column-reverse;
+
     img {
       border-radius: 50px;
       width: 33px;
@@ -20,6 +22,7 @@
       margin-bottom: 22px;
     }
   }
+
   &__bubble {
     background: $white;
     border: 1px solid #ececec;
@@ -28,18 +31,22 @@
     padding: 15px;
     margin-bottom: 8px;
   }
+
   &__date {
     font-size: 12px;
     opacity: 0.5;
   }
+
   &__text {
     color: $black;
     line-height: 20px;
   }
+
   &__icon-readed {
     position: absolute;
     bottom: 20px;
     right: -20px;
+
     &--no {
       right: -20px;
       bottom: 20px;
@@ -49,9 +56,11 @@
   &__attachments {
     display: flex;
     margin-bottom: 5px;
+
     &-item {
       margin-right: 5px;
       cursor: pointer;
+
       img {
         width: 45px;
         height: 45px;
@@ -68,30 +77,37 @@
       flex-direction: row-reverse;
       margin: 0 20px 15px 0;
     }
+
     #{$self}__avatar {
       img {
         margin-right: 0;
         margin-left: 13px;
       }
     }
+
     #{$self}__info {
       text-align: right;
     }
+
     #{$self}__attachments {
       flex-direction: row-reverse;
     }
+
     #{$self}__bubble {
-      background:$blue;
+      background: $blue;
       box-shadow: 0 5px 5px rgba(54, 116, 255, 0.196733);
       border-radius: 12px 12px 0 12px;
+
       #{$self}__text {
         color: $white;
       }
     }
+
     #{$self}__icon-readed {
       position: absolute;
       bottom: 20px;
       left: -25px;
+
       &--no {
         left: -25px;
       }
@@ -131,6 +147,7 @@
       &:nth-of-type(2) {
         animation: 0.8s typingAnimation infinite ease-out 0.2s;
       }
+
       &:nth-of-type(3) {
         animation: 0.8s typingAnimation infinite ease-out 0.3s;
         margin-right: 0;
@@ -142,11 +159,13 @@
     audio {
       display: none;
     }
+
     #{$self}__bubble {
       width: 250px;
       position: relative;
       overflow: hidden;
     }
+
     #{$self}__audio {
       &-info {
         display: flex;
@@ -154,6 +173,7 @@
         justify-content: space-between;
         position: relative;
       }
+
       &-btn {
         button {
           cursor: pointer;
@@ -162,17 +182,20 @@
           height: 28px;
           border-radius: 30px;
           background: #0f3997;
+
           img {
             height: 13px;
           }
         }
       }
+
       &-duration {
         color: #fff;
         font-weight: 500;
         opacity: 0.5;
         font-size: 12px;
       }
+
       &-progress {
         left: 0;
         top: 0;

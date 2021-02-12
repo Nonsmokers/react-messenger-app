@@ -12,26 +12,18 @@ const SidebarContainer = (props) => {
             return element.user.fullname.toLowerCase().includes(name.toLowerCase());
         }))
     }
-
-    const debounce = (fn, ms) => {
-        let timeout;
-        return function () {
-            const later = () => {
-                fn.apply(this, arguments)
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, ms);
-        };
-    }
-
-    const onSearch = debounce(() => {
+    
+    useEffect(() => {
         filterUsersByName(props.items, search)
-    }, 1500)
-
+    }, [search]);
 
     useEffect(() => {
-        onSearch(search)
-    }, []);
+        if (!props.items.length) {
+            props.fetchDialogs()
+        }else {
+            setFiltered(props.items)
+        }
+    }, [props.items]);
 
     return (
         <Sidebar search={search}
@@ -47,7 +39,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    setDialogs: dialogs => dispatch(actions.fetchAllDialogs(dialogs))
+    fetchDialogs: dialogs => dispatch(actions.fetchAllDialogs(dialogs))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SidebarContainer);

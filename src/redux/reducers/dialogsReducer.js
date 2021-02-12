@@ -1,6 +1,7 @@
 import {SET_DIALOGS_ITEMS} from '../actions/actionTypes.js'
 
 const initialState = {
+    isReady: false,
     items: []
 }
 

@@ -30,7 +30,7 @@ const HomePage = (props) => {
                     </div>
                     <div className="chat__dialog-messages">
                         <Scrollbars>
-                            <Messages />
+                            <Messages/>
                         </Scrollbars>
                     </div>
                     <div className="chat__dialog-input">
@@ -101,6 +101,6 @@ export const Messages = (props) => {
                     isTyping={true}
                 />
             </>
-            : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Откройте диалог" />
-)
+            : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Откройте диалог"/>
+    )
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import './DialogsList.scss';
 import DialogItem from '../DialogItem/DialogItem';
+import {Empty} from "antd";
 
 const DialogsList = (props) => {
 
@@ -9,13 +10,17 @@ const DialogsList = (props) => {
 
     return (
         <>
-            {copyOfArr.map(item => (
-                <DialogItem
-                    key={item._id}
-                    {...item}
-                    unReaded={3}
-                    isMe={item._id === props.userId}
-                />))
+            {props.items.length ? (
+                    copyOfArr.map(item => (
+                        <DialogItem
+                            key={item._id}
+                            {...item}
+                            unReaded={3}
+                            isMe={item._id === props.userId}
+                        />)
+                    )
+                )
+                : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Ничего не найдено"/>
             }
         </>
     );

@@ -1,6 +1,6 @@
 import {withFormik} from "formik";
 import SignUpForm from "./SignUpForm";
-import validation from "../../utils/validation";
+import validation from "../../../utils/validation";
 
 export default withFormik({
     mapPropsToValues: () => ({

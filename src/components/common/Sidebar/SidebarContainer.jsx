@@ -12,7 +12,7 @@ const SidebarContainer = (props) => {
             return element.user.fullname.toLowerCase().includes(name.toLowerCase());
         }))
     }
-    
+
     useEffect(() => {
         filterUsersByName(props.items, search)
     }, [search]);
@@ -20,7 +20,7 @@ const SidebarContainer = (props) => {
     useEffect(() => {
         if (!props.items.length) {
             props.fetchDialogs()
-        }else {
+        } else {
             setFiltered(props.items)
         }
     }, [props.items]);
@@ -29,17 +29,19 @@ const SidebarContainer = (props) => {
         <Sidebar search={search}
                  setSearch={setSearch}
                  filtered={filtered}
+                 onSelectDialog={props.setCurrentDialogId}
         />
     );
 }
 const selectDialogs = state => state.dialogsReducer.items
 
 const mapStateToProps = (state) => ({
-    items: selectDialogs(state),
+    items: selectDialogs(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchDialogs: dialogs => dispatch(actions.fetchAllDialogs(dialogs))
+    fetchDialogs: dialogs => dispatch(actions.fetchAllDialogs(dialogs)),
+    setCurrentDialogId: dialog => dispatch(actions.setCurrentDialogId(dialog))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SidebarContainer);

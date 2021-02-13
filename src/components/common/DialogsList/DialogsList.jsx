@@ -13,6 +13,7 @@ const DialogsList = (props) => {
             {props.items.length ? (
                     copyOfArr.map(item => (
                         <DialogItem
+                            onSelectDialog={props.onSelectDialog}
                             key={item._id}
                             {...item}
                             unReaded={3}

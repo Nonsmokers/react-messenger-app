@@ -14,7 +14,9 @@ const getMessage = (sendingDate) => {
 
 const DialogItem = (props) => {
     return (
-        <div className={classnames('dialogs__item', {'dialogs__item--online': props.user.isOnline})}>
+        <div className={classnames('dialogs__item', {'dialogs__item--online': props.user.isOnline})}
+             onClick={props.onSelectDialog.bind(this, props._id)}
+        >
             <div className={'dialogs__item-avatar'}>
                 <img src={props.user.avatar} alt={'user avatar'}/>
             </div>

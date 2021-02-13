@@ -29,7 +29,7 @@ const Sidebar = (props) => {
             </div>
             <div className="chat__sidebar-dialogs">
                 <Scrollbars>
-                    <DialogsList userId={0} items={props.filtered}/>
+                    <DialogsList userId={0} onSelectDialog={props.onSelectDialog} items={props.filtered}/>
                 </Scrollbars>
             </div>
         </div>

@@ -1,8 +1,9 @@
-import {SET_DIALOGS_ITEMS} from '../actions/actionTypes.js'
+import {SET_DIALOGS_ITEMS, SET_CURRENT_DIALOG_ID} from '../actions/actionTypes.js'
 
 const initialState = {
     isReady: false,
-    items: []
+    items: [],
+    currentDialogId: null
 }
 
 const dialogsReducer = (state = initialState, action) => {
@@ -12,6 +13,12 @@ const dialogsReducer = (state = initialState, action) => {
                 ...state,
                 items: action.payload,
                 isReady: true
+            }
+        }
+        case SET_CURRENT_DIALOG_ID: {
+            return {
+                ...state,
+                currentDialogId: action.payload,
             }
         }
         default:

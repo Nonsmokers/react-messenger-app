@@ -1,10 +1,10 @@
 import React from 'react';
 import className from 'classnames'
-
 import './Message.scss';
 import MessageStatusIcon from "../MessageStatusIcon/MessageStatusIcon";
 import SendingTime from "../SendingTime/SendingTime";
 import MessageAudio from "../MessageAudio/MessageAudio";
+import Avatar from "../Avatar/Avatar";
 
 const Message = (props) => {
 
@@ -18,7 +18,7 @@ const Message = (props) => {
             <div className={'message__content'}>
                 <MessageStatusIcon isMe={props.isMe} isReaded={props.isReaded}/>
                 <div className='message__avatar'>
-                    <img src={props.avatar} alt='avatar'/>
+                    <Avatar user={props.user}/>
                 </div>
                 <div className='message__info'>
                     {(props.audio || props.text || props.isTyping) && (

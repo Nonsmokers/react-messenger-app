@@ -1,7 +1,8 @@
-import {SET_MESSAGES_ITEMS} from '../actions/actionTypes.js'
+import {SET_MESSAGES_ITEMS, SET_MESSAGES_IS_LOADING} from '../actions/actionTypes.js'
 
 const initialState = {
-    items: null
+    items: null,
+    isLoading: false
 }
 
 const messagesReducer = (state = initialState, action) => {
@@ -9,7 +10,14 @@ const messagesReducer = (state = initialState, action) => {
         case SET_MESSAGES_ITEMS: {
             return {
                 ...state,
-                items: action.payload
+                items: action.payload,
+                isLoading: false
+            }
+        }
+        case SET_MESSAGES_IS_LOADING: {
+            return {
+                ...state,
+                isLoading: action.payload
             }
         }
         default:

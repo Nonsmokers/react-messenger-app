@@ -3,6 +3,7 @@ import classnames from 'classnames';
 import MessageStatusIcon from '../MessageStatusIcon/MessageStatusIcon';
 import format from 'date-fns/format';
 import isToday from 'date-fns/isToday';
+import Avatar from "../Avatar/Avatar";
 
 const getMessage = (sendingDate) => {
     if (isToday(sendingDate)) {
@@ -18,7 +19,7 @@ const DialogItem = (props) => {
              onClick={props.onSelectDialog.bind(this, props._id)}
         >
             <div className={'dialogs__item-avatar'}>
-                <img src={props.user.avatar} alt={'user avatar'}/>
+                <Avatar user={props.user}/>
             </div>
             <div className='dialogs__item--info'>
                 <div className='dialogs__item--info-title'>

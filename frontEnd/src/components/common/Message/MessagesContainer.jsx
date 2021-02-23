@@ -1,9 +1,10 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {connect} from "react-redux";
 import actions from "../../../redux/actions/messages";
 import Messages from "./Messages";
 
 const MessagesContainer = (props) => {
+    const messagesRef = useRef(null)
 
     useEffect(() => {
         if (props.currentDialogId) {
@@ -11,8 +12,13 @@ const MessagesContainer = (props) => {
         }
     }, [props.currentDialogId]);
 
+    useEffect(() => {
+        messagesRef.current.scrollTo(0, 2000)
+    }, [props.items]);
+
+
     return (
-        <Messages items={props.items} isLoading={props.isLoading}/>
+        <Messages blockRef={messagesRef} items={props.items} isLoading={props.isLoading}/>
     );
 }
 const selectMessages = state => state.messagesReducer.items;

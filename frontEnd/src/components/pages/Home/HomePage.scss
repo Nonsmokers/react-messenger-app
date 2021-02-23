@@ -1,11 +1,15 @@
 @import "src/styles/variables";
 
 .home {
+  display: flex;
+  align-items: center;
+  height: 100vh;
   padding: 30px;
 
   .chat {
     display: flex;
     height: 90vh;
+    max-height: 1000px;
     background-color: $white;
     width: 1140px;
     margin: 0 auto;
@@ -49,9 +53,11 @@
       }
 
       &-messages {
-        padding-top: 20px;
         overflow: auto;
         height: calc(100% - 138px);
+        >div >div{
+          overflow: hidden !important;
+        }
       }
     }
   }

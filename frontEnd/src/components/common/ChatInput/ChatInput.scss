@@ -15,6 +15,17 @@
     width: 90px;
     justify-content: space-between;
     margin-left: 15px;
+
+    &--upload-btn{
+      cursor: pointer !important;
+      &:hover{
+        cursor: pointer !important;
+        input{
+          opacity: 1;
+          cursor: pointer !important;
+        }
+      }
+    }
   }
 
   input {

@@ -6,7 +6,9 @@ import "./Messages.scss";
 
 const Messages = (props) => {
     return (
-        <div className={classNames("messages", {"messages-loading": props.isLoading})}>
+        <div
+            ref={props.blockRef}
+            className={classNames("messages", {"messages-loading": props.isLoading})}>
             {props.isLoading ?
                 <Spin size="large" tip="Загрузка сообщений..."/>
                 : (props.items && !props.isLoading ?

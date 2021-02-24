@@ -1,7 +1,7 @@
 import React from 'react';
 import {Spin, Empty} from "antd";
 import classNames from "classnames";
-import Message from "./Message";
+import MessageItem from "./MessageItem";
 import "./Messages.scss";
 
 const Messages = (props) => {
@@ -13,7 +13,7 @@ const Messages = (props) => {
                 <Spin size="large" tip="Загрузка сообщений..."/>
                 : (props.items && !props.isLoading ?
                         (props.items.length ?
-                                props.items.map(item => <Message key={item._id} {...item} />)
+                                props.items.map(item => <MessageItem key={item._id} {...item} />)
                                 : <Empty description="Диалог пуст"/>
                         )
                         : <Empty description="Откройте диалог"/>

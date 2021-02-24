@@ -18,6 +18,7 @@ const DialogsList = (props) => {
                             {...item}
                             unReaded={3}
                             isMe={item._id === props.userId}
+                            currentDialogId={props.currentDialogId}
                         />)
                     )
                 )

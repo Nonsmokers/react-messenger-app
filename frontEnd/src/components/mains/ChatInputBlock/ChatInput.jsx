@@ -2,17 +2,28 @@ import React, {useState} from "react";
 import {Button, Input} from "antd";
 import {UploadField} from "@navjobs/upload";
 import {CameraOutlined, AudioOutlined, SmileOutlined, SendOutlined} from '@ant-design/icons'
+import {Picker} from 'emoji-mart'
 
 import "./ChatInput.scss";
 
 const ChatInput = (props) => {
 
     const [value, setValue] = useState("");
+    const [emojiVisible, setEmojiVisible] = useState(false);
+
+    const toggleEmoji = () => {
+        setEmojiVisible(!emojiVisible)
+    }
 
     return (
         <div className="chat-input">
             <div className="chat-input__smile-btn">
-                <Button type={'link'} shape="circle" icon={<SmileOutlined/>}/>
+                {emojiVisible &&
+                <Picker set='apple'
+                        style={{position: 'absolute', bottom: '55px', left: '20px', width: '303px'}}
+                        title='Pick your emoji' emoji='point_up'
+                />}
+                <Button type={'link'} shape="circle" icon={<SmileOutlined/>} onClick={toggleEmoji}/>
             </div>
             <Input
                 onChange={e => setValue(e.target.value)}

@@ -1,7 +1,7 @@
 import React from 'react';
-import './WrapperBlock.scss';
+import './AuthWrapperBlock.scss';
 
-const WrapperBlock = ({children}) => {
+const AuthWrapperBlock = ({children}) => {
     return (
         <div className='block'>
             {children}
@@ -9,4 +9,4 @@ const WrapperBlock = ({children}) => {
     );
 }
 
-export default WrapperBlock;
+export default AuthWrapperBlock;

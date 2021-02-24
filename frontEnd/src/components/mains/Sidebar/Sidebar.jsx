@@ -4,7 +4,7 @@ import {FormOutlined, SearchOutlined, TeamOutlined} from "@ant-design/icons";
 import {Scrollbars} from "react-custom-scrollbars";
 
 import './Sidebar.scss';
-import DialogsList from "../DialogsList/DialogsList";
+import DialogsList from "./DialogsList/DialogsList";
 
 const Sidebar = (props) => {
 
@@ -29,7 +29,8 @@ const Sidebar = (props) => {
             </div>
             <div className="chat__sidebar-dialogs">
                 <Scrollbars>
-                    <DialogsList userId={0} onSelectDialog={props.onSelectDialog} items={props.filtered}/>
+                    <DialogsList userId={0} onSelectDialog={props.onSelectDialog}
+                                 currentDialogId={props.currentDialogId} items={props.filtered}/>
                 </Scrollbars>
             </div>
         </div>

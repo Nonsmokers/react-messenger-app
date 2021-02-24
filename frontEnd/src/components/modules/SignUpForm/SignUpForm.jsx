@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {Form, Input} from 'antd';
 import {InfoCircleTwoTone, LockOutlined, MailOutlined, UserOutlined} from '@ant-design/icons';
-import WrapperBlock from '../../../components/common/WrapperBlock/WrapperBlock';
+import AuthWrapperBlock from '../../common/AuthWrapperBlock/AuthWrapperBlock';
 import Button from '../../../components/common/Button/Button';
 
 const SignUpForm = (props) => {
@@ -16,7 +16,7 @@ const SignUpForm = (props) => {
                 <h2>Регистрация</h2>
                 <p>Для входа в чат, вам нужно зарегистрироваться</p>
             </div>
-            <WrapperBlock>
+            <AuthWrapperBlock>
                 {!success ? (
                     <Form name='normal_login'
                           className='login-form'
@@ -90,7 +90,7 @@ const SignUpForm = (props) => {
                     <p>На Вашу почту отправлено письмо с ссылкой на подтверждение аккаунта.</p>
                 </div>)
                 }
-            </WrapperBlock>
+            </AuthWrapperBlock>
         </>
     )
 }

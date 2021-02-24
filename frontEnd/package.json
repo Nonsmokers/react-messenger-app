@@ -12,6 +12,7 @@
     "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "date-fns": "^2.16.1",
+    "emoji-mart": "^3.0.0",
     "formik": "^2.2.6",
     "node-sass": "4.14.1",
     "react": "^17.0.1",

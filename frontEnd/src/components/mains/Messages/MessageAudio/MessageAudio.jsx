@@ -1,8 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react';
 
-import waveSvg from "../../../assets/img/Wave.svg";
-import pauseSvg from "../../../assets/img/pause.svg";
-import playSvg from "../../../assets/img/play.svg";
+import waveSvg from "../../../../assets/img/Wave.svg";
+import pauseSvg from "../../../../assets/img/pause.svg";
+import playSvg from "../../../../assets/img/play.svg";
 
 const convertCurrentTime = (number) => {
     const mins = Math.floor(number / 60);

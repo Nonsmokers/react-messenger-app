@@ -30,13 +30,16 @@ const SidebarContainer = (props) => {
                  setSearch={setSearch}
                  filtered={filtered}
                  onSelectDialog={props.setCurrentDialogId}
+                 currentDialogId={props.currentDialogId}
         />
     );
 }
 const selectDialogs = state => state.dialogsReducer.items
+const selectCurrentDialogId = state => state.dialogsReducer.currentDialogId
 
 const mapStateToProps = (state) => ({
-    items: selectDialogs(state)
+    items: selectDialogs(state),
+    currentDialogId: selectCurrentDialogId(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

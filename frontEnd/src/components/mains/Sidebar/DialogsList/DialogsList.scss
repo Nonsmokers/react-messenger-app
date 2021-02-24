@@ -36,6 +36,9 @@
         }
       }
     }
+    &--selected{
+      background-color: #f3f7ff;
+    }
 
     &--info {
       display: flex;

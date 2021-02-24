@@ -1,12 +1,12 @@
 import React from 'react';
 import className from 'classnames'
-import './Message.scss';
-import MessageStatusIcon from "../MessageStatusIcon/MessageStatusIcon";
-import SendingTime from "../SendingTime/SendingTime";
-import MessageAudio from "../MessageAudio/MessageAudio";
-import Avatar from "../Avatar/Avatar";
+import './MessageItem.scss';
+import MessageStatusIcon from "../../common/MessageStatusIcon/MessageStatusIcon";
+import MessageSendingTime from "../../common/MessageSendingTime/MessageSendingTime";
+import MessageAudio from "./MessageAudio/MessageAudio";
+import Avatar from "../../common/Avatar/Avatar";
 
-const Message = (props) => {
+const MessageItem = (props) => {
 
     return (
         <section className={className('message', {
@@ -44,7 +44,7 @@ const Message = (props) => {
                     </div>}
                     {props.sendingTime &&
                     <span className='message__date'>
-                        <SendingTime date={props.sendingTime ? props.sendingTime : null}/>
+                        <MessageSendingTime date={props.sendingTime ? props.sendingTime : null}/>
                     </span>}
                 </div>
             </div>
@@ -52,4 +52,4 @@ const Message = (props) => {
     );
 }
 
-export default Message;
+export default MessageItem;

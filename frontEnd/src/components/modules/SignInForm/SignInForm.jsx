@@ -3,7 +3,7 @@ import {Form, Input} from 'antd';
 import {LockOutlined, MailOutlined} from '@ant-design/icons';
 import {Link} from 'react-router-dom';
 import Button from '../../../components/common/Button/Button';
-import WrapperBlock from '../../../components/common/WrapperBlock/WrapperBlock';
+import AuthWrapperBlock from '../../common/AuthWrapperBlock/AuthWrapperBlock';
 
 const SignInForm = (props) => {
 
@@ -15,7 +15,7 @@ const SignInForm = (props) => {
                 <h2>Войти в аккаунт</h2>
                 <p>Пожалуйста, войдите в свой аккаунт</p>
             </div>
-            <WrapperBlock>
+            <AuthWrapperBlock>
                 <Form name='normal_login'
                       className='login-form'
                       onSubmit={handleSubmit}
@@ -54,7 +54,7 @@ const SignInForm = (props) => {
                     </Form.Item>
                     <Link className='auth__register-link' to='/sign-up'>Зарегистрироваться</Link>
                 </Form>
-            </WrapperBlock>
+            </AuthWrapperBlock>
         </>
     )
 }

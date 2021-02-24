@@ -1,9 +1,9 @@
 import React from 'react';
 import classnames from 'classnames';
-import MessageStatusIcon from '../MessageStatusIcon/MessageStatusIcon';
+import MessageStatusIcon from '../../../common/MessageStatusIcon/MessageStatusIcon';
 import format from 'date-fns/format';
 import isToday from 'date-fns/isToday';
-import Avatar from "../Avatar/Avatar";
+import Avatar from "../../../common/Avatar/Avatar";
 
 const getMessage = (sendingDate) => {
     if (isToday(sendingDate)) {
@@ -15,7 +15,10 @@ const getMessage = (sendingDate) => {
 
 const DialogItem = (props) => {
     return (
-        <div className={classnames('dialogs__item', {'dialogs__item--online': props.user.isOnline})}
+        <div className={classnames('dialogs__item', {
+            'dialogs__item--online': props.user.isOnline,
+            'dialogs__item--selected': props.currentDialogId === props._id
+        })}
              onClick={props.onSelectDialog.bind(this, props._id)}
         >
             <div className={'dialogs__item-avatar'}>

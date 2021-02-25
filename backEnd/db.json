@@ -1,5 +1,4 @@
-{
-  "dialogs": [
+[
     {
       "_id": "21f09bfd77a0474298648a7b5599f4d3",
       "text": "Duis do eu culpa ad mollit sit minim quis sunt esse anim. Ex velit sint consequat ipsum fugiat irure consequat ut. Do tempor voluptate magna ipsum id pariatur.",
@@ -110,83 +109,4 @@
         "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTGpbFMYmTACEZ4AKPW-QSjMbvgyL_bOj5jw&usqp=CAU"
       }
     }
-  ],
-  "messages": [
-    {
-      "_id": "60263a2c8f677e19a1f7af4c",
-      "text": "Duis do eu culpa ad mollit sit minim quis sunt esse anim. Ex velit sint consequat ipsum fugiat irure consequat ut. Do tempor voluptate magna ipsum id pariatur.",
-      "date": "Sat Aug 04 2007 17:21:32 GMT+0300 (Москва, летнее время)",
-      "user": {
-        "_id": "460263a2c0e161c9df772fa86",
-        "fullname": "Wise Dixon",
-        "avatar": "https://www.womanhit.ru/media/CACHE/images/articleimage2/2019/5/mountains-3959204960720-1/18848e6b932508789a3d23d92302fb01.jpg"
-      },
-      "dialog": "21f09bfd77a0474298648a7b5599f4d3"
-    },
-    {
-      "_id": "60263a2ccad760d9b2011da3",
-      "text": "Lorem aute in culpa adipisicing aute aliqua quis irure ea enim ullamco sunt. Consequat deserunt ipsum officia ut officia officia ut tempor tempor qui velit voluptate aliqua. Ad aliquip tempor tempor sint commodo esse deserunt et elit aute Lorem in et.",
-      "date": "Sun Mar 12 1972 10:19:51 GMT+0300 (Москва, стандартное время)",
-      "user": {
-        "_id": "460263a2cff551d443e31eb67",
-        "fullname": "Pollard Petty",
-        "avatar": null
-      },
-      "dialog": "21f09bfd77a0474298648a7b5599f4d3"
-    },
-    {
-      "_id": "60263a2c4cb20f7a711b5733",
-      "text": "Irure proident consequat ipsum dolore do Lorem mollit ad sit id. Consequat non exercitation sunt nostrud laborum consequat quis ea. Eiusmod occaecat excepteur do occaecat elit id aliqua dolore deserunt ea.",
-      "date": "Wed Jun 16 1999 08:52:02 GMT+0300 (Москва, летнее время)",
-      "user": {
-        "_id": "260263a2c930a559586326da9",
-        "fullname": "Shelton Mullen",
-        "avatar": null
-      },
-      "dialog": "21f09bfd77a0474298648a7b5599f4d3"
-    },
-    {
-      "_id": "60263a2c6fb4b0322a4acb15",
-      "text": "Ut elit enim enim cupidatat ut velit eiusmod. Duis sint labore non velit elit qui do sunt in non nisi. Consectetur deserunt irure magna mollit aute.",
-      "date": "Tue Dec 10 2013 07:59:16 GMT+0300 (Москва, стандартное время)",
-      "user": {
-        "_id": "460263a2cfc61d77ff1472d64",
-        "fullname": "Colleen Mcfadden",
-        "avatar": null
-      },
-      "dialog": "21f09bfd77a0474298648a7b5599f4d3"
-    },
-    {
-      "_id": "60263a2c5f3fed39d1dd8c74",
-      "text": "Eiusmod commodo velit proident sint enim. Commodo cupidatat laboris anim nisi id dolor fugiat sint adipisicing. Anim exercitation enim consequat duis.",
-      "date": "Sun Apr 21 2013 14:31:46 GMT+0300 (Москва, стандартное время)",
-      "user": {
-        "_id": "160263a2c5df3d0befa92bd6d",
-        "fullname": "Celeste Valenzuela",
-        "avatar": null
-      },
-      "dialog": "21f09bfd77a0474298648a7b5599f4d3"
-    },
-    {
-      "_id": "60263a2c29c78aad1cd61e41",
-      "text": "Eiusmod commodo velit proident sint enim. Commodo cupidatat laboris anim nisi id dolor fugiat sint adipisicing. Anim exercitation enim consequat duis.",
-      "date": "Tue Nov 09 1993 15:09:53 GMT+0200 (Москва, стандартное время)",
-      "user": {
-        "_id": "260263a2c130af70431760d77",
-        "fullname": "Cassandra Olson",
-        "avatar": "https://www.womanhit.ru/media/CACHE/images/articleimage2/2019/5/mountains-3959204960720-1/18848e6b932508789a3d23d92302fb01.jpg"
-      },
-      "dialog": "21f09bfd77a0474298648a7b5599f4d3"
-    },
-    {
-      "_id": "60263a2c3eb134a90642fd8d",
-      "text": "Eiusmod commodo velit proident sint enim. Commodo cupidatat laboris anim nisi id dolor fugiat sint adipisicing. Anim exercitation enim consequat duis.",
-      "date": "Tue Jun 24 1997 03:04:00 GMT+0300 (Москва, летнее время)",
-      "user": {
-        "_id": "160263a2cf5741b4bdee25c84",
-        "fullname": "Rice Donovan",
-        "avatar": "https://www.womanhit.ru/media/CACHE/images/articleimage2/2019/5/mountains-3959204960720-1/18848e6b932508789a3d23d92302fb01.jpg"
-      }
-    }
   ]
-}

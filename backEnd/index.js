@@ -1,16 +1,17 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const User = require('./src/Schemas/User');
 const app = express();
 const port = 3001;
 const bodyParser = require('body-parser');
-const data = require("../db.json");
 
-const mongoose = require('mongoose');
+const data = require("./db.json");
 
-mongoose.connect("mongodb+srv://Alexander:82819909Sasha@cluster0.k1j8m.mongodb.net/chat", {
+mongoose.connect("mongodb+srv://Alexander:1q2w3e@cluster0.k1j8m.mongodb.net/chat", {
     useNewUrlParser: true,
     useUnifiedTopology: true
-});
-const User = require('./Schemas/User');
+})
+console.log(User)
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");

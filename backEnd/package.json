@@ -6,7 +6,7 @@
   "scripts": {
     "startDevServer": "json-server --watch db.json --port 3004",
     "start": "node index.js",
-    "startDev": "nodemon src/index.js"
+    "startDev": "nodemon index.js"
   },
   "devDependencies": {
     "json-server": "^0.16.3",

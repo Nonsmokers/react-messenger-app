@@ -1,20 +1,25 @@
 const {Schema, model} = require('mongoose');
+const {isEmail} = require('validator');
 
 const userSchema = new Schema({
         email: {
             type: String,
-            required: true
+            required: 'Email adress is required',
+            validate: [isEmail, 'Invalid email']
         },
         avatar: String,
         fullname: {
             type: String,
-            required: true
+            required: 'Fullname adress is required'
         },
         password: {
             type: String,
-            required: true
+            required: 'Password adress is required'
         },
-        confirmed: Boolean,
+        confirmed: {
+            type: Boolean,
+            default: false
+        },
         confirm_hash: String,
         last_seen: Date
     }, {timestamps: true}

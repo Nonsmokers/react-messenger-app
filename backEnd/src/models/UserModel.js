@@ -1,7 +1,7 @@
 const {Schema, model} = require('mongoose');
 const {isEmail} = require('validator');
 
-const userSchema = new Schema({
+const UserModel = new Schema({
         email: {
             type: String,
             required: 'Email adress is required',
@@ -25,4 +25,4 @@ const userSchema = new Schema({
     }, {timestamps: true}
 );
 
-module.exports = model('User', userSchema);
+module.exports = model('User', UserModel);

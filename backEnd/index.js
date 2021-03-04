@@ -4,8 +4,8 @@ const bodyParser = require('body-parser');
 const data = require("./db.json");
 const app = express();
 const port = 3001;
-const UserModel = require('./src/models/UserModel');
 const UserController = require('./src/controllers/UserController');
+const DialogController = require('./src/controllers/DialogController');
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -19,6 +19,7 @@ app.use((req, res, next) => {
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 
+
 const mongoDB = 'mongodb+srv://Alexander:1q2w3e@cluster0.k1j8m.mongodb.net/chat'
 mongoose.connect(mongoDB, {
     useNewUrlParser: true,
@@ -27,27 +28,17 @@ mongoose.connect(mongoDB, {
     useFindAndModify: true
 });
 
-const User = new UserController();
+const {createUser, findUser, deleteUser} = new UserController();
+const {getAllDialogs, createDialog} = new DialogController();
 
-app.get('/user/:id', User.findUser);
-app.post('/user/register', User.createUser);
-app.delete('/user/:id', User.deleteUser);
+app.get('/dialogs/:id', getAllDialogs);
+app.post('/dialogs', createDialog);
 
-app.post('user/registration', (req, res) => {
-    const postData = {
-        email: req.body.email,
-        fullname: req.body.fullname,
-        password: req.body.password
-    }
+app.get('/user/:id', findUser);
+app.post('/user/register', createUser);
+app.delete('/user/:id', deleteUser);
 
-    const user = new UserModel(postData)
-    user.save(() => {
-        console.log("Сохранен объект", user);
-    })
-    return res.send()
-})
 app.get('/dialogs', (req, res) => {
-    console.log(data);
     return res.send(data)
 })
 

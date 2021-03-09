@@ -6,6 +6,7 @@ const app = express();
 const port = 3001;
 const UserController = require('./src/controllers/UserController');
 const DialogController = require('./src/controllers/DialogController');
+const MessageController = require('./src/controllers/MessageController');
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -29,14 +30,19 @@ mongoose.connect(mongoDB, {
 });
 
 const {createUser, findUser, deleteUser} = new UserController();
-const {getAllDialogs, createDialog} = new DialogController();
+const {getAllDialogs, createDialog, deleteDialog} = new DialogController();
+const {getAllMessages, createMessage} = new MessageController();
 
 app.get('/dialogs/:id', getAllDialogs);
 app.post('/dialogs', createDialog);
+app.delete('/dialogs/:id', deleteDialog);
 
 app.get('/user/:id', findUser);
-app.post('/user/register', createUser);
+app.post('/user', createUser);
 app.delete('/user/:id', deleteUser);
+
+app.get('/messages', getAllMessages);
+app.post('/messages', createMessage);
 
 app.get('/dialogs', (req, res) => {
     return res.send(data)

@@ -4,13 +4,11 @@ const DialogSchema = new Schema(
     {
         partner: {
             type: String,
-            ref: "User",
-            required: true
+            ref: "User"
         },
         author: {
             type: String,
-            ref: "User",
-            required: true
+            ref: "User"
         },
         lastMessage: {
             type: String,

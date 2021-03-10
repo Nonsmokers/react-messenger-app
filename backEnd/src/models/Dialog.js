@@ -3,15 +3,15 @@ const {Schema, model} = require('mongoose');
 const DialogSchema = new Schema(
     {
         partner: {
-            type: String,
+            type: Schema.Types.ObjectId,
             ref: "User"
         },
         author: {
-            type: String,
+            type: Schema.Types.ObjectId,
             ref: "User"
         },
         lastMessage: {
-            type: String,
+            type: Schema.Types.ObjectId,
             ref: "Message"
         }
     },

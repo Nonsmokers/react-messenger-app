@@ -1,43 +1,47 @@
 const DialogModel = require('../models/Dialog');
+const MessageModel = require('../models/Message');
 
 class DialogController {
 
-    getAllDialogs(req, res) {
+    getAllDialogs = async (req, res) => {
         const authorId = req.params.id
-        DialogModel.find({ author: authorId})
+        DialogModel
+            .find({author: authorId})
             .populate(['author', 'partner'])
             .exec((err, dialogs) => {
                 if (err) {
-                    console.log(err.message)
                     return res.status(404).json('Dialogs is empty');
                 }
-                res.json(dialogs)
+                return res.json(dialogs)
             })
-    }
+    };
 
-    createDialog(req, res) {
+    createDialog = async (req, res) => {
         const postData = {
             author: req.body.author,
             partner: req.body.partner
         }
         const dialog = new DialogModel(postData)
-        dialog.save(() => {
-            console.log("Сохранен объект", dialog);
-        })
-        return res.send()
-    }
+        const dialogObj = dialog.save()
 
-    deleteDialog(req, res) {
-        const id = req.params.id
-        DialogModel.findOneAndRemove({_id: id}).then((dialog) => {
-            if (!dialog) {
-                res.status(404).json('User not found');
-            }
-            res.json(`${dialog} removed`)
-        }).catch(err => {
-            res.status(404).json(err.message);
+        const firstMessage = new MessageModel({
+            text: req.body.text,
+            user: req.body.author,
+            dialog: dialogObj._id,
         })
-    }
+
+        await firstMessage.save()
+        return res.json(dialogObj)
+    };
+
+    deleteDialog = async (req, res) => {
+        const id = req.params.id
+        const dialog = await DialogModel.findOneAndRemove({_id: id})
+        if (!dialog) {
+            return res.status(404).json('User not found');
+        }
+        return res.json(`${dialog} removed`)
+    };
 }
 
 module.exports = DialogController;

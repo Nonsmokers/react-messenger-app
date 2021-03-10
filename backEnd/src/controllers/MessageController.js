@@ -2,20 +2,20 @@ const MessageModel = require('../models/Message');
 
 class MessageController {
 
-    getAllMessages(req, res) {
+    getAllMessages = async (req, res) => {
         const dialogId = req.query.dialog
-        MessageModel.find({dialog: dialogId})
+        MessageModel
+            .find({dialog: dialogId})
             .populate(['dialog'])
             .exec((err, messages) => {
                 if (err) {
-                    console.log(err.message)
                     return res.status(404).json('Dialogs is empty');
                 }
                 res.json(messages)
             })
-    }
+    };
 
-    createMessage(req, res) {
+    createMessage = async (req, res) => {
         const userId = '6041297e9533ff06803e4119';
 
         const postData = {
@@ -24,14 +24,18 @@ class MessageController {
             dialog: req.body.dialogId
         }
         const message = new MessageModel(postData)
-        message.save(() => {
-            console.log("Сохранен объект", message);
-        }).then((obj) => {
-            res.json(obj)
-        })
-        return res.send()
-    }
+        const messageObj = await message.save()
+        return res.json(messageObj)
+    };
 
+    deleteMessage = async (req, res) => {
+        const id = req.params.id
+        const message = await MessageModel.findOneAndRemove({_id: id})
+        if (!message) {
+            return res.status(404).json('Message not found');
+        }
+        return res.json(`${message} removed`)
+    };
 }
 
 module.exports = MessageController;

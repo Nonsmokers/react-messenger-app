@@ -2,18 +2,15 @@ const {Schema, model} = require('mongoose');
 
 const MessageSchema = new Schema({
         text: {
-            type: String,
-            required: true
+            type: String
         },
         dialog: {
-            type: Object,
-            ref: "Dialog",
-            required: true
+            type: Schema.Types.ObjectId,
+            ref: "Dialog"
         },
         user: {
-            type: Object,
-            ref: "User",
-            required: true
+            type: Schema.Types.ObjectId,
+            ref: "User"
         },
         unread: {
             type: Boolean,

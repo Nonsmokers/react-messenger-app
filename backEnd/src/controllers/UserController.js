@@ -2,41 +2,34 @@ const UserModel = require('../models/User');
 
 class UserController {
 
-    findUser(req, res) {
+    findUser = async (req, res) => {
         const id = req.params.id
-        UserModel.findById(id, (err, user) => {
-            if (err) {
-                console.log(err.message)
-                return res.status(404).json('User not found');
-            }
-            res.json(user)
-        })
-    }
+        const user = await UserModel.findById(id)
+        if (!user) {
+            return res.status(404).json('User not found');
+        }
+        return res.json(user)
+    };
 
-    createUser(req, res) {
+    createUser = async (req, res) => {
         const postData = {
             email: req.body.email,
             fullname: req.body.fullname,
             password: req.body.password
         }
         const user = new UserModel(postData)
-        user.save(() => {
-            console.log("Сохранен объект", user);
-        })
-        return res.send()
+        await user.save()
+        return res.json(user)
     }
 
-    deleteUser(req, res) {
+    deleteUser = async (req, res) => {
         const id = req.params.id
-        UserModel.findOneAndRemove({_id: id}).then((user) => {
-            if (!user) {
-                res.status(404).json('User not found');
-            }
-            res.json(`User ${user.fullname} removed`)
-        }).catch(err => {
-            res.status(404).json(err.message);
-        })
-    }
+        const user = await UserModel.findOneAndRemove({_id: id})
+        if (!user) {
+            res.status(404).json('User not found');
+        }
+        return res.json(`User removed`)
+    };
 }
 
 module.exports = UserController;

@@ -29,9 +29,9 @@ mongoose.connect(mongoDB, {
     useFindAndModify: true
 });
 
-const {createUser, findUser, deleteUser} = new UserController();
+const {findUser, createUser, deleteUser} = new UserController();
 const {getAllDialogs, createDialog, deleteDialog} = new DialogController();
-const {getAllMessages, createMessage} = new MessageController();
+const {getAllMessages, createMessage, deleteMessage} = new MessageController();
 
 app.get('/dialogs/:id', getAllDialogs);
 app.post('/dialogs', createDialog);
@@ -43,6 +43,8 @@ app.delete('/user/:id', deleteUser);
 
 app.get('/messages', getAllMessages);
 app.post('/messages', createMessage);
+app.delete('/messages/:id', deleteMessage);
+
 
 app.get('/dialogs', (req, res) => {
     return res.send(data)

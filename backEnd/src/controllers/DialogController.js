@@ -9,7 +9,7 @@ class DialogController {
             .find({author: authorId})
             .populate(['author', 'partner'])
             .exec((err, dialogs) => {
-                if (err) {
+                if (err) {ret
                     return res.status(404).json('Dialogs is empty');
                 }
                 return res.json(dialogs)

@@ -2,11 +2,14 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const data = require("./db.json");
-const app = express();
-const port = 3001;
+const dotenv = require("dotenv");
+const PORT = process.env.PORT || 3001;
 const UserController = require('./src/controllers/UserController');
 const DialogController = require('./src/controllers/DialogController');
 const MessageController = require('./src/controllers/MessageController');
+const updateLastVisit = require('./src/middlewares/updateLastVisit');
+const app = express();
+dotenv.config()
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -19,6 +22,7 @@ app.use((req, res, next) => {
 });
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
+app.use(updateLastVisit)
 
 
 const mongoDB = 'mongodb+srv://Alexander:1q2w3e@cluster0.k1j8m.mongodb.net/chat'
@@ -50,6 +54,6 @@ app.get('/dialogs', (req, res) => {
     return res.send(data)
 })
 
-app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+app.listen(PORT, () => {
+    console.log(`Server: http://localhost:${process.env.PORT}`)
 })

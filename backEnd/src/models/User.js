@@ -21,7 +21,10 @@ const UserSchema = new Schema({
             default: false
         },
         confirm_hash: String,
-        last_seen: Date
+        last_visit: {
+            type: Date,
+            default: new Date()
+        }
     }, {timestamps: true}
 );
 

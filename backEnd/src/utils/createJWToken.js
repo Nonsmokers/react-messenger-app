@@ -1,11 +1,11 @@
 const {reduce} = require("lodash");
-const {jwt} = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 
-const createJWToken = (user) => {
+const createJWToken = (userData) => {
     return jwt.sign(
         {
-            data: reduce(user, (result, value, key) => {
+            data: reduce(userData, (result, value, key) => {
                 if (key !== "password") {
                     result[key] = value;
                 }

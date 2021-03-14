@@ -1,13 +1,15 @@
 const verifyJWToken = require("../utils/verifyJWToken");
 
 const authenticateToken = async (req, res, next) => {
-
-    const token = req.headers.token
+    if (req.path === "/user/login" || req.path === "/user/register") {
+        return next();
+    }
     try {
+        const token = req.headers.token
         const user = await verifyJWToken(token)
         req.user = user
         next()
-    } catch {
+    } catch (err) {
         res.status(403).json({message: 'auth is invalid'})
     }
 }

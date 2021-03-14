@@ -41,7 +41,7 @@ const {getAllDialogs, createDialog, deleteDialog} = new DialogController();
 const {getAllMessages, createMessage, deleteMessage} = new MessageController();
 
 app.get('/user/:id', findUser);
-app.post('/user', createUser);
+app.post('/user/register', createUser);
 app.delete('/user/:id', deleteUser);
 app.post('/user/login', login);
 

@@ -1,4 +1,4 @@
-const {reduce} = require("lodash");
+const reduce = require("lodash/reduce");
 const jwt = require('jsonwebtoken');
 
 

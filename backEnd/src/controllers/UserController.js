@@ -43,7 +43,7 @@ class UserController {
             }
             if(user.password === postData.password){
                 const token = createJWToken(postData)
-                res.json(token)
+                res.json(token) 
             }else{
                 res.status(404).json('email or password is invalid');
             }

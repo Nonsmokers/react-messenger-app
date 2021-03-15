@@ -1,7 +1,6 @@
 const reduce = require("lodash/reduce");
 const jwt = require('jsonwebtoken');
 
-
 const createJWToken = (userData) => {
     return jwt.sign(
         {

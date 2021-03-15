@@ -9,6 +9,7 @@ const DialogController = require('./src/controllers/DialogController');
 const MessageController = require('./src/controllers/MessageController');
 const updateLastVisit = require('./src/middlewares/updateLastVisit');
 const authenticateToken = require('./src/middlewares/authenticateToken');
+const authValidation = require('./src/utils/authValidation');
 
 const app = express();
 dotenv.config()
@@ -34,7 +35,7 @@ mongoose.connect(mongoDB, {
     useCreateIndex: true,
     useUnifiedTopology: true,
     useFindAndModify: true
-});
+})
 
 const {findUser, createUser, deleteUser, login} = new UserController();
 const {getAllDialogs, createDialog, deleteDialog} = new DialogController();
@@ -43,7 +44,7 @@ const {getAllMessages, createMessage, deleteMessage} = new MessageController();
 app.get('/user/:id', findUser);
 app.post('/user/register', createUser);
 app.delete('/user/:id', deleteUser);
-app.post('/user/login', login);
+app.post('/user/login', authValidation, login);
 
 app.get('/dialogs/:id', getAllDialogs);
 app.post('/dialogs', createDialog);

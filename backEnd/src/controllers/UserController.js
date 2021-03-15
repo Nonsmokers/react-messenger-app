@@ -1,5 +1,7 @@
 const UserModel = require('../models/User');
 const createJWToken = require('../utils/createJWToken');
+const bcrypt = require("bcrypt");
+const {validationResult} = require('express-validator/src/validation-result');
 
 class UserController {
 
@@ -37,15 +39,19 @@ class UserController {
             email: req.body.email,
             password: req.body.password
         }
-        UserModel.findOne({email: postData.email}, (err, user)=>{
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(422).json({errors: errors.array()});
+        }
+        UserModel.findOne({email: postData.email}, (err, user) => {
             if (err || !user) {
                 res.status(404).json('User not found');
             }
-            if(user.password === postData.password){
+            if (bcrypt.compareSync(postData.password, user.password)) {
                 const token = createJWToken(postData)
-                res.json(token) 
-            }else{
-                res.status(404).json('email or password is invalid');
+                res.json({status: 'success', token})
+            } else {
+                res.status(404).json('Email or password is invalid');
             }
         })
     }

@@ -4,12 +4,12 @@ const MessageModel = require('../models/Message');
 class DialogController {
 
     getAllDialogs = async (req, res) => {
-        const authorId = req.params.id
+        const authorId = req.user._id
         DialogModel
             .find({author: authorId})
             .populate(['author', 'partner'])
             .exec((err, dialogs) => {
-                if (err) {ret
+                if (err) {
                     return res.status(404).json('Dialogs is empty');
                 }
                 return res.json(dialogs)

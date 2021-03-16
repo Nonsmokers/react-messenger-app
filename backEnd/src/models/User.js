@@ -1,5 +1,6 @@
 const {Schema, model} = require('mongoose');
 const {isEmail} = require('validator');
+const generatePasswordHash = require('../utils/generatePasswordHash');
 
 const UserSchema = new Schema({
         email: {
@@ -27,5 +28,21 @@ const UserSchema = new Schema({
         }
     }, {timestamps: true}
 );
+
+UserSchema.pre('save', async function (next) {
+    const user = this;
+
+    if (!user.isModified('password')) {
+        return next();
+    }
+
+    const hash = await generatePasswordHash(user.password)
+    try {
+        user.password = String(hash);
+        next();
+    } catch (err) {
+        next(err);
+    }
+});
 
 module.exports = model('User', UserSchema);

@@ -1,3 +1,5 @@
+const bcrypt = require("bcrypt");
+const {validationResult} = require('express-validator/src/validation-result');
 const UserModel = require('../models/User');
 const createJWToken = require('../utils/createJWToken');
 
@@ -10,6 +12,19 @@ class UserController {
             return res.status(404).json('User not found');
         }
         return res.json(user)
+    };
+
+    getMe = async (req, res) => {
+        let id = req.user._id
+        console.log(req.user)
+        console.log(id)
+        if (id.match(/^[0-9a-fA-F]{24}$/)) {
+            const user = await UserModel.findById(id)
+            if (!user) {
+                return res.status(404).json('User not found');
+            }
+            return res.json(user)
+        }
     };
 
     createUser = async (req, res) => {
@@ -32,21 +47,25 @@ class UserController {
         return res.json(`User removed`)
     };
 
-    login = async (req, res) => {
+    loginUser = async (req, res) => {
         const postData = {
             email: req.body.email,
             password: req.body.password
         }
-        UserModel.findOne({email: postData.email}, (err, user)=>{
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(422).json({errors: errors.array()});
+        }
+        UserModel.findOne({email: postData.email}, async (err, user) => {
             if (err || !user) {
                 res.status(404).json('User not found');
             }
-            if(user.password === postData.password){
-                const token = createJWToken(postData)
-                res.json(token) 
-            }else{
-                res.status(404).json('email or password is invalid');
+            let result = await bcrypt.compare(postData.password, user.password)
+            if (!result) {
+                res.status(400).json('Email or password is invalid')
             }
+            const token = createJWToken(user)
+            res.json({status: 'success', token})
         })
     }
 }

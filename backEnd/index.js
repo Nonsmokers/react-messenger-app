@@ -8,7 +8,7 @@ const UserController = require('./src/controllers/UserController');
 const DialogController = require('./src/controllers/DialogController');
 const MessageController = require('./src/controllers/MessageController');
 const updateLastVisit = require('./src/middlewares/updateLastVisit');
-const authenticateToken = require('./src/middlewares/authenticateToken');
+const checkAuthenticateToken = require('./src/middlewares/checkAuthenticateToken');
 
 const app = express();
 dotenv.config()
@@ -25,8 +25,7 @@ app.use((req, res, next) => {
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(updateLastVisit)
-app.use(authenticateToken)
-
+app.use(checkAuthenticateToken)
 
 const mongoDB = 'mongodb+srv://Alexander:1q2w3e@cluster0.k1j8m.mongodb.net/chat'
 mongoose.connect(mongoDB, {
@@ -36,23 +35,23 @@ mongoose.connect(mongoDB, {
     useFindAndModify: true
 });
 
-const {findUser, createUser, deleteUser, login} = new UserController();
+const {findUser, getMe ,createUser, deleteUser, loginUser} = new UserController();
 const {getAllDialogs, createDialog, deleteDialog} = new DialogController();
 const {getAllMessages, createMessage, deleteMessage} = new MessageController();
 
+app.get('/user/me', getMe);
 app.get('/user/:id', findUser);
-app.post('/user/register', createUser);
+app.post('/user/sign-up', createUser);
+app.post('/user/sign-in', loginUser);
 app.delete('/user/:id', deleteUser);
-app.post('/user/login', login);
 
-app.get('/dialogs/:id', getAllDialogs);
+app.get('/dialogs', getAllDialogs);
 app.post('/dialogs', createDialog);
 app.delete('/dialogs/:id', deleteDialog);
 
 app.get('/messages', getAllMessages);
 app.post('/messages', createMessage);
 app.delete('/messages/:id', deleteMessage);
-
 
 app.get('/dialogs', (req, res) => {
     return res.send(data)

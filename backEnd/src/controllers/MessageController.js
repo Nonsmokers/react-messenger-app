@@ -16,7 +16,7 @@ class MessageController {
     };
 
     createMessage = async (req, res) => {
-        const userId = '6041297e9533ff06803e4119';
+        const userId = req.user._id;
 
         const postData = {
             text: req.body.text,

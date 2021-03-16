@@ -5,17 +5,17 @@ const generatePasswordHash = require('../utils/generatePasswordHash');
 const UserSchema = new Schema({
         email: {
             type: String,
-            required: 'Email adress is required',
+            required: 'Email address is required',
             validate: [isEmail, 'Invalid email']
         },
         avatar: String,
         fullname: {
             type: String,
-            required: 'Fullname adress is required'
+            required: 'Fullname address is required'
         },
         password: {
             type: String,
-            required: 'Password adress is required'
+            required: 'Password address is required'
         },
         confirmed: {
             type: Boolean,
@@ -29,13 +29,13 @@ const UserSchema = new Schema({
     }, {timestamps: true}
 );
 
+
 UserSchema.pre('save', async function (next) {
     const user = this;
 
     if (!user.isModified('password')) {
         return next();
     }
-
     const hash = await generatePasswordHash(user.password)
     try {
         user.password = String(hash);

@@ -16,15 +16,11 @@ class UserController {
 
     getMe = async (req, res) => {
         let id = req.user._id
-        console.log(req.user)
-        console.log(id)
-        if (id.match(/^[0-9a-fA-F]{24}$/)) {
-            const user = await UserModel.findById(id)
-            if (!user) {
-                return res.status(404).json('User not found');
-            }
-            return res.json(user)
+        const user = await UserModel.findById(id)
+        if (!user) {
+            return res.status(404).json('User not found');
         }
+        return res.json(user)
     };
 
     createUser = async (req, res) => {

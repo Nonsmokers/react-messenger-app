@@ -4,7 +4,11 @@ const UserModel = require('../models/User');
 const createJWToken = require('../utils/createJWToken');
 
 
-class UserController {
+class UsersController {
+    constructor(io) {
+        
+    }
+
 
     findUser = async (req, res) => {
         const id = req.params.id
@@ -45,6 +49,7 @@ class UserController {
     };
 
     loginUser = async (req, res) => {
+        console.log(req.body)
         const postData = {
             email: req.body.email,
             password: req.body.password
@@ -67,4 +72,4 @@ class UserController {
     }
 }
 
-module.exports = UserController;
+module.exports = UsersController;

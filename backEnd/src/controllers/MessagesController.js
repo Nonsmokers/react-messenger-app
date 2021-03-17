@@ -1,6 +1,10 @@
 const MessageModel = require('../models/Message');
 
-class MessageController {
+class MessagesController {
+    constructor(io) {
+        
+    }
+
 
     getAllMessages = async (req, res) => {
         const dialogId = req.query.dialog
@@ -38,4 +42,4 @@ class MessageController {
     };
 }
 
-module.exports = MessageController;
+module.exports = MessagesController;

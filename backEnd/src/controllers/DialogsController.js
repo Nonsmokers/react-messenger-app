@@ -1,7 +1,10 @@
 const DialogModel = require('../models/Dialog');
 const MessageModel = require('../models/Message');
 
-class DialogController {
+class DialogsController {
+    constructor(io) {
+
+    }
 
     getAllDialogs = async (req, res) => {
         const authorId = req.user._id
@@ -44,4 +47,4 @@ class DialogController {
     };
 }
 
-module.exports = DialogController;
+module.exports = DialogsController;

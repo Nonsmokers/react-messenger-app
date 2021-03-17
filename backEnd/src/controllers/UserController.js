@@ -3,6 +3,7 @@ const {validationResult} = require('express-validator/src/validation-result');
 const UserModel = require('../models/User');
 const createJWToken = require('../utils/createJWToken');
 
+
 class UserController {
 
     findUser = async (req, res) => {

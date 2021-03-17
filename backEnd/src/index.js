@@ -1,17 +1,24 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const data = require("./db.json");
+const data = require("../db.json");
 const dotenv = require("dotenv");
 const PORT = process.env.PORT || 3001;
-const UserController = require('./src/controllers/UserController');
-const DialogController = require('./src/controllers/DialogController');
-const MessageController = require('./src/controllers/MessageController');
-const updateLastVisit = require('./src/middlewares/updateLastVisit');
-const checkAuthenticateToken = require('./src/middlewares/checkAuthenticateToken');
+const UserController = require('./controllers/UserController');
+const DialogController = require('./controllers/DialogController');
+const MessageController = require('./controllers/MessageController');
+const updateLastVisit = require('./middlewares/updateLastVisit');
+const checkAuthenticateToken = require('./middlewares/checkAuthenticateToken');
 
 const app = express();
 dotenv.config()
+
+const http = require('http').createServer(app);
+const io = require("socket.io")(http, {
+    cors: {
+        origin: '*',
+    }
+})
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -22,6 +29,7 @@ app.use((req, res, next) => {
     }
     next();
 });
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(updateLastVisit)
@@ -35,7 +43,7 @@ mongoose.connect(mongoDB, {
     useFindAndModify: true
 });
 
-const {findUser, getMe ,createUser, deleteUser, loginUser} = new UserController();
+const {findUser, getMe, createUser, deleteUser, loginUser} = new UserController();
 const {getAllDialogs, createDialog, deleteDialog} = new DialogController();
 const {getAllMessages, createMessage, deleteMessage} = new MessageController();
 
@@ -53,10 +61,21 @@ app.get('/messages', getAllMessages);
 app.post('/messages', createMessage);
 app.delete('/messages/:id', deleteMessage);
 
-app.get('/dialogs', (req, res) => {
+app.get('/im', (req, res) => {
     return res.send(data)
 })
 
-app.listen(PORT, () => {
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/index.html');
+});
+
+io.on('connection', (socket) => {
+    socket.on('chat message', (msg) => {
+        console.log('message: ' + msg);
+        socket.emit('123123')
+    });
+});
+
+http.listen(PORT, () => {
     console.log(`Server: http://localhost:${process.env.PORT}`)
 })

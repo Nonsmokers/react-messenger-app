@@ -1,10 +1,10 @@
 const MessageModel = require('../models/Message');
 
 class MessagesController {
-    constructor(io) {
-        
-    }
 
+    constructor(io) {
+        this.io = io
+    }
 
     getAllMessages = async (req, res) => {
         const dialogId = req.query.dialog
@@ -29,7 +29,13 @@ class MessagesController {
         }
         const message = new MessageModel(postData)
         const messageObj = await message.save()
-        return res.json(messageObj)
+        try{
+            res.json(messageObj)
+            this.io.emit("NEW:MESSAGE", messageObj)
+        }catch (e) {
+            res.json(e.message)
+            console.log(e.message)
+        }
     };
 
     deleteMessage = async (req, res) => {

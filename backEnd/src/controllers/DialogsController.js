@@ -2,8 +2,9 @@ const DialogModel = require('../models/Dialog');
 const MessageModel = require('../models/Message');
 
 class DialogsController {
-    constructor(io) {
 
+    constructor(io) {
+        this.io = io
     }
 
     getAllDialogs = async (req, res) => {

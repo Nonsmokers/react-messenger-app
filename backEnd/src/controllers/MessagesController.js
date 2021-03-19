@@ -28,14 +28,16 @@ class MessagesController {
             dialog: req.body.dialogId
         }
         const message = new MessageModel(postData)
-        const messageObj = await message.save()
-        try{
-            res.json(messageObj)
+        await message.save()
+        message.populate('dialog', (err, messageObj) => {
+            if (err) {
+                console.log(err.message)
+                res.json(err.message)
+            }
             this.io.emit("NEW:MESSAGE", messageObj)
-        }catch (e) {
-            res.json(e.message)
-            console.log(e.message)
-        }
+            res.json(messageObj)
+        })
+
     };
 
     deleteMessage = async (req, res) => {

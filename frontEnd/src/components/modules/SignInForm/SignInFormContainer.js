@@ -1,6 +1,8 @@
 import {withFormik} from "formik";
 import SignInForm from "./SignInForm";
 import validate from "../../../utils/validation";
+import axios from "../../../utils/axios";
+
 
 export default withFormik({
     enableReinitialize: true,
@@ -14,10 +16,9 @@ export default withFormik({
         return errors;
     },
     handleSubmit: (values, {setSubmitting}) => {
-        setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-        }, 1000);
+        return axios.post('/user/sign-in', values).then(({data}) => {
+            console.log(data)
+        })
     },
     displayName: "SignInForm"
 })(SignInForm);

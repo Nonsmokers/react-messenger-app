@@ -6,7 +6,7 @@ const initialState = {
     currentDialogId: null
 }
 
-const dialogsReducer = (state = initialState, action) => {
+const dialogs = (state = initialState, action) => {
     switch (action.type) {
         case SET_DIALOGS_ITEMS: {
             return {
@@ -26,4 +26,4 @@ const dialogsReducer = (state = initialState, action) => {
     }
 }
 
-export default dialogsReducer;
+export default dialogs;

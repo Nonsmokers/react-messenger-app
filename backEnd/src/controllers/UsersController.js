@@ -61,11 +61,11 @@ class UsersController {
         }
         UserModel.findOne({email: postData.email}, async (err, user) => {
             if (err || !user) {
-                res.status(404).json('User not found');
+                return res.status(404).json({status: 'error', message: 'User not found'});
             }
             let result = await bcrypt.compare(postData.password, user.password)
             if (!result) {
-                res.status(400).json('Email or password is invalid')
+                return res.status(400).json({status: 'error', message: 'Email or password is invalid'})
             }
             const token = createJWToken(user)
             res.json({status: 'success', token})

@@ -2,7 +2,7 @@ import {withFormik} from "formik";
 import SignInForm from "./SignInForm";
 import validate from "../../../utils/validation";
 import axios from "../../../utils/axios";
-
+import openNotification from "../../../utils/openNotification";
 
 export default withFormik({
     enableReinitialize: true,
@@ -15,10 +15,23 @@ export default withFormik({
         validate({isAuth: true, values, errors});
         return errors;
     },
-    handleSubmit: (values, {setSubmitting}) => {
-        return axios.post('/user/sign-in', values).then(({data}) => {
-            console.log(data)
-        })
+    handleSubmit: async (values, {setSubmitting}) => {
+        const {data} = await axios.post('/user/sign-in', values)
+        if (data.status === 'error') {
+            openNotification({
+                type: 'error',
+                title: 'Ошибка',
+                text: 'Неверный логин или пароль.'
+            })
+        } else {
+            openNotification({
+                type: 'success',
+                title: 'Успешно',
+                text: 'Вы успешно вошли.'
+            })
+        }
+        setSubmitting(false)
+        console.log(data)
     },
     displayName: "SignInForm"
 })(SignInForm);

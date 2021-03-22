@@ -2,10 +2,10 @@ const express = require('express');
 const dotenv = require("dotenv");
 const {createServer} = require("http");
 const PORT = process.env.PORT || 3001;
-const createRoutes = require("./main/routes");
-const createSockets = require("./main/sockets");
+const createRoutes = require("./core/routes");
+const createSockets = require("./core/sockets");
 
-require("./main/connectDb");
+require("./core/connectDb");
 dotenv.config()
 
 const app = express();

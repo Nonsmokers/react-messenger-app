@@ -5,7 +5,7 @@ const initialState = {
     isLoading: false
 }
 
-const messagesReducer = (state = initialState, action) => {
+const messages = (state = initialState, action) => {
     switch (action.type) {
         case SET_MESSAGES_ITEMS: {
             return {
@@ -25,4 +25,4 @@ const messagesReducer = (state = initialState, action) => {
     }
 }
 
-export default messagesReducer;
+export default messages;

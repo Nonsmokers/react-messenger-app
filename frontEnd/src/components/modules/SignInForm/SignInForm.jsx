@@ -7,7 +7,7 @@ import AuthWrapperBlock from '../../common/AuthWrapperBlock/AuthWrapperBlock';
 
 const SignInForm = (props) => {
 
-    const {values, touched, errors, handleChange, handleBlur, handleSubmit} = props;
+    const {values, touched, errors, handleChange, handleBlur, handleSubmit, isSubmitting} = props;
 
     return (
         <>
@@ -50,7 +50,7 @@ const SignInForm = (props) => {
                         />
                     </Form.Item>
                     <Form.Item>
-                        <Button onClick={handleSubmit} type='primary' size='large'>Войти в аккаунт</Button>
+                        <Button onClick={handleSubmit} disabled={isSubmitting} type='primary' size='large'>Войти в аккаунт</Button>
                     </Form.Item>
                     <Link className='auth__register-link' to='/sign-up'>Зарегистрироваться</Link>
                 </Form>

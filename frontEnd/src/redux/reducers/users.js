@@ -1,7 +1,8 @@
 import {SET_USER_DATA} from '../actions/actionTypes.js'
 
 const initialState = {
-    items: null
+    currentUserData: null,
+    signedIn: false
 }
 
 const users = (state = initialState, action) => {
@@ -9,7 +10,8 @@ const users = (state = initialState, action) => {
         case SET_USER_DATA: {
             return {
                 ...state,
-                items: action.payload
+                currentUserData: action.payload,
+                signedIn: true
             }
         }
         default:

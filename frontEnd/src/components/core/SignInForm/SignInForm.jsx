@@ -2,7 +2,7 @@ import React from 'react';
 import {Form, Input} from 'antd';
 import {LockOutlined, MailOutlined} from '@ant-design/icons';
 import {Link} from 'react-router-dom';
-import Button from '../../../components/common/Button/Button';
+import Button from '../../common/Button/Button';
 import AuthWrapperBlock from '../../common/AuthWrapperBlock/AuthWrapperBlock';
 
 const SignInForm = (props) => {

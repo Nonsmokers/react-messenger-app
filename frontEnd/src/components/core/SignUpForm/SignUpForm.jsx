@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import {Form, Input} from 'antd';
 import {InfoCircleTwoTone, LockOutlined, MailOutlined, UserOutlined} from '@ant-design/icons';
 import AuthWrapperBlock from '../../common/AuthWrapperBlock/AuthWrapperBlock';
-import Button from '../../../components/common/Button/Button';
+import Button from '../../common/Button/Button';
 
 const SignUpForm = (props) => {
 

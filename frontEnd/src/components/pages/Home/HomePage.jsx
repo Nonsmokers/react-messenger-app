@@ -5,9 +5,9 @@ import {Scrollbars} from 'react-custom-scrollbars';
 
 import './HomePage.scss';
 import Status from "../../../components/common/Status/Status";
-import ChatInput from "../../mains/ChatInputBlock/ChatInput";
-import SidebarContainer from "../../mains/Sidebar/SidebarContainer";
-import MessagesContainer from "../../mains/Messages/MessagesContainer";
+import ChatInput from "../../core/ChatInputBlock/ChatInput";
+import SidebarContainer from "../../core/Sidebar/SidebarContainer";
+import MessagesContainer from "../../core/Messages/MessagesContainer";
 
 const HomePage = (props) => {
     return (

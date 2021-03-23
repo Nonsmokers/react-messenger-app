@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from "react-redux";
-import actions from "../../../redux/actions/dialogs";
+import DIALOGS_ACTIONS from "../../../redux/actions/dialogs";
 import Sidebar from "./Sidebar";
 
 const SidebarContainer = (props) => {
@@ -43,8 +43,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchDialogs: dialogs => dispatch(actions.fetchAllDialogs(dialogs)),
-    setCurrentDialogId: dialog => dispatch(actions.setCurrentDialogId(dialog))
+    fetchDialogs: dialogs => dispatch(DIALOGS_ACTIONS.fetchAllDialogs(dialogs)),
+    setCurrentDialogId: dialog => dispatch(DIALOGS_ACTIONS.setCurrentDialogId(dialog))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SidebarContainer);

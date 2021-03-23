@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from 'react';
 import {connect} from "react-redux";
-import actions from "../../../redux/actions/messages";
+import MESSAGES_ACTIONS from "../../../redux/actions/messages";
 import Messages from "./Messages";
 
 const MessagesContainer = (props) => {
@@ -32,7 +32,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchAllMessages: dialogId => dispatch(actions.fetchAllMessages(dialogId)),
+    fetchAllMessages: dialogId => dispatch(MESSAGES_ACTIONS.fetchAllMessages(dialogId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MessagesContainer);

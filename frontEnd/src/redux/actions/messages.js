@@ -1,7 +1,7 @@
 import {SET_MESSAGES_IS_LOADING, SET_MESSAGES_ITEMS} from "./actionTypes";
-import messagesApi from './../../utils/api/messages';
+import messagesApi from '../../api/messages';
 
-const actions = {
+const MESSAGES_ACTIONS = {
     setMessages: items => ({
         type: SET_MESSAGES_ITEMS,
         payload: items
@@ -11,14 +11,14 @@ const actions = {
         payload: bool
     }),
     fetchAllMessages: (dialogId) => dispatch => {
-        dispatch(actions.setIsLoading(true))
+        dispatch(MESSAGES_ACTIONS.setIsLoading(true))
         messagesApi.getAllByDialogId(dialogId).then(({data}) => {
-            dispatch(actions.setMessages(data))
-            dispatch(actions.setIsLoading(false))
+            dispatch(MESSAGES_ACTIONS.setMessages(data))
+            dispatch(MESSAGES_ACTIONS.setIsLoading(false))
         }).catch(() => {
-            dispatch(actions.setIsLoading(false))
+            dispatch(MESSAGES_ACTIONS.setIsLoading(false))
         })
     }
 }
 
-export default actions;
+export default MESSAGES_ACTIONS;

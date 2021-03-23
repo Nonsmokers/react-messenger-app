@@ -50,7 +50,6 @@ class UsersController {
     };
 
     loginUser = async (req, res) => {
-        console.log(req.body)
         const postData = {
             email: req.body.email,
             password: req.body.password
@@ -61,14 +60,15 @@ class UsersController {
         }
         UserModel.findOne({email: postData.email}, async (err, user) => {
             if (err || !user) {
-                return res.status(404).json({status: 'error', message: 'User not found'});
+                return res.json({status: 'error', message: 'User not found'});
             }
-            let result = await bcrypt.compare(postData.password, user.password)
-            if (!result) {
-                return res.status(400).json({status: 'error', message: 'Email or password is invalid'})
+            await bcrypt.compare(postData.password, user.password)
+            try {
+                const token = createJWToken(user)
+                res.json({status: 'success', token})
+            } catch {
+                res.json({status: 'error', message: 'Email or password is invalid'})
             }
-            const token = createJWToken(user)
-            res.json({status: 'success', token})
         })
     }
 }

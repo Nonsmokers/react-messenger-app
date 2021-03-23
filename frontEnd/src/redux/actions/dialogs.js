@@ -10,11 +10,10 @@ const DIALOGS_ACTIONS = {
         type: SET_CURRENT_DIALOG_ID,
         payload: id
     }),
-    fetchAllDialogs: () => dispatch => {
-        dialogsApi.getAll().then(({data}) => {
-            console.log(data)
-            dispatch(DIALOGS_ACTIONS.setDialogs(data))
-        })
+    fetchAllDialogs: () => async dispatch => {
+        const response = await dialogsApi.getAll()
+        console.log(response)
+        dispatch(DIALOGS_ACTIONS.setDialogs(response))
     }
 }
 

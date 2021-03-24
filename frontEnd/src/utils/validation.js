@@ -1,5 +1,10 @@
 export default ({isAuth, values, errors}) => {
     const rules = {
+        username: value => {
+            if (!isAuth && !value) {
+                errors.username = "Укажите свое имя и фамилию";
+            }
+        },
         email: (value) => {
             if (!value) {
                 errors.email = "Введите E-Mail";
@@ -12,6 +17,11 @@ export default ({isAuth, values, errors}) => {
                 errors.password = "Введите пароль";
             } else if (!isAuth && !/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/.test(value)) {
                 errors.password = isAuth ? "Неверный пароль" : "Слишком лёгкий пароль";
+            }
+        },
+        password2: value => {
+            if (!isAuth && value !== values.password) {
+                errors.password2 = "Пароли не совпадают";
             }
         }
     }

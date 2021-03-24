@@ -17,13 +17,13 @@ const SidebarContainer = (props) => {
         filterUsersByName(props.items, search)
     }, [search]);
 
-    useEffect(() => {
+/*    useEffect(() => {
         if (!props.items.length) {
             props.fetchDialogs()
         } else {
             setFiltered(props.items)
         }
-    }, [props.items]);
+    }, [props.items]);*/
 
     return (
         <Sidebar search={search}

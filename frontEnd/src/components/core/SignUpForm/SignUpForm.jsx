@@ -1,9 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {Form, Input} from 'antd';
-import {InfoCircleTwoTone, LockOutlined, MailOutlined, UserOutlined} from '@ant-design/icons';
+import {Form} from 'antd';
+import {InfoCircleTwoTone} from '@ant-design/icons';
 import AuthWrapperBlock from '../../common/AuthWrapperBlock/AuthWrapperBlock';
 import Button from '../../common/Button/Button';
+import FormField from "../../common/FormField/FormField";
 
 const SignUpForm = (props) => {
 
@@ -22,61 +23,23 @@ const SignUpForm = (props) => {
                           className='login-form'
                           onSubmit={handleSubmit}
                           size={'large'}>
-                        <Form.Item className='auth__wrapper-input'
-                                   validateStatus={!touched.email ? '' : errors.email ? 'error' : 'success'}
-                                   help={!touched.email ? ' ' : errors.email}
-                                   hasFeedback
-                        >
-                            <Input id='email'
-                                   className='auth__login-input'
-                                   prefix={<MailOutlined className='site-form-item-icon'/>}
-                                   placeholder='E-mail'
-                                   value={values.email}
-                                   onChange={handleChange}
-                                   onBlur={handleBlur}
-                            />
-                        </Form.Item>
-                        <Form.Item className='auth__wrapper-input'
-                                   hasFeedback
-                        >
-                            <Input id={'username'}
-                                   className='auth__login-input'
-                                   prefix={<UserOutlined className='site-form-item-icon'/>}
-                                   placeholder='Ваше имя'
-                                   value={values.username}
-                                   onChange={handleChange}
-                                   onBlur={handleBlur}
-                            />
-                        </Form.Item>
-                        <Form.Item className='auth__wrapper-input'
-                                   validateStatus={!touched.password ? '' : errors.password ? 'error' : 'success'}
-                                   help={!touched.password ? ' ' : errors.password}
-                                   hasFeedback
-                        >
-                            <Input id='password'
-                                   className='auth__login-input'
-                                   prefix={<LockOutlined className='site-form-item-icon'/>}
-                                   type='password'
-                                   placeholder='Пароль'
-                                   onChange={handleChange}
-                                   value={values.password}
-                                   onBlur={handleBlur}
-                            />
-                        </Form.Item>
-                        <Form.Item className='auth__wrapper-input'
-                                   validateStatus={!touched.password2 ? '' : errors.password2 ? 'error' : 'success'}
-                                   hasFeedback
-                        >
-                            <Input id='password2'
-                                   className='auth__login-input'
-                                   prefix={<LockOutlined className='site-form-item-icon'/>}
-                                   type="password"
-                                   placeholder="Повторить Пароль"
-                                   value={values.password2}
-                                   onChange={handleChange}
-                                   onBlur={handleBlur}
-                            />
-                        </Form.Item>
+                        <FormField
+                            name={'email'} values={values} touched={touched} handleChange={handleChange}
+                            errors={errors} handleBlur={handleBlur} placeholder={'E-mail'} type={'text'}
+                        />
+                        <FormField
+                            name={'username'} values={values} touched={touched} handleChange={handleChange}
+                            errors={errors} handleBlur={handleBlur} placeholder={'Ваше имя'} type={'text'}
+                        />
+                        <FormField
+                            name={'password'} touched={touched} values={values} handleChange={handleChange}
+                            errors={errors} handleBlur={handleBlur} placeholder={'Введите пароль'}
+                            type={'password'}
+                        />
+                        <FormField
+                            name={'password2'} touched={touched} values={values} handleChange={handleChange}
+                            errors={errors} handleBlur={handleBlur} placeholder={'Повторить Пароль'} type={'password'}
+                        />
                         <Form.Item>
                             <Button onClick={handleSubmit} type='primary' size='large'>Зарегистрироваться</Button>
                         </Form.Item>

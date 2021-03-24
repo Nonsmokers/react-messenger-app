@@ -9,15 +9,15 @@ const USER_ACTIONS = {
         payload: data
     }),
 
-    //доделать метод
-    fetchUserData: () =>  dispatch => {
-        usersApi.getMe().then(({ data }) => {
+    fetchUserData: () => dispatch => {
+        usersApi.getMe().then(({data}) => {
             console.log(data)
             dispatch(USER_ACTIONS.setUserData(data));
         })
     },
+
     fetchUserLogin: (postData) => async dispatch => {
-        const response = await usersApi.login(postData)
+        const response = await usersApi.signIn(postData)
         const {status, token} = response.data
         if (status === 'error') {
             openNotification({
@@ -35,12 +35,16 @@ const USER_ACTIONS = {
             const expirationDate = new Date(new Date().getTime() + 3600 * 1000 * 24 * 7);
             dispatch(USER_ACTIONS.autoLogout(expirationDate - new Date().getTime()))
 
-            window.axios.defaults.headers.common['token'] = token;
+            window.axios.defaults.headers['token'] = token;
             localStorage.setItem('token', token)
             localStorage.setItem('expirationDate', expirationDate);
 
             return dispatch(USER_ACTIONS.fetchUserData())
         }
+    },
+
+    fetchUserRegister: (postData) => {
+        usersApi.signUp(postData)
     },
 
     autoLogout: (time) => {
@@ -59,17 +63,23 @@ const USER_ACTIONS = {
             type: SET_USER_LOGOUT
         }
     },
-
     autoLogin: () => {
         return dispatch => {
             const token = localStorage.getItem('token');
             if (!token) {
                 dispatch(USER_ACTIONS.logout())
             } else {
-
+                const expirationDate = new Date(localStorage.getItem('expirationDate'));
+                if (expirationDate <= new Date()) {
+                    dispatch(USER_ACTIONS.logout())
+                } else {
+                    dispatch(USER_ACTIONS.fetchUserData())
+                    dispatch(USER_ACTIONS.autoLogout(expirationDate.getTime() - new Date().getTime()))
+                }
             }
         }
     }
+
 }
 
 export default USER_ACTIONS;

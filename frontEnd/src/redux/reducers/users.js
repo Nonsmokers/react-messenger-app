@@ -2,7 +2,8 @@ import {SET_USER_DATA, SET_USER_LOGOUT} from '../actions/actionTypes.js'
 
 const initialState = {
     currentUserData: null,
-    signedIn: false
+    signedIn: !!window.localStorage.token,
+    token: window.localStorage.token,
 }
 
 const users = (state = initialState, action) => {
@@ -11,14 +12,16 @@ const users = (state = initialState, action) => {
             return {
                 ...state,
                 currentUserData: action.payload,
-                signedIn: true
+                signedIn: true,
+                token: window.localStorage.token
             }
         case SET_USER_LOGOUT :
-                return {
-                    ...state,
-                    currentUserData: null,
-                    signedIn: false
-                }
+            return {
+                ...state,
+                currentUserData: null,
+                signedIn: false,
+                token: ''
+            }
         default:
             return state;
     }

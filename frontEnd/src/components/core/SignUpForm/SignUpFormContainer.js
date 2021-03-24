@@ -2,10 +2,13 @@ import {withFormik} from "formik";
 import SignUpForm from "./SignUpForm";
 import validation from "../../../utils/validation";
 
-export default withFormik({
+import USER_ACTIONS from "../../../redux/actions/users";
+import {connect} from "react-redux";
+
+const SignUpFormContainer = withFormik({
     mapPropsToValues: () => ({
         email: "",
-        username: "",
+        fullname: "",
         password: "",
         password2: ""
     }),
@@ -16,10 +19,20 @@ export default withFormik({
 
         return errors;
     },
-    handleSubmit: (values, {setSubmitting, props}) => {
-        props.fetchUserRegister(values)
+    handleSubmit: async (values, {setSubmitting, props}) => {
+        await props.fetchUserRegister(values)
+
+        //TODO: добавить переход на верификацию акка
+
         setSubmitting(false)
     },
     displayName: "SignUpForm"
 })(SignUpForm);
+
+
+const mapDispatchToProps = (dispatch) => ({
+    fetchUserRegister: postData => dispatch(USER_ACTIONS.fetchUserRegister(postData))
+});
+
+export default connect( null , mapDispatchToProps)(SignUpFormContainer);
 

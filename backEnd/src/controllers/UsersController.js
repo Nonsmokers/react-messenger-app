@@ -29,27 +29,28 @@ class UsersController {
         return res.json(user)
     };
 
-    createUser = async (req, res) => {
+    signUpUser = async (req, res) => {
         const postData = {
             email: req.body.email,
             fullname: req.body.fullname,
             password: req.body.password
         }
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(422).json({errors: errors.array()});
+        }
+
         const user = new UserModel(postData)
         await user.save()
-        return res.json(user)
+        try {
+            return res.json(user)
+        } catch (e) {
+            return res.json({status: 'error', message: e.message})
+        }
     }
 
-    deleteUser = async (req, res) => {
-        const id = req.params.id
-        const user = await UserModel.findOneAndRemove({_id: id})
-        if (!user) {
-            res.status(404).json('User not found');
-        }
-        return res.json(`User removed`)
-    };
-
-    loginUser = async (req, res) => {
+    signInUser = async (req, res) => {
         const postData = {
             email: req.body.email,
             password: req.body.password
@@ -69,8 +70,17 @@ class UsersController {
             } catch {
                 res.json({status: 'error', message: 'Email or password is invalid'})
             }
-        })
+        }).select('+password')
     }
+
+    deleteUser = async (req, res) => {
+        const id = req.params.id
+        const user = await UserModel.findOneAndRemove({_id: id})
+        if (!user) {
+            res.status(404).json('User not found');
+        }
+        return res.json(`User removed`)
+    };
 }
 
 module.exports = UsersController;

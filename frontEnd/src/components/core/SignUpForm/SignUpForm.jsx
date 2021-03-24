@@ -8,7 +8,7 @@ import FormField from "../../common/FormField/FormField";
 
 const SignUpForm = (props) => {
 
-    const {values, touched, errors, handleChange, handleBlur, handleSubmit} = props;
+    const {values, touched, errors, handleChange, handleBlur, handleSubmit, isSubmitting} = props;
     const success = false;
 
     return (
@@ -28,7 +28,7 @@ const SignUpForm = (props) => {
                             errors={errors} handleBlur={handleBlur} placeholder={'E-mail'} type={'text'}
                         />
                         <FormField
-                            name={'username'} values={values} touched={touched} handleChange={handleChange}
+                            name={'fullname'} values={values} touched={touched} handleChange={handleChange}
                             errors={errors} handleBlur={handleBlur} placeholder={'Ваше имя'} type={'text'}
                         />
                         <FormField
@@ -41,7 +41,9 @@ const SignUpForm = (props) => {
                             errors={errors} handleBlur={handleBlur} placeholder={'Повторить Пароль'} type={'password'}
                         />
                         <Form.Item>
-                            <Button onClick={handleSubmit} type='primary' size='large'>Зарегистрироваться</Button>
+                            <Button onClick={handleSubmit} disabled={isSubmitting}
+                                    type='primary' size='large'> Зарегистрироваться
+                            </Button>
                         </Form.Item>
                         <Link className='auth__register-link' to='/sign-in'>Войти в аккаунт</Link>
                     </Form>

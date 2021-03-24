@@ -1,6 +1,6 @@
 export default ({isAuth, values, errors}) => {
     const rules = {
-        username: value => {
+        fullname: value => {
             if (!isAuth && !value) {
                 errors.username = "Укажите свое имя и фамилию";
             }

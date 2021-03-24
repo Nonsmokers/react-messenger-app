@@ -43,8 +43,8 @@ const USER_ACTIONS = {
         }
     },
 
-    fetchUserRegister: (postData) => {
-        usersApi.signUp(postData)
+    fetchUserRegister: async (postData) => {
+        await usersApi.signUp(postData)
     },
 
     autoLogout: (time) => {

@@ -15,7 +15,7 @@ const App = (props) => {
     return (
         <section className='App'>
             {props.isAuthenticated ? <Redirect to='/im'/> : <Redirect to='/'/>}
-            <Route exact path={['/', '/sign-in', '/sign-up']} render={() => <AuthPage/>}/>
+            <Route exact path={['/', '/sign-in', '/sign-up', "/sign-up/verify"]} render={() => <AuthPage/>}/>
             <Route path={'/im'} render={() => <HomePageContainer/>}/>
         </section>
     );

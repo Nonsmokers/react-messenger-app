@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Redirect, Route} from 'react-router-dom';
+import {Redirect, Route, Switch, withRouter} from 'react-router-dom';
 import {connect} from "react-redux";
 
 import AuthPage from './components/pages/Auth/AuthPage';
@@ -12,11 +12,24 @@ const App = (props) => {
         props.autoLogin()
     }, [])
 
+    let routes = (
+        <Switch>
+            <Route exact path={['/', '/sign-in', '/sign-up', '/sign-up/verify']} render={() => <AuthPage/>}/>
+            <Redirect to={'/'}/>
+        </Switch>
+    )
+    if (props.isAuthenticated) {
+        routes = (
+            <Switch>
+                <Route path={'/im'} render={() => <HomePageContainer/>}/>
+                <Redirect to={'/im'}/>
+            </Switch>
+        )
+    }
+
     return (
         <section className='App'>
-            {props.isAuthenticated ? <Redirect to='/im'/> : <Redirect to='/'/>}
-            <Route exact path={['/', '/sign-in', '/sign-up', "/sign-up/verify"]} render={() => <AuthPage/>}/>
-            <Route path={'/im'} render={() => <HomePageContainer/>}/>
+            {routes}
         </section>
     );
 }
@@ -24,11 +37,11 @@ const App = (props) => {
 const selectIsAuthenticated = state => state.usersReducer.signedIn
 
 const mapStateToProps = (state) => ({
-    isAuthenticated: !!selectIsAuthenticated(state)
+    isAuthenticated: selectIsAuthenticated(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
     autoLogin: () => dispatch(USER_ACTIONS.autoLogin())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))

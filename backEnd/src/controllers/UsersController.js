@@ -44,9 +44,9 @@ class UsersController {
         const user = new UserModel(postData)
         await user.save()
         try {
-            return res.json(user)
-        } catch (e) {
-            return res.json({status: 'error', message: e.message})
+            res.json(user)
+        } catch (reason) {
+            res.json(reason)
         }
     }
 

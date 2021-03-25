@@ -2,8 +2,8 @@ import {SET_USER_DATA, SET_USER_LOGOUT} from '../actions/actionTypes.js'
 
 const initialState = {
     currentUserData: null,
-    signedIn: !!window.localStorage.token,
     token: window.localStorage.token,
+    signedIn: !!window.localStorage.token,
 }
 
 const users = (state = initialState, action) => {

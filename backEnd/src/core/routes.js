@@ -10,7 +10,7 @@ const signUpValidation = require("../utils/signUpValidation");
 
 const routes = (app, io) => {
 
-    const {findUser, getMe, signUpUser, deleteUser, signInUser} = new UserController(io);
+    const {findUser, getMe, signUpUser, deleteUser, signInUser, verify} = new UserController(io);
     const {getAllDialogs, createDialog, deleteDialog} = new DialogController(io);
     const {getAllMessages, createMessage, deleteMessage} = new MessageController(io);
 
@@ -29,10 +29,11 @@ const routes = (app, io) => {
     app.use(updateLastVisit)
     app.use(checkAuthenticateToken)
 
+    app.get('/user/verify?hash=', verify);
     app.get('/user/me', getMe);
-    app.get('/user/:id', findUser);
     app.post('/user/sign-up', signUpValidation, signUpUser);
     app.post('/user/sign-in', signInValidation, signInUser);
+    app.get('/user/:id', findUser);
     app.delete('/user/:id', deleteUser);
 
     app.get('/dialogs', getAllDialogs);

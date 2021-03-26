@@ -41,6 +41,8 @@ UserSchema.pre('save', async function (next) {
     const hash = await generatePasswordHash(user.password)
     try {
         user.password = String(hash);
+        const verifyHash = await generatePasswordHash(user.password)
+        user.confirm_hash = String(verifyHash)
         next();
     } catch (err) {
         next(err);

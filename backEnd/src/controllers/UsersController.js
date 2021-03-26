@@ -49,6 +49,22 @@ class UsersController {
             res.json(reason)
         }
     }
+    //TODO допилить верификацию
+    verify = async (req, res) => {
+         console.log(req.query)
+        const verifyHash = req.query.hash
+
+        if (!verifyHash) {
+            return res.status(422).json({errors: 'Hash not found'});
+        }
+
+        await UserModel.findOne({confirm_hash: verifyHash}, async (err, user) => {
+            if (err || !user) {
+                return res.json({message: 'User not found'});
+            }
+            res.json({status: 'success', message: 'Hash is verified'})
+        })
+    }
 
     signInUser = async (req, res) => {
         const postData = {
@@ -59,7 +75,7 @@ class UsersController {
         if (!errors.isEmpty()) {
             return res.status(422).json({errors: errors.array()});
         }
-        UserModel.findOne({email: postData.email}, async (err, user) => {
+        await UserModel.findOne({email: postData.email}, async (err, user) => {
             if (err || !user) {
                 return res.json({status: 'error', message: 'User not found'});
             }

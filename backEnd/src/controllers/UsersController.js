@@ -49,19 +49,20 @@ class UsersController {
             res.json(reason)
         }
     }
-    //TODO допилить верификацию
+
     verify = async (req, res) => {
-         console.log(req.query)
-        const verifyHash = req.query.hash
+       const verifyHash = req.query.hash
 
         if (!verifyHash) {
             return res.status(422).json({errors: 'Hash not found'});
         }
 
-        await UserModel.findOne({confirm_hash: verifyHash}, async (err, user) => {
+        await UserModel.find({confirm_hash: verifyHash}, async (err, user) => {
             if (err || !user) {
                 return res.json({message: 'User not found'});
             }
+
+            user.confirmed = true;
             res.json({status: 'success', message: 'Hash is verified'})
         })
     }

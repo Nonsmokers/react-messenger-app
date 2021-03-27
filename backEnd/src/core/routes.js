@@ -1,16 +1,16 @@
+const cors = require('cors')
+const bodyParser = require('body-parser');
 const UserController = require('../controllers/UsersController');
 const DialogController = require('../controllers/DialogsController');
 const MessageController = require('../controllers/MessagesController');
-const bodyParser = require('body-parser');
 const updateLastVisit = require('../middlewares/updateLastVisit');
 const checkAuthenticateToken = require('../middlewares/checkAuthenticateToken');
-const cors = require('cors')
 const signInValidation = require("../utils/signInValidation");
 const signUpValidation = require("../utils/signUpValidation");
 
 const routes = (app, io) => {
 
-    const {findUser, getMe, signUpUser, deleteUser, signInUser, verify} = new UserController(io);
+    const {getMe, findUser, verify, signUpUser, signInUser, deleteUser} = new UserController(io);
     const {getAllDialogs, createDialog, deleteDialog} = new DialogController(io);
     const {getAllMessages, createMessage, deleteMessage} = new MessageController(io);
 
@@ -29,11 +29,11 @@ const routes = (app, io) => {
     app.use(updateLastVisit)
     app.use(checkAuthenticateToken)
 
-    app.get('/user/verify?hash=', verify);
     app.get('/user/me', getMe);
+    app.get('/user/verify', verify);
+    app.get('/user/:id', findUser);
     app.post('/user/sign-up', signUpValidation, signUpUser);
     app.post('/user/sign-in', signInValidation, signInUser);
-    app.get('/user/:id', findUser);
     app.delete('/user/:id', deleteUser);
 
     app.get('/dialogs', getAllDialogs);

@@ -11,7 +11,7 @@ const AuthPage = () => {
             <div className='auth__content'>
                 <Route exact path={['/', '/sign-in']} render={() => <SignInFormContainer/>}/>
                 <Route exact path={'/sign-up'} render={() => <SignUpFormContainer/>}/>
-                <Route exact path={'/sign-up/verify'} render={() => <CheckEmailInfo/>}/>
+                <Route exact path={'/sign-up/verify'} component={CheckEmailInfo} />
             </div>
         </div>
     );

@@ -1,4 +1,5 @@
 const MessageModel = require('../models/Message');
+const DialogModel = require('../models/Dialog');
 
 class MessagesController {
 
@@ -10,7 +11,7 @@ class MessagesController {
         const dialogId = req.query.dialog
         MessageModel
             .find({dialog: dialogId})
-            .populate(['dialog'])
+            .populate('dialog')
             .exec((err, messages) => {
                 if (err) {
                     return res.status(404).json('Dialogs is empty');
@@ -21,23 +22,38 @@ class MessagesController {
 
     createMessage = async (req, res) => {
         const userId = req.user._id;
+        console.log(userId)
 
         const postData = {
-            sender: userId,
             text: req.body.text,
-            dialog: req.body.dialogId
+            dialog: req.body.dialogId,
+            sender: userId,
         }
         const message = new MessageModel(postData)
         await message.save()
-        message.populate('dialog', (err, messageObj) => {
-            if (err) {
-                console.log(err.message)
-                res.json(err.message)
-            }
-            this.io.emit("NEW:MESSAGE", messageObj)
-            res.json(messageObj)
-        })
+        try{
+            message.populate('dialog', (err, messageObj) => {
+                if (err) {
+                    res.json(err.message)
+                }
 
+                DialogModel.findOneAndUpdate(
+                    {_id: postData.dialog},
+                    {last_message: message._id},
+                    {findAndModify: true, upsert: true},
+                    (err) => {
+                        if(err){
+                            return res.status(500).json(err.message);
+                        }
+                    })
+
+                res.json(messageObj)
+
+                this.io.emit("NEW:MESSAGE", messageObj)
+            })            
+        }catch (e) {
+            return res.status(500).json(e.message);
+        }
     };
 
     deleteMessage = async (req, res) => {

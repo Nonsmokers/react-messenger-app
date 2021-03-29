@@ -1,5 +1,6 @@
 const {Schema, model} = require('mongoose');
 const {isEmail} = require('validator');
+const {differenceInMinutes, parseISO} = require('date-fns');
 const generatePasswordHash = require('../utils/generatePasswordHash');
 
 const UserSchema = new Schema({
@@ -31,6 +32,13 @@ const UserSchema = new Schema({
     }, {timestamps: true}
 );
 
+UserSchema.virtual('isOnline').get(function () {
+    return differenceInMinutes(parseISO(new Date().toISOString()), this.last_visit) < 5;
+});
+
+UserSchema.set("toJSON", {
+    virtuals: true,
+});
 
 UserSchema.pre('save', async function (next) {
     const user = this;

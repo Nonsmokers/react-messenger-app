@@ -10,7 +10,7 @@ const DialogSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: "User"
         },
-        lastMessage: {
+        last_message: {
             type: Schema.Types.ObjectId,
             ref: "Message"
         }

@@ -6,7 +6,9 @@ import {Scrollbars} from "react-custom-scrollbars";
 import './Sidebar.scss';
 import DialogsList from "./DialogsList/DialogsList";
 
-const Sidebar = (props) => {
+const Sidebar = ({items, filtered, onSelectDialog, currentDialogId, setSearch, search}) => {
+
+    console.log(items)
 
     return (
         <div className="chat__sidebar">
@@ -21,16 +23,16 @@ const Sidebar = (props) => {
                 <div className="chat__sidebar-search-input">
                     <Input allowClear
                            placeholder="Поиск по диалогам"
-                           value={props.search}
-                           onChange={event => props.setSearch(event.target.value)}
+                           value={search}
+                           onChange={event => setSearch(event.target.value)}
                            prefix={<SearchOutlined/>}
                     />
                 </div>
             </div>
             <div className="chat__sidebar-dialogs">
                 <Scrollbars>
-                    <DialogsList userId={0} onSelectDialog={props.onSelectDialog}
-                                 currentDialogId={props.currentDialogId} items={props.filtered}/>
+                    <DialogsList items={filtered} userId={0}
+                                 onSelectDialog={onSelectDialog} currentDialogId={currentDialogId}/>
                 </Scrollbars>
             </div>
         </div>

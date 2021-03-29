@@ -41,7 +41,7 @@ const CheckEmailInfo = (props) => {
                     extra={
                         info.status === "success" &&
                         verified && (
-                            <Button type="primary" onClick={() => props.history.push("/signin")}>Войти</Button>
+                            <Button type="primary" onClick={() => props.history.push("/sign-in")}>Войти</Button>
                         )
                     }
                 />

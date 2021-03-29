@@ -12,8 +12,7 @@ const DIALOGS_ACTIONS = {
     }),
     fetchAllDialogs: () => async dispatch => {
         const response = await dialogsApi.getAll()
-        console.log(response)
-        dispatch(DIALOGS_ACTIONS.setDialogs(response))
+        dispatch(DIALOGS_ACTIONS.setDialogs(response.data))
     }
 }
 

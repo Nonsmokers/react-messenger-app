@@ -11,8 +11,13 @@ class DialogsController {
         const authorId = req.user._id
         DialogModel
             .find({author: authorId})
-            .populate(['author', '-password'])
-            .populate(['partner', '-password'])
+            .populate(['author', 'partner', 'last_message', '-password'])
+            .populate({
+                path: 'last_message',
+                populate: {
+                    path: 'sender'
+                }
+            })
             .exec((err, dialogs) => {
                 if (err) {
                     return res.status(404).json('Dialogs is empty');

@@ -26,8 +26,8 @@ const routes = (app, io) => {
     });
     app.use(bodyParser.json())
     app.use(bodyParser.urlencoded({extended: false}))
-    app.use(updateLastVisit)
     app.use(checkAuthenticateToken)
+    app.use(updateLastVisit)
 
     app.get('/user/me', getMe);
     app.get('/user/verify', verify);
@@ -43,10 +43,6 @@ const routes = (app, io) => {
     app.get('/messages', getAllMessages);
     app.post('/messages', createMessage);
     app.delete('/messages/:id', deleteMessage);
-
-    app.get('/', (req, res) => {
-        res.sendFile(__dirname + '/index.html');
-    });
 }
 
 module.exports = routes;

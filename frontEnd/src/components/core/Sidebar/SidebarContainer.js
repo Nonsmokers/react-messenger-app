@@ -3,9 +3,9 @@ import {connect} from "react-redux";
 import DIALOGS_ACTIONS from "../../../redux/actions/dialogs";
 import Sidebar from "./Sidebar";
 
-const SidebarContainer = (props) => {
+const SidebarContainer = ({items, setCurrentDialogId, currentDialogId, fetchDialogs}) => {
     const [search, setSearch] = useState('');
-    const [filtered, setFiltered] = useState([...props.items]);
+    const [filtered, setFiltered] = useState([...items]);
 
     const filterUsersByName = (arr, name) => {
         setFiltered(arr.filter(function (element) {
@@ -14,23 +14,29 @@ const SidebarContainer = (props) => {
     }
 
     useEffect(() => {
-        filterUsersByName(props.items, search)
+        filterUsersByName(items, search)
     }, [search]);
 
-/*    useEffect(() => {
-        if (!props.items.length) {
-            props.fetchDialogs()
+    useEffect(() => {
+        console.log(items)
+    }, []);
+
+
+    useEffect(() => {
+        if (!items.length) {
+            fetchDialogs()
         } else {
-            setFiltered(props.items)
+            setFiltered(items)
         }
-    }, [props.items]);*/
+    }, []);
 
     return (
-        <Sidebar search={search}
+        <Sidebar items={items}
+                 search={search}
                  setSearch={setSearch}
                  filtered={filtered}
-                 onSelectDialog={props.setCurrentDialogId}
-                 currentDialogId={props.currentDialogId}
+                 onSelectDialog={setCurrentDialogId}
+                 currentDialogId={currentDialogId}
         />
     );
 }

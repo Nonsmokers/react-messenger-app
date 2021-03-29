@@ -11,7 +11,6 @@ const USER_ACTIONS = {
 
     fetchUserData: () => dispatch => {
         usersApi.getMe().then(({data}) => {
-            console.log(data)
             dispatch(USER_ACTIONS.setUserData(data));
         })
     },

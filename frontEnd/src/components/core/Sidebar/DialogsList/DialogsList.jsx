@@ -3,22 +3,22 @@ import './DialogsList.scss';
 import DialogItem from '../DialogItem/DialogItem';
 import {Empty} from "antd";
 
-const DialogsList = (props) => {
+const DialogsList = ({items,userId,currentDialogId ,onSelectDialog}) => {
 
-    let copyOfArr = [...props.items]
+    let copyOfArr = [...items]
     copyOfArr.sort((a, b) => a.sendingTime > b.sendingTime ? 1 : -1)
 
     return (
         <>
-            {props.items.length ? (
+            {items.length ? (
                     copyOfArr.map(item => (
                         <DialogItem
-                            onSelectDialog={props.onSelectDialog}
+                            onSelectDialog={onSelectDialog}
                             key={item._id}
                             {...item}
                             unReaded={3}
-                            isMe={item._id === props.userId}
-                            currentDialogId={props.currentDialogId}
+                            isMe={item._id === userId}
+                            currentDialogId={currentDialogId}
                         />)
                     )
                 )

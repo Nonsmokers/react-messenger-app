@@ -3,22 +3,25 @@ import {connect} from "react-redux";
 import MESSAGES_ACTIONS from "../../../redux/actions/messages";
 import Messages from "./Messages";
 
-const MessagesContainer = (props) => {
+const MessagesContainer = ({items, currentDialogId, fetchAllMessages, isLoading}) => {
     const messagesRef = useRef(null)
 
     useEffect(() => {
-        if (props.currentDialogId) {
-            props.fetchAllMessages(props.currentDialogId)
+        if (currentDialogId) {
+            fetchAllMessages(currentDialogId)
         }
-    }, [props.currentDialogId]);
+    }, [currentDialogId]);
 
     useEffect(() => {
         messagesRef.current.scrollTo(0, 2000)
-    }, [props.items]);
+    }, [items]);
 
 
     return (
-        <Messages blockRef={messagesRef} items={props.items} isLoading={props.isLoading}/>
+        <Messages blockRef={messagesRef}
+                  items={items}
+                  isLoading={isLoading}
+        />
     );
 }
 const selectMessages = state => state.messagesReducer.items;

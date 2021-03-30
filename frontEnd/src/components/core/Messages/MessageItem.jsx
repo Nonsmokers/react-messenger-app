@@ -6,45 +6,45 @@ import MessageSendingTime from "../../common/MessageSendingTime/MessageSendingTi
 import MessageAudio from "./MessageAudio/MessageAudio";
 import Avatar from "../../common/Avatar/Avatar";
 
-const MessageItem = (props) => {
-
+const MessageItem = ({sender, text, audio, isMe, unread, attachments, isTyping, sendingTime}) => {
+    console.log({sender, text, audio, isMe, unread, attachments, isTyping, sendingTime})
     return (
         <section className={className('message', {
-            'message__isme': props.isMe,
-            'message__istyping': props.isTyping,
-            'message__isimage': props.attachments && props.attachments.length === 1,
-            'message__isaudio': props.audio,
+            'message__isme': isMe,
+            'message__istyping': isTyping,
+            'message__isimage': attachments && attachments.length === 1,
+            'message__isaudio': audio,
         })}>
             <div className={'message__content'}>
-                <MessageStatusIcon isMe={props.isMe} isReaded={props.isReaded}/>
+                <MessageStatusIcon isMe={isMe} isReaded={unread}/>
                 <div className='message__avatar'>
-                    <Avatar user={props.user}/>
+                     <Avatar sender={sender}/>
                 </div>
                 <div className='message__info'>
-                    {(props.audio || props.text || props.isTyping) && (
+                    {(audio || text || isTyping) && (
                         <div className='message__bubble'>
-                            <p className='message__text'>{props.text}</p>
-                            {props.isTyping && (
+                            <p className='message__text'>{text}</p>
+                            {isTyping && (
                                 <div className='message__typing'>
                                     <span/>
                                     <span/>
                                     <span/>
                                 </div>
                             )}
-                            {props.audio && <MessageAudio audio={props.audio}/>}
+                            {audio && <MessageAudio audio={audio}/>}
                         </div>
                     )}
-                    {props.attachments &&
+                    {attachments &&
                     <div className='message__attachments'>
-                        {props.attachments.map((item, i) => (
+                        {attachments.map((item, i) => (
                             <div key={i} className='message__attachments-item'>
                                 <img src={item.url} alt={item.filename}/>
                             </div>
                         ))}
                     </div>}
-                    {props.sendingTime &&
+                    {sendingTime &&
                     <span className='message__date'>
-                        <MessageSendingTime date={props.sendingTime ? props.sendingTime : null}/>
+                        <MessageSendingTime date={sendingTime ? sendingTime : null}/>
                     </span>}
                 </div>
             </div>

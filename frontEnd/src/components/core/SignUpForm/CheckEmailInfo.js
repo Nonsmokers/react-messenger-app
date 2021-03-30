@@ -22,14 +22,14 @@ const CheckEmailInfo = (props) => {
     const hash = props.location.search.split("hash=")[1];
     const info = renderTextInfo(hash, verified);
 
-    useEffect(async () => {
+    useEffect(() => {
         if (hash) {
-            const data = await users.verifyHash(hash)
+            const data =  users.verifyHash(hash)
             if (data.status === "success") {
                 setVerified(true);
             }
         }
-    }, [])
+    }, [hash])
 
     return (
         <div className="verify-block">

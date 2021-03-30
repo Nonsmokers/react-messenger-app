@@ -3,31 +3,22 @@ import {connect} from "react-redux";
 import DIALOGS_ACTIONS from "../../../redux/actions/dialogs";
 import Sidebar from "./Sidebar";
 
-const SidebarContainer = ({items, setCurrentDialogId, currentDialogId, fetchDialogs}) => {
+const SidebarContainer = ({items, setCurrentDialogId, currentDialogId, fetchDialogs, currentUserId}) => {
+
     const [search, setSearch] = useState('');
     const [filtered, setFiltered] = useState([...items]);
 
     const filterUsersByName = (arr, name) => {
-        setFiltered(arr.filter(function (element) {
-            return element.user.fullname.toLowerCase().includes(name.toLowerCase());
+        setFiltered(arr.filter((element) => {
+            return element.partner.fullname.toLowerCase().includes(name.toLowerCase());
         }))
     }
-
     useEffect(() => {
         filterUsersByName(items, search)
     }, [search]);
 
     useEffect(() => {
-        console.log(items)
-    }, []);
-
-
-    useEffect(() => {
-        if (!items.length) {
-            fetchDialogs()
-        } else {
-            setFiltered(items)
-        }
+        !items.length ? fetchDialogs() : setFiltered(items)
     }, []);
 
     return (
@@ -37,6 +28,7 @@ const SidebarContainer = ({items, setCurrentDialogId, currentDialogId, fetchDial
                  filtered={filtered}
                  onSelectDialog={setCurrentDialogId}
                  currentDialogId={currentDialogId}
+                 currentUserId={currentUserId}
         />
     );
 }
@@ -45,7 +37,7 @@ const selectCurrentDialogId = state => state.dialogsReducer.currentDialogId
 
 const mapStateToProps = (state) => ({
     items: selectDialogs(state),
-    currentDialogId: selectCurrentDialogId(state)
+    currentDialogId: selectCurrentDialogId(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

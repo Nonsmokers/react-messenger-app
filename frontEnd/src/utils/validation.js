@@ -1,4 +1,4 @@
-export default ({isAuth, values, errors}) => {
+const validation = ({isAuth, values, errors}) => {
     const rules = {
         fullname: value => {
             if (!isAuth && !value) {
@@ -28,3 +28,5 @@ export default ({isAuth, values, errors}) => {
 
     Object.keys(values).forEach(key => rules[key] && rules[key](values[key]));
 };
+
+export default validation;

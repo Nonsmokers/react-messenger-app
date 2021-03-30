@@ -30,14 +30,8 @@ const generateAvatarFromHash = (hash) => {
 };
 
 const Avatar = (props) => {
-    if (props.user.avatar) {
-        return (
-            <img className="avatar"
-                 src={props.user.avatar}
-                 alt={`Avatar ${props.user.fullname}`}
-            />
-        );
-    } else {
+    console.log(props.user)
+    if (!props.user.avatar) {
         const {color, colorLighten} = generateAvatarFromHash(props.user._id);
         const firstChar = props.user.fullname[0].toUpperCase();
         return (
@@ -47,6 +41,13 @@ const Avatar = (props) => {
                 {firstChar}
             </div>
         );
+    } else {
+        return (
+            <img className="avatar"
+                 src={props.user.avatar}
+                 alt={`Avatar ${props.user.fullname}`}
+            />
+        )
     }
 };
 

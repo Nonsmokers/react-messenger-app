@@ -6,10 +6,7 @@ import {Scrollbars} from "react-custom-scrollbars";
 import './Sidebar.scss';
 import DialogsList from "./DialogsList/DialogsList";
 
-const Sidebar = ({items, filtered, onSelectDialog, currentDialogId, setSearch, search}) => {
-
-    console.log(items)
-
+const Sidebar = ({items, filtered, currentDialogId, currentUserId, onSelectDialog, search, setSearch}) => {
     return (
         <div className="chat__sidebar">
             <div className="chat__sidebar-header">
@@ -31,8 +28,12 @@ const Sidebar = ({items, filtered, onSelectDialog, currentDialogId, setSearch, s
             </div>
             <div className="chat__sidebar-dialogs">
                 <Scrollbars>
-                    <DialogsList items={filtered} userId={0}
-                                 onSelectDialog={onSelectDialog} currentDialogId={currentDialogId}/>
+                    <DialogsList items={items}
+                                 filtered={filtered}
+                                 onSelectDialog={onSelectDialog}
+                                 currentDialogId={currentDialogId}
+                                 currentUserId={currentUserId}
+                    />
                 </Scrollbars>
             </div>
         </div>

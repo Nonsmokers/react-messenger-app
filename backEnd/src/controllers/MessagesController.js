@@ -11,10 +11,10 @@ class MessagesController {
         const dialogId = req.query.dialog
         MessageModel
             .find({dialog: dialogId})
-            .populate('dialog')
+            .populate(['dialog', 'sender'])
             .exec((err, messages) => {
                 if (err) {
-                    return res.status(404).json('Dialogs is empty');
+                    return res.status(404).json(err.message);
                 }
                 res.json(messages)
             })
@@ -22,7 +22,6 @@ class MessagesController {
 
     createMessage = async (req, res) => {
         const userId = req.user._id;
-        console.log(userId)
 
         const postData = {
             text: req.body.text,

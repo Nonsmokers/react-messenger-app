@@ -3,7 +3,7 @@ import {SET_DIALOGS_ITEMS, SET_CURRENT_DIALOG_ID} from '../actions/actionTypes.j
 const initialState = {
     isReady: false,
     items: [],
-    currentDialogId: null
+    currentDialogId: null,
 }
 
 const dialogs = (state = initialState, action) => {

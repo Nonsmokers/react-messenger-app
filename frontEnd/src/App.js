@@ -6,10 +6,10 @@ import AuthPage from './components/pages/Auth/AuthPage';
 import HomePageContainer from "./components/pages/Home/HomePage";
 import USER_ACTIONS from './redux/actions/users';
 
-const App = (props) => {
+const App = ({isAuthenticated, autoLogin}) => {
 
     useEffect(() => {
-        props.autoLogin()
+        autoLogin()
     }, [])
 
     let routes = (
@@ -18,11 +18,11 @@ const App = (props) => {
             <Redirect to={'/'}/>
         </Switch>
     )
-    if (props.isAuthenticated) {
+    if (isAuthenticated) {
         routes = (
             <Switch>
-                <Route path={'/im'} render={() => <HomePageContainer/>}/>
-                <Redirect to={'/im'}/>
+                <Route path={['/dialogs']} render={() => <HomePageContainer/>}/>
+                <Redirect to={'/dialogs'}/>
             </Switch>
         )
     }
@@ -37,7 +37,7 @@ const App = (props) => {
 const selectIsAuthenticated = state => state.usersReducer.signedIn
 
 const mapStateToProps = (state) => ({
-    isAuthenticated: selectIsAuthenticated(state)
+    isAuthenticated: selectIsAuthenticated(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

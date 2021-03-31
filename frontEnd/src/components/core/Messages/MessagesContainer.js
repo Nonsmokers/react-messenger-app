@@ -1,5 +1,6 @@
 import React, {useEffect, useRef} from 'react';
 import {connect} from "react-redux";
+import socket from "../../../config/socket";
 import MESSAGES_ACTIONS from "../../../redux/actions/messages";
 import Messages from "./Messages";
 
@@ -10,12 +11,18 @@ const MessagesContainer = ({items, currentDialogId, fetchAllMessages, isLoading}
         if (currentDialogId) {
             fetchAllMessages(currentDialogId)
         }
+
+        socket.on('SERVER:NEW_MESSAGE', ()=>{
+            fetchAllMessages(currentDialogId)
+        })
+
+        console.log(1)
+
     }, [currentDialogId]);
 
     useEffect(() => {
         messagesRef.current.scrollTo(0, 2000)
     }, [items]);
-
 
     return (
         <Messages blockRef={messagesRef}

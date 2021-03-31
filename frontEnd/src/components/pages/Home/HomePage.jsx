@@ -6,14 +6,14 @@ import {Scrollbars} from 'react-custom-scrollbars';
 import './HomePage.scss';
 import Status from "../../../components/common/Status/Status";
 import ChatInput from "../../core/ChatInputBlock/ChatInput";
-import SidebarContainer from "../../core/Sidebar/SidebarContainer";
+import DialogsContainer from "../../core/Dialogs/DialogsContainer";
 import MessagesContainer from "../../core/Messages/MessagesContainer";
 
-const HomePage = (props) => {
+const HomePage = () => {
     return (
         <div className='home'>
             <div className="chat">
-                <SidebarContainer/>
+                <DialogsContainer/>
                 <div className="chat__dialog">
                     <div className="chat__dialog-header">
                         <div/>

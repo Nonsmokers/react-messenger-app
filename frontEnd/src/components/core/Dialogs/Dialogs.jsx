@@ -3,10 +3,10 @@ import {Button, Input} from 'antd';
 import {FormOutlined, SearchOutlined, TeamOutlined} from "@ant-design/icons";
 import {Scrollbars} from "react-custom-scrollbars";
 
-import './Sidebar.scss';
+import './Dialogs.scss';
 import DialogsList from "./DialogsList/DialogsList";
 
-const Sidebar = ({items, filtered, currentDialogId, currentUserId, onSelectDialog, search, setSearch}) => {
+const Dialogs = ({items, filtered, currentDialogId, currentUserId, onSelectDialog, search, setSearch}) => {
     return (
         <div className="chat__sidebar">
             <div className="chat__sidebar-header">
@@ -40,4 +40,4 @@ const Sidebar = ({items, filtered, currentDialogId, currentUserId, onSelectDialo
     );
 }
 
-export default Sidebar;
+export default Dialogs;

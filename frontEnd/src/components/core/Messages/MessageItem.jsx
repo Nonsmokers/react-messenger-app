@@ -7,7 +7,6 @@ import MessageAudio from "./MessageAudio/MessageAudio";
 import Avatar from "../../common/Avatar/Avatar";
 
 const MessageItem = ({sender, text, audio, isMe, unread, attachments, isTyping, sendingTime}) => {
-    console.log({sender, text, audio, isMe, unread, attachments, isTyping, sendingTime})
     return (
         <section className={className('message', {
             'message__isme': isMe,
@@ -18,7 +17,7 @@ const MessageItem = ({sender, text, audio, isMe, unread, attachments, isTyping, 
             <div className={'message__content'}>
                 <MessageStatusIcon isMe={isMe} isReaded={unread}/>
                 <div className='message__avatar'>
-                     <Avatar sender={sender}/>
+                     <Avatar user={sender}/>
                 </div>
                 <div className='message__info'>
                     {(audio || text || isTyping) && (

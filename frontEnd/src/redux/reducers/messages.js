@@ -7,6 +7,12 @@ const initialState = {
 
 const messages = (state = initialState, action) => {
     switch (action.type) {
+/*        case 'ADD_MESSAGE': {
+            return {
+                ...state,
+                items: [...state.items, action.payload]
+            }
+        }*/
         case SET_MESSAGES_ITEMS: {
             return {
                 ...state,

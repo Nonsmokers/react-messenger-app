@@ -48,7 +48,8 @@ class MessagesController {
 
                 res.json(messageObj)
 
-                this.io.emit("NEW:MESSAGE", messageObj)
+                this.io.emit("SERVER:NEW_MESSAGE", messageObj)
+                console.log(2)
             })            
         }catch (e) {
             return res.status(500).json(e.message);

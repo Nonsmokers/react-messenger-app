@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from "react-redux";
+import socket from '../../../config/socket'
 import DIALOGS_ACTIONS from "../../../redux/actions/dialogs";
-import Sidebar from "./Sidebar";
+import Dialogs from "./Dialogs";
 
-const SidebarContainer = ({items, setCurrentDialogId, currentDialogId, fetchDialogs, currentUserId}) => {
+const DialogsContainer = ({items, setCurrentDialogId, currentDialogId, fetchDialogs, currentUserId}) => {
 
     const [search, setSearch] = useState('');
     const [filtered, setFiltered] = useState([...items]);
@@ -19,10 +20,14 @@ const SidebarContainer = ({items, setCurrentDialogId, currentDialogId, fetchDial
 
     useEffect(() => {
         !items.length ? fetchDialogs() : setFiltered(items)
-    }, []);
+        socket.on('SERVER:DIALOG_CREATED', (data)=>{
+            console.log(data)
+            fetchDialogs()
+        })
+    }, [items]);
 
     return (
-        <Sidebar items={items}
+        <Dialogs items={items}
                  search={search}
                  setSearch={setSearch}
                  filtered={filtered}
@@ -45,4 +50,4 @@ const mapDispatchToProps = (dispatch) => ({
     setCurrentDialogId: dialog => dispatch(DIALOGS_ACTIONS.setCurrentDialogId(dialog))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SidebarContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(DialogsContainer);

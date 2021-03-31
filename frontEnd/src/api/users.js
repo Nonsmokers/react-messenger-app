@@ -1,4 +1,4 @@
-import axios from '../utils/axios'
+import axios from '../config/axios'
 
 export default Object.assign({
     signIn: postData => axios.post('/user/sign-in', postData),

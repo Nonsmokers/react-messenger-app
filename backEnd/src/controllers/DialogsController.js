@@ -32,16 +32,35 @@ class DialogsController {
             partner: req.body.partner
         }
         const dialog = new DialogModel(postData)
-        const dialogObj = dialog.save()
+        const dialogObj = await dialog.save()
 
         const firstMessage = new MessageModel({
             text: req.body.text,
-            user: req.body.author,
+            sender: req.body.author,
             dialog: dialogObj._id,
         })
 
-        await firstMessage.save()
-        return res.json(dialogObj)
+        const firstMessageObj = await firstMessage.save()
+
+        DialogModel.findOneAndUpdate(
+            {_id: dialogObj._id},
+            {last_message: firstMessageObj._id},
+            {findAndModify: true, upsert: true},
+            (err) => {
+                if(err){
+                    return res.status(500).json(err.message);
+                }
+            })
+
+        try{
+            res.json(dialogObj);
+            this.io.emit("SERVER:DIALOG_CREATED", {
+                ...postData,
+                dialog: dialogObj
+            });
+        }catch (err) {
+            console.log(err)
+        }
     };
 
     deleteDialog = async (req, res) => {

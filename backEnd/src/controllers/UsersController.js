@@ -49,13 +49,14 @@ class UsersController {
             res.json(reason)
         }
     }
-//TODO: исправить баг логинизации
+
     signInUser = async (req, res) => {
         const postData = {
             email: req.body.email,
             password: req.body.password
         }
         const errors = validationResult(req);
+
         if (!errors.isEmpty()) {
             return res.status(422).json({errors: errors.array()});
         }
@@ -63,11 +64,10 @@ class UsersController {
             if (err || !user) {
                 return res.status(404).json({status: 'error', message: 'User not found'});
             }
-            await bcrypt.compare(postData.password, user.password)
-            try {
+            if(bcrypt.compareSync(postData.password, user.password)){
                 const token = createJWToken(user)
                 return res.status(200).json({status: 'success', token})
-            } catch {
+            }else{
                 return res.status(403).json({status: 'error', message: 'Email or password is invalid'})
             }
         })

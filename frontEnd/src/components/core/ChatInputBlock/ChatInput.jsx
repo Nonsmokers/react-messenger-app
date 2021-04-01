@@ -5,8 +5,11 @@ import {CameraOutlined, AudioOutlined, SmileOutlined, SendOutlined} from '@ant-d
 import {Picker} from 'emoji-mart'
 
 import "./ChatInput.scss";
+import MESSAGES_ACTIONS from "../../../redux/actions/messages";
+import {connect} from "react-redux";
 
-const ChatInput = (props) => {
+//TODO: исправить рендер компоненты при получении сообщения
+const ChatInput = ({onSendMessage, currentDialogId}) => {
 
     const [value, setValue] = useState("");
     const [emojiVisible, setEmojiVisible] = useState(false);
@@ -14,6 +17,13 @@ const ChatInput = (props) => {
     const toggleEmoji = () => {
         setEmojiVisible(!emojiVisible)
     }
+
+    const handleSendMessage = e => {
+        if (e.keyCode === 13) {
+            onSendMessage(value, currentDialogId);
+            setValue("");
+        }
+    };
 
     return (
         <div className="chat-input">
@@ -26,7 +36,9 @@ const ChatInput = (props) => {
                 <Button type={'link'} shape="circle" icon={<SmileOutlined/>} onClick={toggleEmoji}/>
             </div>
             <Input
+                value={value}
                 onChange={e => setValue(e.target.value)}
+                onKeyUp={handleSendMessage}
                 size="large"
                 placeholder="Введите текст сообщения…"
             />
@@ -53,5 +65,15 @@ const ChatInput = (props) => {
     );
 };
 
-export default ChatInput;
+const selectCurrentDialogId = state => state.dialogsReducer.currentDialogId;
+
+const mapStateToProps = (state) => ({
+    currentDialogId: selectCurrentDialogId(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    onSendMessage: (text, currentDialogId) => dispatch(MESSAGES_ACTIONS.fetchSendMessage(text, currentDialogId)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChatInput);
 

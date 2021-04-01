@@ -31,7 +31,7 @@ class MessagesController {
         const message = new MessageModel(postData)
         await message.save()
         try{
-            message.populate('dialog', (err, messageObj) => {
+            message.populate(['dialog', 'sender'], (err, messageObj) => {
                 if (err) {
                     res.json(err.message)
                 }

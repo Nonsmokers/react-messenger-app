@@ -49,6 +49,29 @@ class UsersController {
             res.json(reason)
         }
     }
+//TODO: исправить баг логинизации
+    signInUser = async (req, res) => {
+        const postData = {
+            email: req.body.email,
+            password: req.body.password
+        }
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(422).json({errors: errors.array()});
+        }
+        await UserModel.findOne({email: postData.email}, async (err, user) => {
+            if (err || !user) {
+                return res.status(404).json({status: 'error', message: 'User not found'});
+            }
+            await bcrypt.compare(postData.password, user.password)
+            try {
+                const token = createJWToken(user)
+                return res.status(200).json({status: 'success', token})
+            } catch {
+                return res.status(403).json({status: 'error', message: 'Email or password is invalid'})
+            }
+        })
+    }
 
     verify = async (req, res) => {
        const verifyHash = req.query.hash
@@ -65,29 +88,6 @@ class UsersController {
             user.confirmed = true;
             res.json({status: 'success', message: 'Hash is verified'})
         })
-    }
-
-    signInUser = async (req, res) => {
-        const postData = {
-            email: req.body.email,
-            password: req.body.password
-        }
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(422).json({errors: errors.array()});
-        }
-        await UserModel.findOne({email: postData.email}, async (err, user) => {
-            if (err || !user) {
-                return res.json({status: 'error', message: 'User not found'});
-            }
-            await bcrypt.compare(postData.password, user.password)
-            try {
-                const token = createJWToken(user)
-                res.json({status: 'success', token})
-            } catch {
-                res.json({status: 'error', message: 'Email or password is invalid'})
-            }
-        }).select('+password')
     }
 
     deleteUser = async (req, res) => {

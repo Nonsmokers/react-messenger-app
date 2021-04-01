@@ -4,45 +4,57 @@ import socket from "../../../config/socket";
 import MESSAGES_ACTIONS from "../../../redux/actions/messages";
 import Messages from "./Messages";
 
-const MessagesContainer = ({items, currentDialogId, fetchAllMessages, isLoading}) => {
-    const messagesRef = useRef(null)
+const MessagesContainer = React.memo(
+    function MessagesContainer({items, currentUserData, setNewMessage, currentDialogId, fetchAllMessages, isLoading}) {
+        const messagesRef = useRef(null)
 
-    useEffect(() => {
-        if (currentDialogId) {
-            fetchAllMessages(currentDialogId)
+        const onNewMessage = (data) => {
+            setNewMessage(data)
         }
 
-        socket.on('SERVER:NEW_MESSAGE', ()=>{
-            fetchAllMessages(currentDialogId)
-        })
+        useEffect(() => {
+            messagesRef.current.scrollTo(0, 2000)
+        }, [items]);
 
-        console.log(1)
+        useEffect(() => {
+            if (currentDialogId) {
+                fetchAllMessages(currentDialogId)
+            }
 
-    }, [currentDialogId]);
+            socket.on('SERVER:NEW_MESSAGE', onNewMessage)
 
-    useEffect(() => {
-        messagesRef.current.scrollTo(0, 2000)
-    }, [items]);
+            return () => {
+                socket.removeListener('SERVER:NEW_MESSAGE', onNewMessage)
+            }
+        }, [currentDialogId]);
 
-    return (
-        <Messages blockRef={messagesRef}
-                  items={items}
-                  isLoading={isLoading}
-        />
-    );
-}
+        useEffect(() => {
+            messagesRef.current.scrollTo(0, 2000)
+        }, [items]);
+
+        return (
+            <Messages items={items}
+                      currentUserData={currentUserData}
+                      blockRef={messagesRef}
+                      isLoading={isLoading}
+            />
+        );
+    })
 const selectMessages = state => state.messagesReducer.items;
+const selectCurrentUserData = state => state.usersReducer.currentUserData;
 const selectCurrentDialogId = state => state.dialogsReducer.currentDialogId;
 const selectIsLoading = state => state.messagesReducer.isLoading;
 
 const mapStateToProps = (state) => ({
     items: selectMessages(state),
+    currentUserData: selectCurrentUserData(state),
     currentDialogId: selectCurrentDialogId(state),
     isLoading: selectIsLoading(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
     fetchAllMessages: dialogId => dispatch(MESSAGES_ACTIONS.fetchAllMessages(dialogId)),
+    setNewMessage: dialogId => dispatch(MESSAGES_ACTIONS.setNewMessage(dialogId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MessagesContainer);

@@ -1,4 +1,4 @@
-import {SET_MESSAGES_ITEMS, SET_MESSAGES_IS_LOADING} from '../actions/actionTypes.js'
+import {SET_MESSAGES_ITEMS, SET_MESSAGES_IS_LOADING, SET_NEW_MESSAGE} from '../actions/actionTypes.js'
 
 const initialState = {
     items: null,
@@ -7,12 +7,12 @@ const initialState = {
 
 const messages = (state = initialState, action) => {
     switch (action.type) {
-/*        case 'ADD_MESSAGE': {
+        case SET_NEW_MESSAGE: {
             return {
                 ...state,
                 items: [...state.items, action.payload]
             }
-        }*/
+        }
         case SET_MESSAGES_ITEMS: {
             return {
                 ...state,

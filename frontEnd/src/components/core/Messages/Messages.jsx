@@ -4,7 +4,7 @@ import classNames from "classnames";
 import MessageItem from "./MessageItem";
 import "./Messages.scss";
 
-const Messages = ({blockRef, isLoading, items}) => {
+const Messages = ({items, currentUserData, blockRef, isLoading}) => {
     return (
         <div
             ref={blockRef}
@@ -13,7 +13,10 @@ const Messages = ({blockRef, isLoading, items}) => {
                 ? <Spin size="large" tip="Загрузка сообщений..."/>
                 : (items && !isLoading
                         ? (items.length
-                                ? items.map(item => <MessageItem key={item._id} {...item} />)
+                                ? items.map(item =>
+                                    <MessageItem key={item._id}
+                                                 {...item}
+                                                 isMe={currentUserData._id === item.sender._id}/>)
                                 : <Empty description="Диалог пуст"/>
                         ) : <Empty description="Откройте диалог"/>
                 )

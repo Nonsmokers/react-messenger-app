@@ -60,22 +60,22 @@ class UsersController {
         if (!errors.isEmpty()) {
             return res.status(422).json({errors: errors.array()});
         }
-        await UserModel.findOne({email: postData.email}, async (err, user) => {
+        await UserModel.findOne({email: postData.email}, (err, user) => {
             if (err || !user) {
                 return res.status(404).json({status: 'error', message: 'User not found'});
             }
-            if(bcrypt.compareSync(postData.password, user.password)){
+            if (bcrypt.compareSync(postData.password, user.password)) {
                 const token = createJWToken(user)
                 return res.status(200).json({status: 'success', token})
-            }else{
+            } else {
                 return res.status(403).json({status: 'error', message: 'Email or password is invalid'})
             }
         })
     }
 
     verify = async (req, res) => {
-       const verifyHash = req.query.hash
 
+        const verifyHash = req.query.hash
         if (!verifyHash) {
             return res.status(422).json({errors: 'Hash not found'});
         }

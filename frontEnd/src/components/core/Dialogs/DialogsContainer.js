@@ -20,15 +20,13 @@ const DialogsContainer = ({items, setCurrentDialogId, currentDialogId, fetchDial
 
     useEffect(() => {
         !items.length ? fetchDialogs() : setFiltered(items)
-        socket.on('SERVER:DIALOG_CREATED', (data)=>{
-            console.log(data)
+        socket.on('SERVER:DIALOG_CREATED', (data) => {
             fetchDialogs()
         })
     }, [items]);
 
     return (
-        <Dialogs items={items}
-                 search={search}
+        <Dialogs search={search}
                  setSearch={setSearch}
                  filtered={filtered}
                  onSelectDialog={setCurrentDialogId}

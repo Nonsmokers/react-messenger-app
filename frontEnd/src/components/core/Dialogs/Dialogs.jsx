@@ -28,8 +28,7 @@ const Dialogs = ({items, filtered, currentDialogId, currentUserId, onSelectDialo
             </div>
             <div className="chat__sidebar-dialogs">
                 <Scrollbars>
-                    <DialogsList items={items}
-                                 filtered={filtered}
+                    <DialogsList filtered={filtered}
                                  onSelectDialog={onSelectDialog}
                                  currentDialogId={currentDialogId}
                                  currentUserId={currentUserId}

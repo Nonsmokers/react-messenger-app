@@ -17,8 +17,7 @@ const UserSchema = new Schema({
         },
         password: {
             type: String,
-            required: 'Password address is required',
-            select: false
+            required: 'Password address is required'
         },
         confirmed: {
             type: Boolean,

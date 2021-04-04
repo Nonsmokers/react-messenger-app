@@ -9,9 +9,9 @@ class DialogsController {
 
     getAllDialogs = async (req, res) => {
         const authorId = req.user._id
-        DialogModel
-            .find({author: authorId})
-            .populate(['author', 'partner', 'last_message', '-password'])
+        DialogModel.find()
+            .or([{ author: authorId }, { partner: authorId }])
+            .populate(['author', 'partner', '-password'])
             .populate({
                 path: 'last_message',
                 populate: {

@@ -1,14 +1,15 @@
 const UserModel = require('../models/User');
 
 const updateLastVisit = (req, res, next) => {
-    if(req.user){
+    if (req.user) {
         UserModel.updateOne(
             {_id: req.user._id},
             {last_visit: new Date()},
-            () => {}
+            () => {
+            }
         );
         next();
-    }else{
+    } else {
         next()
     }
 }

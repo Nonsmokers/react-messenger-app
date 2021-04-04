@@ -3,14 +3,14 @@ import './DialogsList.scss';
 import DialogItem from '../DialogItem/DialogItem';
 import {Empty} from "antd";
 
-const DialogsList = ({items, currentDialogId, onSelectDialog, currentUserId}) => {
+const DialogsList = ({currentDialogId, onSelectDialog, currentUserId, filtered}) => {
 
-    let copyOfArr = [...items]
+    let copyOfArr = [...filtered]
     copyOfArr.sort((a, b) => a.updatedAt > b.updatedAt ? 1 : -1)
 
     return (
         <>
-            {items.length ? (
+            {filtered.length ? (
                     copyOfArr.map(item => (
                         <DialogItem
                             item={item}

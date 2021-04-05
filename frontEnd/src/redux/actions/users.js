@@ -18,7 +18,7 @@ const USER_ACTIONS = {
     fetchUserLogin: (postData) => async dispatch => {
         const response = await usersApi.signIn(postData)
         try {
-            const {status, token} = response.data
+            const {token} = response.data
 
             openNotification({
                 type: 'success',

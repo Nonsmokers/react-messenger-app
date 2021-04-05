@@ -19,21 +19,32 @@ class UsersController {
         return res.json(user)
     };
 
-/*    findUsers = (req, res) => {
+    findUsers = async (req, res) => {
         const query = req.query.query;
-        UserModel.find()
-            .or([
-                {fullname: (query)},
-                {email: (query)}
+        const regexValue1 = '^' + query;
+        const response = await UserModel.find()
+            .or([{
+                fullname: {
+                    '$regex': regexValue1,
+                    '$options': 'i'
+                }
+            },
+                {
+                    email: {
+                        '$regex': regexValue1,
+                        '$options': 'i'
+                    }
+                }
             ])
-            .then((users) => res.json(users))
-            .catch((err) => {
-                return res.status(404).json({
-                    status: "error",
-                    message: err,
-                });
+        try {
+            res.json(response)
+        } catch (err) {
+            return res.status(404).json({
+                status: "error",
+                message: err,
             });
-    };*/
+        }
+    }
 
     getMe = async (req, res) => {
         let id = req.user._id

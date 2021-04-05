@@ -1,0 +1,9 @@
+.add-dialog-form {
+  .ant-form-item {
+    margin-bottom: 0;
+    display: block !important;
+    &-label {
+      line-height: inherit !important;
+    }
+  }
+}

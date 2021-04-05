@@ -28,15 +28,14 @@ class DialogsController {
 
     createDialog = async (req, res) => {
         const postData = {
-            author: req.body.author,
+            author: req.user._id,
             partner: req.body.partner
         }
         const dialog = new DialogModel(postData)
         const dialogObj = await dialog.save()
-
         const firstMessage = new MessageModel({
             text: req.body.text,
-            sender: req.body.author,
+            sender: req.user._id,
             dialog: dialogObj._id,
         })
 

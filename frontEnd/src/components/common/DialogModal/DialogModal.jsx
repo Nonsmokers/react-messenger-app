@@ -6,9 +6,9 @@ const {Option} = Select;
 const {TextArea} = Input;
 
 const DialogModal = ({
-                         messageText, users, onSelectUser, onChangeTextArea,
+                         messageText, users, onSelectUser, onChangeTextArea,selectedUserId,
                          handleChangeInput, onAddDialog, onSearch,
-                         handleCancel, isModalVisible, inputValue, showModal, isLoading
+                         isModalVisible, inputValue, showModal, isLoading
                      }) => {
 
     const options = users.map(user => (
@@ -18,9 +18,9 @@ const DialogModal = ({
     return (
         <>
             <Button onClick={showModal} type={'link'} shape="circle" icon={<FormOutlined/>}/>
-            <Modal title="Создать Диалог" visible={isModalVisible} onCancel={handleCancel}
+            <Modal title="Создать Диалог" visible={isModalVisible}
                    footer={[
-                       <Button key="back" onClick={handleCancel}> Закрыть </Button>,
+                       <Button key="back"> Закрыть </Button>,
                        <Button
                            disabled={!messageText}
                            key="submit"
@@ -37,7 +37,6 @@ const DialogModal = ({
                             onChange={handleChangeInput}
                             onSelect={onSelectUser}
                             notFoundContent={null}
-                            style={{width: "100%"}}
                             defaultActiveFirstOption={false}
                             showArrow={false}
                             filterOption={false}
@@ -47,13 +46,13 @@ const DialogModal = ({
                             {options}
                         </Select>
                     </Form.Item>
-                    <Form.Item label="Введите текст сообщения">
+                    {selectedUserId && <Form.Item label="Введите текст сообщения">
                         <TextArea
                             autosize={{minRows: 3, maxRows: 10}}
                             onChange={onChangeTextArea}
                             value={messageText}
                         />
-                    </Form.Item>
+                    </Form.Item>}
                 </Form>
             </Modal>
         </>

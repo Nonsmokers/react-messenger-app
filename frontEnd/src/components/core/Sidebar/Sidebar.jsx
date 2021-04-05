@@ -5,7 +5,7 @@ import {Scrollbars} from "react-custom-scrollbars";
 
 import './Sidebar.scss';
 import DialogsList from "./DialogsList/DialogsList";
-import DialogModalContainer from "../../common/CreateDialogModal/DialogModalContainer";
+import DialogModalContainer from "../../common/DialogModal/DialogModalContainer";
 
 const Sidebar = ({filtered, currentDialogId, currentUserId, onSelectDialog, search, setSearch, currentUserData}) => {
     return (

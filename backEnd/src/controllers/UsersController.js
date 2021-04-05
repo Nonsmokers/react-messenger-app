@@ -11,7 +11,6 @@ class UsersController {
     }
 
     findUser = async (req, res) => {
-
         const id = req.params.id
         const user = await UserModel.findById(id)
         if (!user) {
@@ -19,6 +18,22 @@ class UsersController {
         }
         return res.json(user)
     };
+
+/*    findUsers = (req, res) => {
+        const query = req.query.query;
+        UserModel.find()
+            .or([
+                {fullname: (query)},
+                {email: (query)}
+            ])
+            .then((users) => res.json(users))
+            .catch((err) => {
+                return res.status(404).json({
+                    status: "error",
+                    message: err,
+                });
+            });
+    };*/
 
     getMe = async (req, res) => {
         let id = req.user._id

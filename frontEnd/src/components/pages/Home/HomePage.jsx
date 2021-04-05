@@ -4,25 +4,20 @@ import {Button} from 'antd';
 import {Scrollbars} from 'react-custom-scrollbars';
 
 import './HomePage.scss';
-import Status from "../../../components/common/Status/Status";
 import ChatInput from "../../core/ChatInputBlock/ChatInput";
-import DialogsContainer from "../../core/Dialogs/DialogsContainer";
 import MessagesContainer from "../../core/Messages/MessagesContainer";
+import StatusContainer from "../../common/Status/StatusContainer";
+import SidebarContainer from "../../core/Sidebar/SidebarContainer";
 
 const HomePage = () => {
     return (
         <div className='home'>
             <div className="chat">
-                <DialogsContainer/>
+                <SidebarContainer/>
                 <div className="chat__dialog">
                     <div className="chat__dialog-header">
                         <div/>
-                        <div className="chat__dialog-header-center">
-                            <b className="chat__dialog-header-username"> Гай Юлий Цезарь </b>
-                            <div className="chat__dialog-header-status">
-                                <Status online={true}/>
-                            </div>
-                        </div>
+                        <StatusContainer/>
                         <div>
                             <Button type={'link'} shape="circle" icon={<EllipsisOutlined/>}/>
                         </div>

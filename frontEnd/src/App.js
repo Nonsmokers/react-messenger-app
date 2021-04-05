@@ -3,7 +3,7 @@ import {Redirect, Route, Switch, withRouter} from 'react-router-dom';
 import {connect} from "react-redux";
 
 import AuthPage from './components/pages/Auth/AuthPage';
-import HomePageContainer from "./components/pages/Home/HomePage";
+import HomePage from "./components/pages/Home/HomePage";
 import USER_ACTIONS from './redux/actions/users';
 
 const App = ({isAuthenticated, autoLogin}) => {
@@ -21,7 +21,7 @@ const App = ({isAuthenticated, autoLogin}) => {
     if (isAuthenticated) {
         routes = (
             <Switch>
-                <Route path={['/dialogs']} render={() => <HomePageContainer/>}/>
+                <Route path={['/dialogs']} render={() => <HomePage/>}/>
                 <Redirect to={'/dialogs'}/>
             </Switch>
         )

@@ -20,7 +20,7 @@ class DialogsController {
             })
             .exec((err, dialogs) => {
                 if (err) {
-                    return res.status(404).json('Dialogs is empty');
+                    return res.status(404).json('Sidebar is empty');
                 }
                 return res.json(dialogs)
             })

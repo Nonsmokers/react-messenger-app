@@ -10,7 +10,7 @@ const signUpValidation = require("../utils/signUpValidation");
 
 const routes = (app, io) => {
 
-    const {getMe, findUser, verify, signUpUser, signInUser, deleteUser} = new UserController(io);
+    const {getMe, findUser,findUsers, verify, signUpUser, signInUser, deleteUser} = new UserController(io);
     const {getAllDialogs, createDialog, deleteDialog} = new DialogController(io);
     const {getAllMessages, createMessage, deleteMessage} = new MessageController(io);
 
@@ -31,7 +31,8 @@ const routes = (app, io) => {
 
     app.get('/user/me', getMe);
     app.get('/user/verify', verify);
-    app.get('/user/:id', findUser);
+    //app.get('/user/search/', findUser);
+   // app.get("/user/find", findUsers);
     app.post('/user/sign-up', signUpValidation, signUpUser);
     app.post('/user/sign-in', signInValidation, signInUser);
     app.delete('/user/:id', deleteUser);

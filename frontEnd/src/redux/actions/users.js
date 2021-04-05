@@ -17,14 +17,9 @@ const USER_ACTIONS = {
 
     fetchUserLogin: (postData) => async dispatch => {
         const response = await usersApi.signIn(postData)
-        const {status, token} = response.data
-        if (status === 'error') {
-            openNotification({
-                type: 'error',
-                title: 'Ошибка',
-                text: 'Неверный логин или пароль.'
-            })
-        } else {
+        try {
+            const {status, token} = response.data
+
             openNotification({
                 type: 'success',
                 title: 'Успешно',
@@ -38,7 +33,14 @@ const USER_ACTIONS = {
             localStorage.setItem('token', token)
             localStorage.setItem('expirationDate', expirationDate);
 
-            return dispatch(USER_ACTIONS.fetchUserData())
+            dispatch(USER_ACTIONS.fetchUserData())
+
+        } catch (err) {
+            openNotification({
+                type: 'error',
+                title: 'Ошибка',
+                text: 'Неверный логин или пароль.'
+            })
         }
     },
 

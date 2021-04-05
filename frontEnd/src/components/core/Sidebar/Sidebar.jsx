@@ -1,20 +1,21 @@
 import React from 'react';
 import {Button, Input} from 'antd';
-import {FormOutlined, SearchOutlined, TeamOutlined} from "@ant-design/icons";
+import { SearchOutlined, TeamOutlined} from "@ant-design/icons";
 import {Scrollbars} from "react-custom-scrollbars";
 
-import './Dialogs.scss';
+import './Sidebar.scss';
 import DialogsList from "./DialogsList/DialogsList";
+import DialogModalContainer from "../../common/CreateDialogModal/DialogModalContainer";
 
-const Dialogs = ({items, filtered, currentDialogId, currentUserId, onSelectDialog, search, setSearch}) => {
+const Sidebar = ({filtered, currentDialogId, currentUserId, onSelectDialog, search, setSearch, currentUserData}) => {
     return (
         <div className="chat__sidebar">
             <div className="chat__sidebar-header">
-                <Button type={'link'} shape="circle" icon={<TeamOutlined/>}/>
+                <Button type={'link'} shape="circle" icon={<TeamOutlined/> }/>
                 <div>
                     <span>Список диалогов</span>
                 </div>
-                <Button type={'link'} shape="circle" icon={<FormOutlined/>}/>
+                <DialogModalContainer currentUserData={currentUserData}/>
             </div>
             <div className="chat__sidebar-search">
                 <div className="chat__sidebar-search-input">
@@ -39,4 +40,4 @@ const Dialogs = ({items, filtered, currentDialogId, currentUserId, onSelectDialo
     );
 }
 
-export default Dialogs;
+export default Sidebar;

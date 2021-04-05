@@ -5,4 +5,5 @@ export default Object.assign({
     signUp: postData => axios.post('/user/sign-up', postData),
     verifyHash: hash => axios.get('/user/verify?hash=' + hash),
     getMe: () => axios.get('/user/me'),
+    findUsers: (query) => axios.get('/user/find?query=' + query)
 })

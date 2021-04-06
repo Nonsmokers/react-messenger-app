@@ -3,11 +3,19 @@
 .message {
   $self: &;
 
+  &:hover {
+    #{$self}__icon-actions {
+      display: block;
+    }
+  }
+
   &__content {
     display: inline-flex;
     max-width: 440px;
     margin: 0 0 15px 20px;
     position: relative;
+
+
   }
 
   &__avatar {
@@ -43,14 +51,24 @@
     line-height: 20px;
   }
 
-  &__icon-readed {
-    position: absolute;
-    bottom: 20px;
-    right: -20px;
-
-    &--no {
-      right: -20px;
+  &__icon {
+    &-readed {
+      position: absolute;
       bottom: 20px;
+      right: -20px;
+
+      &--no {
+        right: -20px;
+        bottom: 20px;
+      }
+    }
+
+    &-actions {
+      display: none;
+      transform: rotate(90deg);
+      position: absolute;
+      left: -40px;
+      top: -5px;
     }
   }
 
@@ -81,6 +99,7 @@
 
     #{$self}__avatar {
       margin-left: 13px;
+
       img {
         margin-right: 0;
         margin-left: 13px;
@@ -105,15 +124,26 @@
       }
     }
 
-    #{$self}__icon-readed {
-      position: absolute;
-      bottom: 20px;
-      left: -25px;
-
-      &--no {
+    #{$self}__icon {
+      &-readed {
+        position: absolute;
+        bottom: 20px;
         left: -25px;
+
+        &--no {
+          left: -25px;
+        }
+      }
+
+      &-actions {
+        display: none;
+        transform: rotate(90deg);
+        position: absolute;
+        right: 0px;
+        top: -5px;
       }
     }
+
   }
 
   &__isimage {

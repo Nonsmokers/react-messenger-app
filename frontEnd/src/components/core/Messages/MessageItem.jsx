@@ -5,6 +5,8 @@ import MessageStatusIcon from "../../common/MessageStatusIcon/MessageStatusIcon"
 import MessageSendingTime from "../../common/MessageSendingTime/MessageSendingTime";
 import MessageAudio from "./MessageAudio/MessageAudio";
 import Avatar from "../../common/Avatar/Avatar";
+import {Button, Popover} from "antd";
+import {EllipsisOutlined} from "@ant-design/icons";
 
 const MessageItem = ({sender, text, audio, isMe, unread, attachments, isTyping, sendingTime}) => {
     return (
@@ -16,8 +18,13 @@ const MessageItem = ({sender, text, audio, isMe, unread, attachments, isTyping, 
         })}>
             <div className={'message__content'}>
                 <MessageStatusIcon isMe={isMe} isReaded={unread}/>
+                <Popover trigger="click" content={<Button>Удалить сообщение</Button>}>
+                    <div className="message__icon-actions">
+                        <Button type={'link'} shape="circle" icon={<EllipsisOutlined/>}/>
+                    </div>
+                </Popover>
                 <div className='message__avatar'>
-                     <Avatar user={sender}/>
+                    <Avatar user={sender}/>
                 </div>
                 <div className='message__info'>
                     {(audio || text || isTyping) && (

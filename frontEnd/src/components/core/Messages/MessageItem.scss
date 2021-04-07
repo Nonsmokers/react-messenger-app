@@ -14,8 +14,6 @@
     max-width: 440px;
     margin: 0 0 15px 20px;
     position: relative;
-
-
   }
 
   &__avatar {
@@ -67,8 +65,8 @@
       display: none;
       transform: rotate(90deg);
       position: absolute;
-      left: -40px;
       top: -5px;
+      right: -30px;
     }
   }
 
@@ -136,11 +134,9 @@
       }
 
       &-actions {
-        display: none;
-        transform: rotate(90deg);
-        position: absolute;
-        right: 0px;
+        left: -30px;
         top: -5px;
+        right: auto;
       }
     }
 

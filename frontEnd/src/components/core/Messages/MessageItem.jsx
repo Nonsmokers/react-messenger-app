@@ -9,16 +9,25 @@ import {Button, Popover} from "antd";
 import {EllipsisOutlined} from "@ant-design/icons";
 
 const MessageItem = ({sender, text, audio, isMe, unread, attachments, isTyping, sendingTime}) => {
+
+    const content = (
+        <>
+            <div><Button>Изменить сообщения</Button></div>
+            <div><Button>Копировать текст</Button></div>
+            <div><Button>Удалить сообщения</Button></div>
+            <div><Button>Выделить сообщения</Button></div>
+        </>
+    )
     return (
         <section className={className('message', {
             'message__isme': isMe,
             'message__istyping': isTyping,
-            'message__isimage': attachments && attachments.length === 1,
             'message__isaudio': audio,
+            'message__isimage': attachments && attachments.length === 1,
         })}>
             <div className={'message__content'}>
                 <MessageStatusIcon isMe={isMe} isReaded={unread}/>
-                <Popover trigger="click" content={<Button>Удалить сообщение</Button>}>
+                <Popover trigger="click" title="Title" content={content}>
                     <div className="message__icon-actions">
                         <Button type={'link'} shape="circle" icon={<EllipsisOutlined/>}/>
                     </div>

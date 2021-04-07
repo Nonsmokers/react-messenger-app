@@ -4,10 +4,10 @@ import {Button} from 'antd';
 import {Scrollbars} from 'react-custom-scrollbars';
 
 import './HomePage.scss';
-import ChatInput from "../../core/ChatInputBlock/ChatInput";
 import MessagesContainer from "../../core/Messages/MessagesContainer";
 import StatusContainer from "../../common/Status/StatusContainer";
 import SidebarContainer from "../../core/Sidebar/SidebarContainer";
+import ChatInputContainer from "../../core/ChatInput/ChatInputContainer";
 
 const HomePage = () => {
     return (
@@ -28,7 +28,7 @@ const HomePage = () => {
                         </Scrollbars>
                     </div>
                     <div className="chat__dialog-input">
-                        <ChatInput/>
+                        <ChatInputContainer/>
                     </div>
                 </div>
             </div>

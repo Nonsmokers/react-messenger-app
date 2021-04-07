@@ -22,9 +22,11 @@ const MessagesContainer = React.memo(
             }
 
             socket.on('SERVER:NEW_MESSAGE', onNewMessage)
+            socket.on('SERVER:DIALOG_CREATED', onNewMessage)
 
             return () => {
                 socket.removeListener('SERVER:NEW_MESSAGE', onNewMessage)
+                socket.removeListener('SERVER:DIALOG_CREATED', onNewMessage)
             }
         }, [currentDialogId]);
 

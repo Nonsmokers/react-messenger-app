@@ -21,9 +21,12 @@ const SidebarContainer = ({items, setCurrentDialogId, currentDialogId, fetchDial
 
     useEffect(() => {
         !items.length ? fetchDialogs() : setFiltered(items)
-        socket.on('SERVER:DIALOG_CREATED', (data) => {
-            fetchDialogs()
-        })
+        socket.on('SERVER:NEW_MESSAGE', fetchDialogs)
+        socket.on('SERVER:DIALOG_CREATED', fetchDialogs)
+        return () => {
+            socket.removeListener('SERVER:NEW_MESSAGE', fetchDialogs)
+            socket.removeListener('SERVER:DIALOG_CREATED', fetchDialogs)
+        }
     }, [items]);
 
     useEffect(() => {

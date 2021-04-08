@@ -4,7 +4,7 @@ import socket from '../../../config/socket'
 import DIALOGS_ACTIONS from "../../../redux/actions/dialogs";
 import Sidebar from "./Sidebar";
 
-const SidebarContainer = ({items, setCurrentDialogId, currentDialogId, fetchDialogs, currentUserData}) => {
+const SidebarContainer = ({items, setCurrentDialogId, currentDialogId, fetchDialogs, isReady, currentUserData}) => {
 
     const [search, setSearch] = useState('');
     const [filtered, setFiltered] = useState([...items]);
@@ -20,7 +20,11 @@ const SidebarContainer = ({items, setCurrentDialogId, currentDialogId, fetchDial
     }, [search]);
 
     useEffect(() => {
-        !items.length ? fetchDialogs() : setFiltered(items)
+        if(!isReady){
+            fetchDialogs()
+        }
+        setFiltered(items)
+
         socket.on('SERVER:NEW_MESSAGE', fetchDialogs)
         socket.on('SERVER:DIALOG_CREATED', fetchDialogs)
         return () => {
@@ -48,11 +52,13 @@ const SidebarContainer = ({items, setCurrentDialogId, currentDialogId, fetchDial
 }
 const selectDialogs = state => state.dialogsReducer.items
 const selectCurrentDialogId = state => state.dialogsReducer.currentDialogId
+const selectCurrentIsReady = state => state.dialogsReducer.isReady
 const selectCurrentUserData = state => state.usersReducer.currentUserData
 
 const mapStateToProps = (state) => ({
     items: selectDialogs(state),
     currentDialogId: selectCurrentDialogId(state),
+    isReady: selectCurrentIsReady(state),
     currentUserData: selectCurrentUserData(state),
 });
 

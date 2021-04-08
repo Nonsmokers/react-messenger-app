@@ -17,7 +17,7 @@ const MESSAGES_ACTIONS = {
         const {dialogsReducer} = getState();
         const {currentDialogId} = dialogsReducer;
 
-        if (currentDialogId === message.dialog._id) {
+        if (currentDialogId && currentDialogId === message.dialog._id) {
             dispatch({
                 type: SET_NEW_MESSAGE,
                 payload: message

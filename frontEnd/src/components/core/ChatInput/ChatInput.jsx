@@ -22,7 +22,7 @@ const ChatInput = ({handleSendMessage, sendMessage, value, setValue, emojiSelect
                 value={value}
                 onChange={e => setValue(e.target.value)}
                 onKeyUp={handleSendMessage}
-                size="large"
+                size="small"
                 placeholder="Введите текст сообщения…"
             />
             <div className="chat-input__actions">

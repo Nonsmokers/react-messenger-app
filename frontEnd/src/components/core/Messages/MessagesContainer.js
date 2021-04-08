@@ -17,6 +17,7 @@ const MessagesContainer = React.memo(
         }, [items]);
 
         useEffect(() => {
+
             if (currentDialogId) {
                 fetchAllMessages(currentDialogId)
             }

@@ -7,12 +7,14 @@ const updateLastVisit = require('../middlewares/updateLastVisit');
 const checkAuthenticateToken = require('../middlewares/checkAuthenticateToken');
 const signInValidation = require("../utils/signInValidation");
 const signUpValidation = require("../utils/signUpValidation");
+const UploadFileController = require("../controllers/UploadFileController");
 
 const routes = (app, io) => {
 
     const {getMe, findUser, findUsers, verify, signUpUser, signInUser, deleteUser} = new UserController(io);
     const {getAllDialogs, createDialog, deleteDialog} = new DialogController(io);
     const {getAllMessages, createMessage, deleteMessage} = new MessageController(io);
+    const {createFile, deleteFile} = new UploadFileController(io);
 
     app.use(cors())
     app.use((req, res, next) => {
@@ -44,6 +46,9 @@ const routes = (app, io) => {
     app.get('/messages', getAllMessages);
     app.post('/messages', createMessage);
     app.delete('/messages/:id', deleteMessage);
+
+    app.post('/files', createFile);
+    app.delete('/files', deleteFile);
 }
 
 module.exports = routes;

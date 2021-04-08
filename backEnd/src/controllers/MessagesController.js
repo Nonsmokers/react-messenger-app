@@ -7,8 +7,31 @@ class MessagesController {
         this.io = io
     }
 
+    updateReadedStatus = (res, userId, dialogId) => {
+        MessageModel.updateMany(
+            { dialog: dialogId, partner: { $ne: userId } },
+            { $set: { unread: false } },
+            (err) => {
+                if (err) {
+                    return res.status(500).json({
+                        status: 'error',
+                        message: err,
+                    });
+                }
+                this.io.emit('SERVER:MESSAGES_READED', {
+                    userId,
+                    dialogId,
+                });
+            },
+        );
+    };
+
     getAllMessages = async (req, res) => {
-        const dialogId = req.query.dialog
+        const dialogId = req.query.dialog;
+        const userId = req.user._id;
+
+        this.updateReadedStatus(res, userId, dialogId);
+
         MessageModel
             .find({dialog: dialogId})
             .populate(['dialog', 'sender'])
@@ -28,6 +51,9 @@ class MessagesController {
             dialog: req.body.dialogId,
             sender: userId,
         }
+
+        this.updateReadedStatus(res, userId, req.body.dialogId);
+
         const message = new MessageModel(postData)
         await message.save()
         try{

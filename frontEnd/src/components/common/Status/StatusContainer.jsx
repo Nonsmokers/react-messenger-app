@@ -16,7 +16,6 @@ const StatusContainer = ({currentDialogId, items, currentUserData, isReady}) => 
         } else {
             partner = currentDialogObj.author;
         }
-
     }
 
     return (

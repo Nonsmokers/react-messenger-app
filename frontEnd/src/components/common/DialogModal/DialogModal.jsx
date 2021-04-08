@@ -6,8 +6,8 @@ const {Option} = Select;
 const {TextArea} = Input;
 
 const DialogModal = ({
-                         messageText, users, onSelectUser, onChangeTextArea,selectedUserId,
-                         handleChangeInput, onAddDialog, onSearch,
+                         messageText, users, onSelectUser, onChangeTextArea, selectedUserId,
+                         handleChangeInput, onAddDialog, onSearch, handleCancel,
                          isModalVisible, inputValue, showModal, isLoading
                      }) => {
 
@@ -18,9 +18,9 @@ const DialogModal = ({
     return (
         <>
             <Button onClick={showModal} type={'link'} shape="circle" icon={<FormOutlined/>}/>
-            <Modal title="Создать Диалог" visible={isModalVisible}
+            <Modal title="Создать Диалог" visible={isModalVisible} onCancel={handleCancel}
                    footer={[
-                       <Button key="back"> Закрыть </Button>,
+                       <Button key="back" onClick={handleCancel}> Закрыть </Button>,
                        <Button
                            disabled={!messageText}
                            key="submit"

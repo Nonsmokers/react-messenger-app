@@ -14,9 +14,10 @@ const getMessage = (sendingDate) => {
 }
 
 const DialogItem = ({item, onSelectDialog, isMe, currentDialogId, unReaded}) => {
+    console.log(item, 1111)
     return (
         <div className={classnames('dialogs__item', {
-            'dialogs__item--online': item.last_message.sender.isOnline,
+            'dialogs__item--online': item.partner.isOnline,
             'dialogs__item--selected': currentDialogId === item._id
         })}
              onClick={onSelectDialog.bind(this, item._id)}

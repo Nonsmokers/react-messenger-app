@@ -26,7 +26,7 @@ const MessageItem = ({sender, text, audio, isMe, unread, attachments, isTyping, 
             'message__isimage': attachments && attachments.length === 1,
         })}>
             <div className={'message__content'}>
-                <MessageStatusIcon isMe={isMe} isReaded={unread}/>
+                <MessageStatusIcon isMe={isMe} unread={unread}/>
                 <Popover trigger="click" title="Title" content={content}>
                     <div className="message__icon-actions">
                         <Button type={'link'} shape="circle" icon={<EllipsisOutlined/>}/>

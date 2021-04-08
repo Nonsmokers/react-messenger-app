@@ -9,7 +9,8 @@ import StatusContainer from "../../common/Status/StatusContainer";
 import SidebarContainer from "../../core/Sidebar/SidebarContainer";
 import ChatInputContainer from "../../core/ChatInput/ChatInputContainer";
 
-const HomePage = () => {
+const HomePage = ({currentDialogId}) => {
+
     return (
         <div className='home'>
             <div className="chat">
@@ -17,19 +18,24 @@ const HomePage = () => {
                 <div className="chat__dialog">
                     <div className="chat__dialog-header">
                         <div/>
-                        <StatusContainer/>
-                        <div>
-                            <Button type={'link'} shape="circle" icon={<EllipsisOutlined/>}/>
-                        </div>
+                        {currentDialogId &&
+                        <>
+                            <StatusContainer/>
+                            <div>
+                                <Button type={'link'} shape="circle" icon={<EllipsisOutlined/>}/>
+                            </div>
+                        </>
+                        }
                     </div>
                     <div className="chat__dialog-messages">
                         <Scrollbars>
                             <MessagesContainer/>
                         </Scrollbars>
                     </div>
-                    <div className="chat__dialog-input">
+                    {currentDialogId &&
+                    < div className="chat__dialog-input">
                         <ChatInputContainer/>
-                    </div>
+                    </div>}
                 </div>
             </div>
         </div>

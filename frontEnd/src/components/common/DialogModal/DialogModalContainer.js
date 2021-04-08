@@ -66,6 +66,7 @@ const DialogModalContainer = ({currentUserData}) => {
                      inputValue={inputValue}
                      showModal={showModal}
                      isLoading={isLoading}
+                     handleCancel={handleCancel}
                      messageText={messageText}
                      selectedUserId={selectedUserId}
         />

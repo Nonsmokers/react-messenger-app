@@ -14,7 +14,7 @@ const routes = (app, io) => {
     const {getMe, findUser, findUsers, verify, signUpUser, signInUser, deleteUser} = new UserController(io);
     const {getAllDialogs, createDialog, deleteDialog} = new DialogController(io);
     const {getAllMessages, createMessage, deleteMessage} = new MessageController(io);
-    const {createFile, deleteFile} = new UploadFileController(io);
+    const {createFile, deleteFile} = new UploadFileController();
 
     app.use(cors())
     app.use((req, res, next) => {

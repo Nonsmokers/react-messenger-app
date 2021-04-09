@@ -8,6 +8,7 @@ const checkAuthenticateToken = require('../middlewares/checkAuthenticateToken');
 const signInValidation = require("../utils/signInValidation");
 const signUpValidation = require("../utils/signUpValidation");
 const UploadFileController = require("../controllers/UploadFileController");
+const multer = require("../core/multer");
 
 const routes = (app, io) => {
 
@@ -47,7 +48,7 @@ const routes = (app, io) => {
     app.post('/messages', createMessage);
     app.delete('/messages/:id', deleteMessage);
 
-    app.post('/files', createFile);
+    app.post('/files', multer.single("file"), createFile);
     app.delete('/files', deleteFile);
 }
 

@@ -38,11 +38,19 @@ const EmojiInput = ({emojiSelected}) => {
     }, []);
 
     return (
-        <div>
+        <div className={'emojiPicker'}>
             {showPicker &&
-            <Picker set='apple' onSelect={addEmoji}
+            <Picker
+                    onSelect={addEmoji}
+                    set='apple'
+                    color={'#3674ff'}
+                    emojiSize={28}
+                    sheetSize={32}
+                    showPreview={false}
+                    showSkinTones={true}
+                    emojiTooltip={true}
                     style={{position: 'absolute', bottom: '55px', left: '20px', width: '303px'}}
-                    title='Pick your emoji' emoji='point_up'
+                    title='React chat' emoji='innocent'
             />}
             <Button onClick={togglePicker} type={'link'} shape="circle" icon={<SmileOutlined/>}/>
         </div>

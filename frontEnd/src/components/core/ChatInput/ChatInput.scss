@@ -1,6 +1,8 @@
 .chat-input {
   display: flex;
-  margin: 20px;
+  margin: 10px;
+  height: 60px;
+  align-items: center;
   position: relative;
 
   &__smile-btn {
@@ -36,3 +38,4 @@
     }
   }
 }
+

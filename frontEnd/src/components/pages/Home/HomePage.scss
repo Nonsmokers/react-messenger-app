@@ -24,8 +24,10 @@
     }
 
     &__dialog {
-      flex: 1;
       position: relative;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
 
       .ant-empty {
         position: absolute;

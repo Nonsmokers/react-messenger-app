@@ -57,13 +57,12 @@ const ChatInput = ({
                 </div>
 
 
-
+            </div>
             <div className="chat-input__attachments">
                 <UploadFile
                     removeAttachment={removeAttachment}
                     attachments={attachments}
                 />
-            </div>
             </div>
         </>
     );

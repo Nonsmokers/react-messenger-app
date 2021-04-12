@@ -9,8 +9,8 @@ class MessagesController {
 
     updateReadedStatus = (res, userId, dialogId) => {
         MessageModel.updateMany(
-            { dialog: dialogId, partner: { $ne: userId } },
-            { $set: { unread: false } },
+            {dialog: dialogId, partner: {$ne: userId}},
+            {$set: {unread: false}},
             (err) => {
                 if (err) {
                     return res.status(500).json({
@@ -49,17 +49,18 @@ class MessagesController {
         const postData = {
             text: req.body.text,
             dialog: req.body.dialogId,
+            attachments: req.body.attachments,
             sender: userId,
         }
 
-        this.updateReadedStatus(res, userId, req.body.dialogId);
+        this.updateReadedStatus(postData);
 
         const message = new MessageModel(postData)
         await message.save()
-        try{
-            message.populate(['dialog', 'sender'], (err, messageObj) => {
+        try {
+            message.populate(['dialog', 'sender', 'attachments'], (err, messageObj) => {
                 if (err) {
-                    res.json(err.message)
+                    return res.status(500).json(err.message)
                 }
 
                 DialogModel.findOneAndUpdate(
@@ -67,7 +68,7 @@ class MessagesController {
                     {last_message: message._id},
                     {findAndModify: true, upsert: true},
                     (err) => {
-                        if(err){
+                        if (err) {
                             return res.status(500).json(err.message);
                         }
                     })
@@ -75,9 +76,8 @@ class MessagesController {
                 res.json(messageObj)
 
                 this.io.emit("SERVER:NEW_MESSAGE", messageObj)
-                console.log(2)
-            })            
-        }catch (e) {
+            })
+        } catch (e) {
             return res.status(500).json(e.message);
         }
     };

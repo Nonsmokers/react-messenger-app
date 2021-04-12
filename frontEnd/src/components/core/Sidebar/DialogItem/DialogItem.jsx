@@ -14,7 +14,6 @@ const getMessage = (sendingDate) => {
 }
 
 const DialogItem = ({item, onSelectDialog, isMe, currentDialogId, unReaded}) => {
-    console.log(item, 1111)
     return (
         <div className={classnames('dialogs__item', {
             'dialogs__item--online': item.partner.isOnline,

@@ -64,6 +64,7 @@ const USER_ACTIONS = {
             type: SET_USER_LOGOUT
         }
     },
+
     autoLogin: () => {
         return dispatch => {
             const token = localStorage.getItem('token');

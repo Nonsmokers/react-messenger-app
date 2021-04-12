@@ -10,19 +10,10 @@ const UserSchema = new Schema({
             validate: [isEmail, 'Invalid email'],
             unique: true
         },
+        fullname: {type: String, required: 'Fullname address is required'},
+        password: {type: String, required: 'Password address is required'},
+        confirmed: {type: Boolean, default: false},
         avatar: String,
-        fullname: {
-            type: String,
-            required: 'Fullname address is required'
-        },
-        password: {
-            type: String,
-            required: 'Password address is required'
-        },
-        confirmed: {
-            type: Boolean,
-            default: false
-        },
         confirm_hash: String,
         last_visit: {
             type: Date,

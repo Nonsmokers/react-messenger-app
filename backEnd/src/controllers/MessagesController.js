@@ -60,7 +60,7 @@ class MessagesController {
         try {
             message.populate(['dialog', 'sender', 'attachments'], (err, messageObj) => {
                 if (err) {
-                    return res.status(500).json(err.message)
+                    res.status.json(err.message)
                 }
 
                 DialogModel.findOneAndUpdate(

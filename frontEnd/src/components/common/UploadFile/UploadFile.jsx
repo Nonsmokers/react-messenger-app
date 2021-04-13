@@ -14,52 +14,15 @@ const UploadFiles = ({ attachments, removeAttachment }) => {
     const [state, setState] = useState({
         previewVisible: false,
         previewImage: "",
-        fileList: [
-            {
-                uid: '-1',
-                name: 'image.png',
-                status: 'done',
-                url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-            },
-            {
-                uid: '-2',
-                name: 'image.png',
-                status: 'done',
-                url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-            },
-            {
-                uid: '-3',
-                name: 'image.png',
-                status: 'done',
-                url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-            },
-            {
-                uid: '-4',
-                name: 'image.png',
-                status: 'done',
-                url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-            },
-            {
-                uid: '-xxx',
-                percent: 50,
-                name: 'image.png',
-                status: 'uploading',
-                url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-            },
-            {
-                uid: '-5',
-                name: 'image.png',
-                status: 'error',
-            },
-        ],
+        fileList: attachments,
     });
 
-/*    useEffect(() => {
+    useEffect(() => {
         setState({
             ...state,
             fileList: attachments
         });
-    }, [attachments]);*/
+    }, [attachments]);
 
     const handleCancel = () => setState({ ...state, previewVisible: false });
 

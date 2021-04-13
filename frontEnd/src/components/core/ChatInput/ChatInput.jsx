@@ -17,7 +17,7 @@ const ChatInput = ({
                        value,
                        setValue,
                        emojiSelected,
-                       attachments,
+                       attachments=[],
                        removeAttachment
                    }) => {
 
@@ -59,10 +59,11 @@ const ChatInput = ({
 
             </div>
             <div className="chat-input__attachments">
-                <UploadFile
-                    removeAttachment={removeAttachment}
-                    attachments={attachments}
-                />
+                {attachments.length > 0 && (
+                    <UploadFile
+                        removeAttachment={removeAttachment}
+                        attachments={attachments}
+                    />)}
             </div>
         </>
     );

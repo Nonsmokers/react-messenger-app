@@ -25,8 +25,8 @@ const MESSAGES_ACTIONS = {
         }
     },
 
-    fetchSendMessage: (text, currentDialogId) => dispatch => {
-        messagesApi.send(text, currentDialogId);
+    fetchSendMessage: (text, currentDialogId, attachments) => dispatch => {
+        messagesApi.send(text, currentDialogId, attachments);
     },
 
     fetchAllMessages: (dialogId) => dispatch => {

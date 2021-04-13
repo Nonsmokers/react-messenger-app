@@ -1,19 +1,27 @@
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
+import filesApi from '../../../api/files';
 import MESSAGES_ACTIONS from "../../../redux/actions/messages";
 import ChatInput from "./ChatInput";
 import ATTACHMENTS_ACTIONS from "../../../redux/actions/attachments";
 
-const ChatInputContainer = ({onSendMessage, currentDialogId, attachments, removeAttachment}) => {
+const ChatInputContainer = ({onSendMessage, currentDialogId, attachments=[], setAttachments, removeAttachment}) => {
 
     const [value, setValue] = useState("");
 
     const sendMessage = () => {
-        if (value !== '') {
-            onSendMessage(value, currentDialogId);
-            setValue("");
+        if (value || attachments.length) {
+            onSendMessage({
+                text: value,
+                dialogId: currentDialogId,
+                attachments: attachments.map(file => file.uid),
+            });
+            setValue('');
+            setAttachments([]);
         }
     };
+
+
 
     const emojiSelected = (e) => {
         console.log(value)
@@ -25,6 +33,38 @@ const ChatInputContainer = ({onSendMessage, currentDialogId, attachments, remove
             sendMessage()
         }
     };
+    const onSelectFiles = async files => {
+        let uploaded = [];
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const uid = Math.round(Math.random() * 1000);
+            uploaded = [
+                ...uploaded,
+                {
+                    uid,
+                    name: file.name,
+                    status: 'uploading',
+                },
+            ];
+            setAttachments(uploaded);
+
+            await filesApi.upload(file).then(({data}) => {
+                uploaded = uploaded.map(item => {
+                    if (item.uid === uid) {
+                        return {
+                            status: 'done',
+                            uid: data.file._id,
+                            name: data.file.filename,
+                            url: data.file.url,
+                        };
+                    }
+                    return item;
+                });
+            });
+            console.log(uploaded)
+        }
+        setAttachments(uploaded);
+    };
 
     return (
         <ChatInput
@@ -35,7 +75,7 @@ const ChatInputContainer = ({onSendMessage, currentDialogId, attachments, remove
             emojiSelected={emojiSelected}
             attachments={attachments}
             removeAttachment={removeAttachment}
-
+            onSelectFiles={onSelectFiles}
         />
     );
 }
@@ -49,8 +89,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    onSendMessage: (text, currentDialogId) => dispatch(MESSAGES_ACTIONS.fetchSendMessage(text, currentDialogId)),
-    removeAttachment: () => dispatch(ATTACHMENTS_ACTIONS.removeAttachment()),
+    onSendMessage: (text, currentDialogId, attachments) => dispatch(MESSAGES_ACTIONS.fetchSendMessage(text, currentDialogId, attachments)),
+    removeAttachment: (file) => dispatch(ATTACHMENTS_ACTIONS.removeAttachment(file)),
+    setAttachments: (data) => dispatch(ATTACHMENTS_ACTIONS.setAttachments(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatInputContainer);

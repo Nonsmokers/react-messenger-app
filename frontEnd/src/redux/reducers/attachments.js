@@ -9,7 +9,7 @@ const attachments = (state = initialState, action) => {
         case SET_ATTACHMENTS:
             return {
                 ...state,
-                items: [...state, action.payload]
+                items: action.payload
             }
         case REMOVE_ITEM :
             return {

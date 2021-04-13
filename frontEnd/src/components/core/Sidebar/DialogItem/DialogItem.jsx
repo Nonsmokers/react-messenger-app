@@ -14,6 +14,7 @@ const getMessage = (sendingDate) => {
 }
 
 const DialogItem = ({item, onSelectDialog, isMe, currentDialogId, unReaded}) => {
+    console.log(item.last_message.attachments)
     return (
         <div className={classnames('dialogs__item', {
             'dialogs__item--online': item.partner.isOnline,
@@ -22,7 +23,7 @@ const DialogItem = ({item, onSelectDialog, isMe, currentDialogId, unReaded}) => 
              onClick={onSelectDialog.bind(this, item._id)}
         >
             <div className={'dialogs__item-avatar'}>
-                <Avatar user={item.last_message.sender}/>
+                <Avatar user={item.partner}/>
             </div>
             <div className='dialogs__item--info'>
                 <div className='dialogs__item--info-title'>
@@ -32,7 +33,9 @@ const DialogItem = ({item, onSelectDialog, isMe, currentDialogId, unReaded}) => 
                     </span>
                 </div>
                 <div className='dialogs__item--info-bottom'>
-                    <p>{item.last_message.text}</p>
+                    {item.last_message.text.length ?
+                        <p>{item.last_message.text}</p>
+                        : <p>{item.last_message.attachments}</p>}
                     {unReaded > 0 ?
                         <div className={'dialogs__item--info-bottom-count'}>{unReaded}</div> :
                         <MessageStatusIcon isMe={isMe} isReaded={false}/>

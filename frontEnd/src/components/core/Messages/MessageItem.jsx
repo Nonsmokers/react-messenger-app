@@ -23,7 +23,7 @@ const MessageItem = ({sender, text, audio, isMe, unread, attachments, isTyping, 
             'message__isme': isMe,
             'message__istyping': isTyping,
             'message__isaudio': audio,
-            'message__isimage': attachments && attachments.length === 1 && !text,
+            'message__isimage': attachments.length === 1 && !text,
         })}>
             <div className={'message__content'}>
                 <MessageStatusIcon isMe={isMe} unread={unread}/>

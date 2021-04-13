@@ -1,18 +1,22 @@
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
+
 import filesApi from '../../../api/files';
-import MESSAGES_ACTIONS from "../../../redux/actions/messages";
 import ChatInput from "./ChatInput";
+import MESSAGES_ACTIONS from "../../../redux/actions/messages";
 import ATTACHMENTS_ACTIONS from "../../../redux/actions/attachments";
 
-const ChatInputContainer = ({onSendMessage, currentDialogId, attachments=[], setAttachments, removeAttachment}) => {
+const ChatInputContainer = ({onSendMessage, currentDialogId, attachments = [], setAttachments, removeAttachment}) => {
 
     const [value, setValue] = useState("");
 
     const sendMessage = () => {
-        if (value || attachments.length) {
+        const trimValue = value.trim()
+        if (trimValue.length || attachments.length) {
+
+            console.log(trimValue.length)
             onSendMessage({
-                text: value,
+                text: trimValue,
                 dialogId: currentDialogId,
                 attachments: attachments.map(file => file.uid),
             });
@@ -20,8 +24,6 @@ const ChatInputContainer = ({onSendMessage, currentDialogId, attachments=[], set
             setAttachments([]);
         }
     };
-
-
 
     const emojiSelected = (e) => {
         console.log(value)

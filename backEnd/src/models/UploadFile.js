@@ -1,7 +1,6 @@
 const {Schema, model} = require('mongoose');
 
-const UploadFileSchema = new Schema(
-    {
+const UploadFileSchema = new Schema(    {
         filename: String,
         size: Number,
         ext: String,

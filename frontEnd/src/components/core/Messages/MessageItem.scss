@@ -75,15 +75,24 @@
   &__attachments {
     display: flex;
     margin-bottom: 5px;
+    order: 1;
 
     &-item {
+      $item: &;
       margin-right: 5px;
       cursor: pointer;
+      position: relative;
 
       img {
         width: 45px;
         height: 45px;
         border-radius: 8px;
+      }
+
+      &:hover {
+        #{$item}-overlay {
+          opacity: 1;
+        }
       }
     }
   }
@@ -110,6 +119,8 @@
 
     #{$self}__info {
       text-align: right;
+      display: flex;
+      flex-direction: row-reverse;
     }
 
     #{$self}__attachments {
@@ -143,7 +154,6 @@
         right: auto;
       }
     }
-
   }
 
   &__isimage {

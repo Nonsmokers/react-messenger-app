@@ -34,7 +34,7 @@ class MessagesController {
 
         MessageModel
             .find({dialog: dialogId})
-            .populate(['dialog', 'sender'])
+            .populate(['dialog', 'sender', 'attachments'])
             .exec((err, messages) => {
                 if (err) {
                     return res.status(404).json(err.message);
@@ -45,20 +45,20 @@ class MessagesController {
 
     createMessage = async (req, res) => {
         const userId = req.user._id;
+        console.log(req.body)
 
         const postData = {
-            text: req.body.text,
-            dialog: req.body.dialogId,
-            attachments: req.body.attachments,
+            text: req.body.text.text,
+            dialog: req.body.text.dialogId,
+            attachments: req.body.text.attachments,
             sender: userId,
         }
-
         this.updateReadedStatus(postData);
 
         const message = new MessageModel(postData)
         await message.save()
         try {
-            message.populate(['dialog', 'sender', 'attachments'], (err, messageObj) => {
+            message.populate("dialog sender attachments", (err, messageObj) => {
                 if (err) {
                     res.status.json(err.message)
                 }

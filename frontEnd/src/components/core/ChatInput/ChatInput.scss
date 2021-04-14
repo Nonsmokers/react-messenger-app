@@ -18,24 +18,51 @@
     justify-content: space-between;
     margin-left: 15px;
 
-    &--upload-btn{
+    &--upload-btn {
       cursor: pointer !important;
-      &:hover{
+
+      &:hover {
         cursor: pointer !important;
-        input{
+
+        input {
           opacity: 1;
           cursor: pointer !important;
         }
       }
+    }
+
+    &-record--dot {
+      position: absolute;
+      left: 55px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: red;
+      transform: scale(.85);
+      animation: pulse 1s ease-in-out infinite;
     }
   }
 
   input {
     padding: 6px 11px 8px;
     font-size: 14px;
+
     &:focus {
       box-shadow: none;
     }
   }
 }
+
+@keyframes pulse {
+  from {
+    transform: scale(.85);
+  }
+  50% {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(.85);
+  }
+}
+
 

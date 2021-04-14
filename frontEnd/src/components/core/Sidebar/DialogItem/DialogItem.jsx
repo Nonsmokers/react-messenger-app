@@ -14,7 +14,7 @@ const getMessage = (sendingDate) => {
 }
 
 const DialogItem = ({item, onSelectDialog, isMe, currentDialogId, unReaded}) => {
-    console.log(item.last_message.attachments)
+    console.log(item.last_message)
     return (
         <div className={classnames('dialogs__item', {
             'dialogs__item--online': item.partner.isOnline,
@@ -33,7 +33,7 @@ const DialogItem = ({item, onSelectDialog, isMe, currentDialogId, unReaded}) => 
                     </span>
                 </div>
                 <div className='dialogs__item--info-bottom'>
-                    {item.last_message.text.length ?
+                    {item.last_message.text && item.last_message.text.length ?
                         <p>{item.last_message.text}</p>
                         : <p>{item.last_message.attachments}</p>}
                     {unReaded > 0 ?

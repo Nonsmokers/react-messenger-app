@@ -8,21 +8,54 @@ import ATTACHMENTS_ACTIONS from "../../../redux/actions/attachments";
 
 const ChatInputContainer = ({onSendMessage, currentDialogId, attachments = [], setAttachments, removeAttachment}) => {
 
+    window.navigator.getUserMedia =
+        window.navigator.getUserMedia || window.navigator.mozGetUserMedia ||
+        window.navigator.msGetUserMedia || window.navigator.webkitGetUserMedia;
+
     const [value, setValue] = useState("");
+    const [isRecording, setIsRecording] = useState('');
+    const [mediaRecorder, setMediaRecorder] = useState(null);
+    const [isLoading, setLoading] = useState(false);
 
-    const sendMessage = () => {
-        const trimValue = value.trim()
-        if (trimValue.length || attachments.length) {
-
-            console.log(trimValue.length)
-            onSendMessage({
-                text: trimValue,
-                dialogId: currentDialogId,
-                attachments: attachments.map(file => file.uid),
-            });
-            setValue('');
-            setAttachments([]);
+    //todo: add recording message back
+    const onRecord = () => {
+        if (navigator.getUserMedia) {
+            navigator.getUserMedia({audio: true}, onRecording, onError);
         }
+    };
+
+    const onRecording = stream => {
+        const recorder = new MediaRecorder(stream);
+        setMediaRecorder(recorder);
+
+        recorder.start();
+
+        recorder.onstart = () => {
+            setIsRecording(true);
+        };
+
+        recorder.onstop = () => {
+            setIsRecording(false);
+        };
+
+        recorder.ondataavailable = e => {
+            const file = new File([e.data], 'audio.webm');
+            setLoading(true);
+            filesApi.upload(file).then(({ data }) => {
+                console.log(data)
+                sendAudio(data.file._id).then(() => {
+                    setLoading(false);
+                });
+            });
+        };
+    };
+
+    const onHideRecording = () => {
+        setIsRecording(false);
+    };
+
+    const onError = err => {
+        console.log('The following error occured: ' + err);
     };
 
     const emojiSelected = (e) => {
@@ -35,6 +68,33 @@ const ChatInputContainer = ({onSendMessage, currentDialogId, attachments = [], s
             sendMessage()
         }
     };
+
+    const sendMessage = () => {
+        if (isRecording) {
+            mediaRecorder.stop();
+        }
+
+        const trimValue = value.trim()
+        if (trimValue.length || attachments.length) {
+
+            onSendMessage({
+                text: trimValue,
+                dialogId: currentDialogId,
+                attachments: attachments.map(file => file.uid),
+            });
+            setValue('');
+            setAttachments([]);
+        }
+    };
+
+    const sendAudio = audioId => {
+        return onSendMessage({
+            text: null,
+            dialogId: currentDialogId,
+            attachments: [audioId],
+        });
+    };
+
     const onSelectFiles = async files => {
         let uploaded = [];
         for (let i = 0; i < files.length; i++) {
@@ -78,6 +138,10 @@ const ChatInputContainer = ({onSendMessage, currentDialogId, attachments = [], s
             attachments={attachments}
             removeAttachment={removeAttachment}
             onSelectFiles={onSelectFiles}
+            isLoading={isLoading}
+            onRecord={onRecord}
+            onHideRecording={onHideRecording}
+            isRecording={isRecording}
         />
     );
 }

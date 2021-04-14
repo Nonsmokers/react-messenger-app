@@ -4,7 +4,7 @@ import classNames from "classnames";
 import MessageItem from "./MessageItem";
 import "./Messages.scss";
 
-const Messages = ({items, currentUserData, blockRef, isLoading}) => {
+const Messages = ({items, currentUserData, blockRef, isLoading, setPreviewImage}) => {
     return (
         <div
             ref={blockRef}
@@ -16,6 +16,7 @@ const Messages = ({items, currentUserData, blockRef, isLoading}) => {
                                 ? items.map(item =>
                                     <MessageItem key={item._id}
                                                  {...item}
+                                                 setPreviewImage={setPreviewImage}
                                                  isMe={currentUserData._id === item.sender._id}/>)
                                 : <Empty description="Диалог пуст"/>
                         ) : <Empty description="Откройте диалог"/>

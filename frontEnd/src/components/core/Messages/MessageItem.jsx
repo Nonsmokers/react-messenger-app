@@ -6,9 +6,10 @@ import MessageSendingTime from "../../common/MessageSendingTime/MessageSendingTi
 import MessageAudio from "./MessageAudio/MessageAudio";
 import Avatar from "../../common/Avatar/Avatar";
 import {Button, Popover} from "antd";
-import {EllipsisOutlined} from "@ant-design/icons";
+import Icon, {EllipsisOutlined} from "@ant-design/icons";
+import isAudio from "../../../utils/isAudio";
 
-const MessageItem = ({sender, text, audio, isMe, unread, attachments, isTyping, sendingTime}) => {
+const MessageItem = ({sender, text, audio, isMe, unread, attachments, isTyping, sendingTime, setPreviewImage}) => {
 
     const content = (
         <>
@@ -18,12 +19,35 @@ const MessageItem = ({sender, text, audio, isMe, unread, attachments, isTyping, 
             <div><Button>Выделить сообщения</Button></div>
         </>
     )
+
+    const renderAttachment = item => {
+        if (item.ext !== 'webm') {
+            return (
+                <div
+                    key={item._id}
+                    onClick={() => setPreviewImage(item.url)}
+                    className="message__attachments-item">
+                    <div className="message__attachments-item-overlay">
+                        <Icon type="eye" style={{color: 'white', fontSize: 18}}/>
+                    </div>
+
+                    <img src={item.url} alt={item.filename}/>
+                </div>
+            );
+        } else {
+            return (
+                <div className='message__bubble'>
+                    <MessageAudio key={item._id} audioSrc={item.url}/>
+                </div>)
+        }
+    };
+
     return (
         <section className={className('message', {
             'message__isme': isMe,
             'message__istyping': isTyping,
-            'message__isaudio': audio,
-            'message__isimage': attachments.length === 1 && !text,
+            'message__isaudio': isAudio(attachments),
+            'message__isimage': !isAudio(attachments) && attachments.length === 1 && !text,
         })}>
             <div className={'message__content'}>
                 <MessageStatusIcon isMe={isMe} unread={unread}/>
@@ -51,11 +75,7 @@ const MessageItem = ({sender, text, audio, isMe, unread, attachments, isTyping, 
                     )}
                     {attachments &&
                     <div className='message__attachments'>
-                        {attachments.map((item, i) => (
-                            <div key={i} className='message__attachments-item'>
-                                <img src={item.url} alt={item.filename}/>
-                            </div>
-                        ))}
+                        {attachments.map(item => renderAttachment(item))}
                     </div>}
                     {sendingTime &&
                     <span className='message__date'>

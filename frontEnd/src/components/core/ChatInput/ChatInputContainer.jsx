@@ -35,6 +35,8 @@ const ChatInputContainer = ({onSendMessage, currentDialogId, attachments = [], s
         };
 
         recorder.onstop = () => {
+            stream.getTracks().forEach(track => track.stop());
+            stream.stop();
             setIsRecording(false);
         };
 
@@ -42,7 +44,6 @@ const ChatInputContainer = ({onSendMessage, currentDialogId, attachments = [], s
             const file = new File([e.data], 'audio.webm');
             setLoading(true);
             filesApi.upload(file).then(({ data }) => {
-                console.log(data)
                 sendAudio(data.file._id).then(() => {
                     setLoading(false);
                 });
@@ -57,12 +58,9 @@ const ChatInputContainer = ({onSendMessage, currentDialogId, attachments = [], s
     const onError = err => {
         console.log('The following error occured: ' + err);
     };
-
     const emojiSelected = (e) => {
-        console.log(value)
         setValue(value + e)
     }
-
     const handleSendMessage = (e) => {
         if (e.keyCode === 13) {
             sendMessage()
@@ -123,7 +121,6 @@ const ChatInputContainer = ({onSendMessage, currentDialogId, attachments = [], s
                     return item;
                 });
             });
-            console.log(uploaded)
         }
         setAttachments(uploaded);
     };

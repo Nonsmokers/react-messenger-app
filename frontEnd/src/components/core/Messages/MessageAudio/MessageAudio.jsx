@@ -45,7 +45,7 @@ const MessageAudio = (props) => {
         });
     }, [])
 
-
+//todo: fix bug with color in partner message
     return (
         <div className="message__audio">
             <audio ref={audioElem} src={props.audio} preload="auto"/>

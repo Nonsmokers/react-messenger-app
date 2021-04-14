@@ -6,7 +6,6 @@ const PORT = process.env.PORT || 3001;
 const createRoutes = require("./core/routes");
 const createSockets = require("./core/sockets");
 
-
 require("./core/connectDb");
 
 const app = express();

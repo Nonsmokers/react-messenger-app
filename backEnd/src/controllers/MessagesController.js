@@ -9,26 +9,24 @@ class MessagesController {
 
     updateReadedStatus = (res, userId, dialogId) => {
         MessageModel.updateMany(
-            {dialog: dialogId, partner: {$ne: userId}},
+            {dialog: dialogId, sender: {$ne: userId}},
             {$set: {unread: false}},
             (err) => {
                 if (err) {
-                    return res.status(500).json({
+                    res.status(500).json({
                         status: 'error',
                         message: err,
                     });
+                } else {
+                    this.io.emit('SERVER:MESSAGES_READED', {userId, dialogId});
                 }
-                this.io.emit('SERVER:MESSAGES_READED', {
-                    userId,
-                    dialogId,
-                });
-            },
+            }
         );
     };
 
     getAllMessages = async (req, res) => {
-        const dialogId = req.query.dialog;
         const userId = req.user._id;
+        const dialogId = req.query.dialog;
 
         this.updateReadedStatus(res, userId, dialogId);
 
@@ -45,7 +43,6 @@ class MessagesController {
 
     createMessage = async (req, res) => {
         const userId = req.user._id;
-        console.log(req.body)
 
         const postData = {
             text: req.body.text.text,
@@ -53,12 +50,12 @@ class MessagesController {
             attachments: req.body.text.attachments,
             sender: userId,
         }
-        this.updateReadedStatus(postData);
+        this.updateReadedStatus(res, userId, req.body.text.dialogId);
 
         const message = new MessageModel(postData)
         await message.save()
         try {
-            message.populate("dialog sender attachments", (err, messageObj) => {
+            message.populate(['dialog', 'sender', 'attachments'], (err, messageObj) => {
                 if (err) {
                     res.status.json(err.message)
                 }

@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {connect} from "react-redux";
 import socket from "../../../config/socket";
 import MESSAGES_ACTIONS from "../../../redux/actions/messages";
@@ -6,6 +6,9 @@ import Messages from "./Messages";
 
 const MessagesContainer = React.memo(
     function MessagesContainer({items, currentUserData, setNewMessage, currentDialogId, fetchAllMessages, isLoading}) {
+
+        const [previewImage, setPreviewImage] = useState(null);
+
         const messagesRef = useRef(null)
 
         const onNewMessage = (data) => {
@@ -32,7 +35,7 @@ const MessagesContainer = React.memo(
         }, [currentDialogId]);
 
         useEffect(() => {
-            messagesRef.current.scrollTo(0, 2000)
+            messagesRef.current.scrollTo(0, 1111111)
         }, [items]);
 
         return (
@@ -40,6 +43,8 @@ const MessagesContainer = React.memo(
                       currentUserData={currentUserData}
                       blockRef={messagesRef}
                       isLoading={isLoading}
+                      setPreviewImage={setPreviewImage}
+                      previewImage={previewImage}
             />
         );
     })

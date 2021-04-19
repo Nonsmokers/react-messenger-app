@@ -13,11 +13,10 @@ const ChatInputContainer = ({onSendMessage, currentDialogId, attachments = [], s
         window.navigator.msGetUserMedia || window.navigator.webkitGetUserMedia;
 
     const [value, setValue] = useState("");
-    const [isRecording, setIsRecording] = useState('');
+    const [isRecording, setIsRecording] = useState(false);
     const [mediaRecorder, setMediaRecorder] = useState(null);
     const [isLoading, setLoading] = useState(false);
 
-    //todo: add recording message back
     const onRecord = () => {
         if (navigator.getUserMedia) {
             navigator.getUserMedia({audio: true}, onRecording, onError);
@@ -25,6 +24,7 @@ const ChatInputContainer = ({onSendMessage, currentDialogId, attachments = [], s
     };
 
     const onRecording = stream => {
+
         const recorder = new MediaRecorder(stream);
         setMediaRecorder(recorder);
 
@@ -35,20 +35,22 @@ const ChatInputContainer = ({onSendMessage, currentDialogId, attachments = [], s
         };
 
         recorder.onstop = () => {
-            stream.getTracks().forEach(track => track.stop());
-            stream.stop();
             setIsRecording(false);
+        }
+
+        recorder.ondataavailable = async e => {
+            const file = new File([e.data], 'audio.webm');
+
+            setLoading(true);
+            const data = await filesApi.upload(file)
+            await sendAudio(data.data.file._id)
+            try{
+                setLoading(false);
+            }catch (e) {
+                console.log(e)
+            }
         };
 
-        recorder.ondataavailable = e => {
-            const file = new File([e.data], 'audio.webm');
-            setLoading(true);
-            filesApi.upload(file).then(({ data }) => {
-                sendAudio(data.file._id).then(() => {
-                    setLoading(false);
-                });
-            });
-        };
     };
 
     const onHideRecording = () => {
@@ -58,13 +60,17 @@ const ChatInputContainer = ({onSendMessage, currentDialogId, attachments = [], s
     const onError = err => {
         console.log('The following error occured: ' + err);
     };
+
     const emojiSelected = (e) => {
         setValue(value + e)
     }
-    const handleSendMessage = (e) => {
-        if (e.keyCode === 13) {
-            sendMessage()
-        }
+
+    const sendAudio = audioId => {
+        return onSendMessage({
+            text: null,
+            dialogId: currentDialogId,
+            attachments: [audioId],
+        });
     };
 
     const sendMessage = () => {
@@ -72,7 +78,7 @@ const ChatInputContainer = ({onSendMessage, currentDialogId, attachments = [], s
             mediaRecorder.stop();
         }
 
-        const trimValue = value.trim()
+        const trimValue = value.trim()  // delete spaces in message
         if (trimValue.length || attachments.length) {
 
             onSendMessage({
@@ -85,12 +91,10 @@ const ChatInputContainer = ({onSendMessage, currentDialogId, attachments = [], s
         }
     };
 
-    const sendAudio = audioId => {
-        return onSendMessage({
-            text: null,
-            dialogId: currentDialogId,
-            attachments: [audioId],
-        });
+    const handleSendMessage = (e) => {
+        if (e.keyCode === 13) {
+            sendMessage()
+        }
     };
 
     const onSelectFiles = async files => {

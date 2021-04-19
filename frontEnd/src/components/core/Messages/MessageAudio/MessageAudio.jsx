@@ -45,10 +45,9 @@ const MessageAudio = (props) => {
         });
     }, [])
 
-//todo: fix bug with color in partner message
     return (
         <div className="message__audio">
-            <audio ref={audioElem} src={props.audio} preload="auto"/>
+            <audio ref={audioElem} src={props.audioSrc} preload="auto"/>
             <div className="message__audio-progress"
                  style={{width: progress + '%'}}
             />

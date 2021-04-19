@@ -1,6 +1,6 @@
 import axios from '../config/axios'
 
-export default Object.assign({
+export default {
     upload: file => {
         const formData = new FormData();
         formData.append("file", file);
@@ -10,4 +10,4 @@ export default Object.assign({
             }
         });
     }
-});
+};

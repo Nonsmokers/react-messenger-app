@@ -32,8 +32,8 @@
   }
 
   &__bubble {
-    background: $white;
-    border: 1px solid #ececec;
+    background: #d7dbe3;
+    border: 1px solid #cecece63;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.0220444);
     border-radius: 12px 12px 12px 0;
     padding: 15px;
@@ -141,7 +141,7 @@
       &-readed {
         position: absolute;
         bottom: 20px;
-        left: -25px;
+        left: -20px;
 
         &--no {
           left: -25px;
@@ -218,6 +218,7 @@
 
       &-btn {
         button {
+          position: relative;
           cursor: pointer;
           border: 0;
           width: 28px;
@@ -226,7 +227,10 @@
           background: #0f3997;
 
           img {
-            height: 13px;
+            height: 15px;
+            position: absolute;
+            top: 6px;
+            left: 7px;
           }
         }
       }
@@ -246,6 +250,13 @@
         height: 100%;
         transition: width 0.3s ease;
       }
+    }
+  }
+
+  .ant-image-mask{
+    border-radius: 7px !important;
+    .ant-image-mask-info{
+      text-decoration-color: red;
     }
   }
 

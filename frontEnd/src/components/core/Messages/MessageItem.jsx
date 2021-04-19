@@ -5,12 +5,11 @@ import MessageStatusIcon from "../../common/MessageStatusIcon/MessageStatusIcon"
 import MessageSendingTime from "../../common/MessageSendingTime/MessageSendingTime";
 import MessageAudio from "./MessageAudio/MessageAudio";
 import Avatar from "../../common/Avatar/Avatar";
-import {Button, Popover} from "antd";
-import Icon, {EllipsisOutlined} from "@ant-design/icons";
+import {Button, Image, Popover} from "antd";
+import {EllipsisOutlined} from "@ant-design/icons";
 import isAudio from "../../../utils/isAudio";
 
 const MessageItem = ({sender, text, audio, isMe, unread, attachments, isTyping, sendingTime, setPreviewImage}) => {
-
     const content = (
         <>
             <div><Button>Изменить сообщения</Button></div>
@@ -20,18 +19,13 @@ const MessageItem = ({sender, text, audio, isMe, unread, attachments, isTyping, 
         </>
     )
 
-    const renderAttachment = item => {
+    const renderAttachment = (item) => {
         if (item.ext !== 'webm') {
             return (
                 <div
-                    key={item._id}
                     onClick={() => setPreviewImage(item.url)}
                     className="message__attachments-item">
-                    <div className="message__attachments-item-overlay">
-                        <Icon type="eye" style={{color: 'white', fontSize: 18}}/>
-                    </div>
-
-                    <img src={item.url} alt={item.filename}/>
+                    <Image src={item.url} alt={item.filename}/>
                 </div>
             );
         } else {
@@ -75,7 +69,11 @@ const MessageItem = ({sender, text, audio, isMe, unread, attachments, isTyping, 
                     )}
                     {attachments &&
                     <div className='message__attachments'>
-                        {attachments.map(item => renderAttachment(item))}
+                        {attachments.map((item) => (
+                            <div key={item._id}>
+                                {renderAttachment(item)}
+                            </div>
+                        ))}
                     </div>}
                     {sendingTime &&
                     <span className='message__date'>

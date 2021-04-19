@@ -13,11 +13,12 @@ const Messages = ({items, currentUserData, blockRef, isLoading, setPreviewImage}
                 ? <Spin size="large" tip="Загрузка сообщений..."/>
                 : (items && !isLoading
                         ? (items.length
-                                ? items.map(item =>
-                                    <MessageItem key={item._id}
-                                                 {...item}
+                                ? items.map((item) =>
+                                    <MessageItem {...item}
                                                  setPreviewImage={setPreviewImage}
-                                                 isMe={currentUserData._id === item.sender._id}/>)
+                                                 isMe={currentUserData._id === item.sender._id}
+                                                 key={item._id}
+                                    />)
                                 : <Empty description="Диалог пуст"/>
                         ) : <Empty description="Откройте диалог"/>
                 )

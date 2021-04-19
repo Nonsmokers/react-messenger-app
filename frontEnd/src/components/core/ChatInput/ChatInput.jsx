@@ -67,7 +67,7 @@ const ChatInput = ({
                         <Button onClick={sendMessage} type={'link'} shape="circle" icon={<SendOutlined/>}/>
                     ) : (
                         <div className="chat-input__record-btn">
-                            <Button onClick={onRecord} place type={"link"} shape="circle" icon={<AudioOutlined/>}/>
+                            <Button onClick={onRecord} type={"link"} shape="circle" icon={<AudioOutlined/>}/>
                         </div>
                     )}
                 </div>

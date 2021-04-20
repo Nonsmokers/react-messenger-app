@@ -33,8 +33,8 @@ const DialogItem = ({item, onSelectDialog, isMe, currentDialogId, unReaded}) => 
                 </div>
                 <div className='dialogs__item--info-bottom'>
                     {item.last_message.text && item.last_message.text.length ?
-                        <p>{item.last_message.text}</p>
-                        : <p>{item.last_message.attachments}</p>}
+                        <p>{isMe ? 'Вы: ' + item.last_message.text : item.last_message.text}</p>
+                        : <p>{isMe ? 'Вы:' + 'Прикрепленный файл' : 'Прикрепленный файл'}</p>}
                     {unReaded > 0 ?
                         <div className={'dialogs__item--info-bottom-count'}>{unReaded}</div> :
                         <MessageStatusIcon isMe={isMe} isReaded={false}/>

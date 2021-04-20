@@ -7,6 +7,7 @@ const DialogsList = ({currentDialogId, onSelectDialog, currentUserId, filtered})
 
     let copyOfArr = [...filtered]
     copyOfArr.sort((a, b) => a.updatedAt > b.updatedAt ? 1 : -1)
+    console.log(filtered)
 
     return (
         <>
@@ -17,7 +18,7 @@ const DialogsList = ({currentDialogId, onSelectDialog, currentUserId, filtered})
                             key={item._id}
                             onSelectDialog={onSelectDialog}
                             unReaded={3}
-                            isMe={item._id === currentUserId}
+                            isMe={item.last_message.sender._id === currentUserId}
                             currentDialogId={currentDialogId}
                         />)
                     )

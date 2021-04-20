@@ -90,6 +90,12 @@ class UsersController {
             if (err || !user) {
                 return res.status(404).json({status: 'error', message: 'User not found'});
             }
+
+            //todo: add confirmation mail account
+            console.log(user)
+            if (user.confirmed === false ) {
+                return res.status(422).json({status: 'error', message: 'User not approved'});
+            }
             if (bcrypt.compareSync(postData.password, user.password)) {
                 const token = createJWToken(user)
                 return res.status(200).json({status: 'success', token})

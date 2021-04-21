@@ -21,7 +21,11 @@ const SignUpFormContainer = withFormik({
     },
     handleSubmit: async (values, {setSubmitting, props}) => {
         await props.fetchUserRegister(values)
+        try{
 
+        }catch{
+
+        }
         //TODO: добавить переход на верификацию акка
 
         setSubmitting(false)

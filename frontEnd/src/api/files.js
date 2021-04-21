@@ -4,10 +4,14 @@ export default Object.assign({
     upload: file => {
         const formData = new FormData();
         formData.append("file", file);
-        return axios.post("/files", formData, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        });
+
+        const config = {
+            "Content-Type": "multipart/form-data",
+            onUploadProgress: event => console.log(event.loaded)
+        };
+
+        return axios.post("/files", formData, config).catch((err) => {
+            return err.response
+        })
     }
 })

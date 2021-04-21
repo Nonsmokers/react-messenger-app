@@ -87,14 +87,15 @@ class UsersController {
             return res.status(422).json({errors: errors.array()});
         }
         await UserModel.findOne({email: postData.email}, (err, user) => {
+            console.log(user.confirmed)
+            console.log(user.confirmed && user.confirmed)
             if (err || !user) {
                 return res.status(404).json({status: 'error', message: 'User not found'});
             }
 
             //todo: add confirmation mail account
-            console.log(user)
-            if (user.confirmed === false ) {
-                return res.status(422).json({status: 'error', message: 'User not approved'});
+            if (user.confirmed && user.confirmed === false) {
+                return res.status(423).json({status: 'error', message: 'User not approved'});
             }
             if (bcrypt.compareSync(postData.password, user.password)) {
                 const token = createJWToken(user)
@@ -114,7 +115,7 @@ class UsersController {
 
         await UserModel.find({confirm_hash: verifyHash}, async (err, user) => {
             if (err || !user) {
-                return res.json({message: 'User not found'});
+                return res.status(404).json({message: 'User not found'});
             }
 
             user.confirmed = true;

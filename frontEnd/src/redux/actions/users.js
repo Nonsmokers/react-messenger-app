@@ -17,7 +17,9 @@ const USER_ACTIONS = {
 
     fetchUserLogin: (postData) => async dispatch => {
         const response = await usersApi.signIn(postData)
-        try {
+        console.log(response)
+        console.log(response.status)
+        if (response.status === 200) {
             const {token} = response.data
 
             openNotification({
@@ -28,18 +30,23 @@ const USER_ACTIONS = {
 
             const expirationDate = new Date(new Date().getTime() + 3600 * 1000 * 24 * 7);
             dispatch(USER_ACTIONS.autoLogout(expirationDate - new Date().getTime()))
-
             window.axios.defaults.headers['token'] = token;
             localStorage.setItem('token', token)
             localStorage.setItem('expirationDate', expirationDate);
-
             dispatch(USER_ACTIONS.fetchUserData())
-
-        } catch (err) {
+        }
+        if (response.status === 403 || 404) {
             openNotification({
                 type: 'error',
                 title: 'Ошибка',
                 text: 'Неверный логин или пароль.'
+            })
+        }
+        if (response.status === 423) {
+            openNotification({
+                type: 'error',
+                title: 'Ошибка',
+                text: 'Вы не подтвердили аккаунт.'
             })
         }
     },

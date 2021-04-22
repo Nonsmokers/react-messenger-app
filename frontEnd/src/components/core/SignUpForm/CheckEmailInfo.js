@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {Result} from 'antd';
+import {Result, Spin} from 'antd';
 import Block from '../../common/AuthWrapperBlock/AuthWrapperBlock';
-import users from "../../../api/users";
+import usersApi from "../../../api/users";
 import Button from "../../common/Button/Button";
 
 const renderTextInfo = (hash, verified) => {
@@ -16,35 +16,54 @@ const renderTextInfo = (hash, verified) => {
     }
 };
 
+//todo: исправить верификацию
 const CheckEmailInfo = (props) => {
 
     const [verified, setVerified] = useState(false);
     const hash = props.location.search.split("hash=")[1];
-    const info = renderTextInfo(hash, verified);
+
+    const [checking, setChecking] = useState(!!hash);
+    const [info, setInfo] = useState(renderTextInfo({hash, checking, verified}));
+
+    const setStatus = ({checking, verified}) => {
+        setInfo(renderTextInfo({hash, checking, verified}));
+        setVerified(verified);
+        setChecking(checking);
+    };
 
     useEffect(() => {
         if (hash) {
-            const data =  users.verifyHash(hash)
-            if (data.status === "success") {
-                setVerified(true);
-            }
+            usersApi
+                .verifyHash(hash)
+                .then(() => {
+                    setStatus({verified: true, checking: false});
+                })
+                .catch(() => {
+                    setStatus({verified: false, checking: false});
+                });
         }
-    }, [hash])
+    }, []);
+
+    console.log({info, checking, verified, hash});
 
     return (
         <div className="verify-block">
             <Block>
-                <Result
-                    status={info.status}
-                    title={info.status === "success" ? "Готово!" : "Ошибка"}
-                    subTitle={info.message}
-                    extra={
-                        info.status === "success" &&
-                        verified && (
-                            <Button type="primary" onClick={() => props.history.push("/sign-in")}>Войти</Button>
-                        )
-                    }
-                />
+                {!checking ?
+                    <Result
+                        status={info.status}
+                        title={info.status === "success" ? "Готово!" : "Ошибка"}
+                        subTitle={info.message}
+                        extra={
+                            info.status === "success" &&
+                            verified && (
+                                <Button type="primary" onClick={() => props.history.push("/sign-in")}>Войти</Button>
+                            )}
+                    /> :
+                    <div className="verify-block__loading">
+                        <Spin size="large"/>
+                    </div>
+                }
             </Block>
         </div>
     );

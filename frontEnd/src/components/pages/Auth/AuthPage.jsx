@@ -6,12 +6,13 @@ import SignInFormContainer from '../../core/SignInForm/SignInFormContainer';
 import CheckEmailInfo from "../../core/SignUpForm/CheckEmailInfo";
 
 const AuthPage = () => {
+    //http://localhost:3000/user/verify?hash=$2b$10$6whv35dLjF.yK63Tl6et9e36EmyZnaD2ZJcarzVn44I6GtMRIjpcC
     return (
         <div className='auth'>
             <div className='auth__content'>
                 <Route exact path={['/', '/sign-in']} render={() => <SignInFormContainer/>}/>
                 <Route exact path={'/sign-up'} render={() => <SignUpFormContainer/>}/>
-                <Route exact path={'/sign-up/verify'} component={CheckEmailInfo} />
+                <Route path={'/sign-up/verify'} component={CheckEmailInfo} />
             </div>
         </div>
     );

@@ -35,7 +35,7 @@ const USER_ACTIONS = {
             localStorage.setItem('expirationDate', expirationDate);
             dispatch(USER_ACTIONS.fetchUserData())
         }
-        if (response.status === 403 || 404) {
+        if (response.status === 404 || response.status === 403) {
             openNotification({
                 type: 'error',
                 title: 'Ошибка',
@@ -64,9 +64,7 @@ const USER_ACTIONS = {
     },
 
     logout: () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('expirationDate');
-
+        localStorage.clear()
         return {
             type: SET_USER_LOGOUT
         }

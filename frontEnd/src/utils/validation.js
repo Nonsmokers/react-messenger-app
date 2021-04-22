@@ -1,15 +1,18 @@
 const validation = ({isAuth, values, errors}) => {
     const rules = {
-        fullname: value => {
-            if (!isAuth && !value) {
-                errors.username = "Укажите свое имя и фамилию";
-            }
-        },
         email: (value) => {
             if (!value) {
                 errors.email = "Введите E-Mail";
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
-                errors.email = "Неверный E-Mail";
+                errors.email = "Некорректный E-Mail";
+            }
+        },
+        fullname: value => {
+            const trimValue = value.trim()
+            if (!isAuth && !trimValue) {
+                errors.fullname = "Укажите свое имя и фамилию";
+            } else if(trimValue.length < 2){
+                errors.fullname = "Укажите свое имя и фамилию";
             }
         },
         password: (value) => {

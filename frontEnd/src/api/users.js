@@ -8,6 +8,7 @@ export default Object.assign({
         return err.response
     }),
     verifyHash: hash => axios.get('/user/verify?hash=' + hash).catch((err) => {
+        console.log(err)
         return err.response
     }),
     getMe: () => axios.get('/user/me').catch((err) => {

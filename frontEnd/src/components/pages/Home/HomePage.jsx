@@ -1,6 +1,6 @@
 import React from 'react';
 import {EllipsisOutlined} from '@ant-design/icons';
-import {Button} from 'antd';
+import {Button, Popover} from 'antd';
 import {Scrollbars} from 'react-custom-scrollbars';
 
 import './HomePage.scss';
@@ -9,7 +9,11 @@ import StatusContainer from "../../common/Status/StatusContainer";
 import SidebarContainer from "../../core/Sidebar/SidebarContainer";
 import ChatInputContainer from "../../core/ChatInput/ChatInputContainer";
 
-const HomePage = ({currentDialogId}) => {
+const HomePage = ({currentDialogId, logout}) => {
+    const content =
+        <>
+            <div><Button onClick={logout}>Выйти с аккаунта</Button></div>
+        </>
 
     return (
         <div className='home'>
@@ -18,14 +22,14 @@ const HomePage = ({currentDialogId}) => {
                 <div className="chat__dialog">
                     <div className="chat__dialog-header">
                         <div/>
-                        {currentDialogId &&
                         <>
-                            <StatusContainer/>
+                            {currentDialogId && <StatusContainer/>}
                             <div>
-                                <Button type={'link'} shape="circle" icon={<EllipsisOutlined/>}/>
+                                <Popover trigger="click" placement="rightTop" content={content}>
+                                    <Button type={'link'} shape="circle" icon={<EllipsisOutlined/>}/>
+                                </Popover>
                             </div>
                         </>
-                        }
                     </div>
                     <div className="chat__dialog-messages">
                         <Scrollbars>

@@ -21,9 +21,9 @@ const SignUpFormContainer = withFormik({
     },
     handleSubmit: async (values, {setSubmitting, props}) => {
         await props.fetchUserRegister(values)
-        try{
+        try {
 
-        }catch{
+        } catch {
 
         }
         //TODO: добавить переход на верификацию акка
@@ -38,5 +38,5 @@ const mapDispatchToProps = (dispatch) => ({
     fetchUserRegister: postData => dispatch(USER_ACTIONS.fetchUserRegister(postData))
 });
 
-export default connect( null , mapDispatchToProps)(SignUpFormContainer);
+export default connect(null, mapDispatchToProps)(SignUpFormContainer);
 

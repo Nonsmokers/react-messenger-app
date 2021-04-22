@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 const {validationResult} = require('express-validator/src/validation-result');
 const UserModel = require('../models/User');
 const createJWToken = require('../utils/createJWToken');
-
+const transport = require("../core/mailer");
 
 class UsersController {
 
@@ -63,6 +63,7 @@ class UsersController {
         }
 
         const errors = validationResult(req);
+
         if (!errors.isEmpty()) {
             return res.status(422).json({errors: errors.array()});
         }
@@ -71,6 +72,19 @@ class UsersController {
         await user.save()
         try {
             res.json(user)
+
+            transport.sendMail({
+                from: "admin@test.com",
+                to: postData.email,
+                subject: "Подтверждение почты React Chat Tutorial",
+                html: `Для того, чтобы подтвердить почту, перейдите <a href="http://localhost:3000/user/verify?hash=${user.confirm_hash}">по этой ссылке</a>`,
+            }, (err, info) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log(info);
+                }
+            })
         } catch (reason) {
             res.json(reason)
         }
@@ -86,22 +100,22 @@ class UsersController {
         if (!errors.isEmpty()) {
             return res.status(422).json({errors: errors.array()});
         }
-        await UserModel.findOne({email: postData.email}, (err, user) => {
-            console.log(user.confirmed)
-            console.log(user.confirmed && user.confirmed)
-            if (err || !user) {
-                return res.status(404).json({status: 'error', message: 'User not found'});
-            }
 
-            //todo: add confirmation mail account
-            if (user.confirmed && user.confirmed === false) {
+        await UserModel.findOne({email: postData.email}, (err, user) => {
+
+            if (user && user.confirmed === false) {
                 return res.status(423).json({status: 'error', message: 'User not approved'});
-            }
-            if (bcrypt.compareSync(postData.password, user.password)) {
-                const token = createJWToken(user)
-                return res.status(200).json({status: 'success', token})
             } else {
-                return res.status(403).json({status: 'error', message: 'Email or password is invalid'})
+                if (err || !user) {
+                    return res.status(404).json({status: 'error', message: 'User not found'});
+                }
+
+                if (bcrypt.compareSync(postData.password, user.password)) {
+                    const token = createJWToken(user)
+                    return res.status(200).json({status: 'success', token})
+                } else {
+                    return res.status(403).json({status: 'error', message: 'Email or password is invalid'})
+                }
             }
         })
     }
@@ -109,17 +123,25 @@ class UsersController {
     verify = async (req, res) => {
 
         const verifyHash = req.query.hash
+
+        console.log(verifyHash)
+
         if (!verifyHash) {
             return res.status(422).json({errors: 'Hash not found'});
         }
 
-        await UserModel.find({confirm_hash: verifyHash}, async (err, user) => {
+        UserModel.findOne({confirm_hash: verifyHash}, async (err, user) => {
             if (err || !user) {
                 return res.status(404).json({message: 'User not found'});
             }
 
             user.confirmed = true;
-            res.json({status: 'success', message: 'Hash is verified'})
+            await user.save((err) => {
+                if (err) {
+                    return res.status(404).json({status: "error", message: err,});
+                }
+                res.json({status: 'success', message: 'Hash is verified'})
+            });
         })
     }
 

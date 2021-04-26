@@ -1,7 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {Form} from 'antd';
-import {InfoCircleTwoTone} from '@ant-design/icons';
 import AuthWrapperBlock from '../../common/AuthWrapperBlock/AuthWrapperBlock';
 import Button from '../../common/Button/Button';
 import FormField from "../../common/FormField/FormField";
@@ -9,7 +8,6 @@ import FormField from "../../common/FormField/FormField";
 const SignUpForm = (props) => {
 
     const {values, touched, errors, handleChange, handleBlur, handleSubmit, isSubmitting} = props;
-    const success = false;
 
     return (
         <>
@@ -18,7 +16,6 @@ const SignUpForm = (props) => {
                 <p>Для входа в чат, вам нужно зарегистрироваться</p>
             </div>
             <AuthWrapperBlock>
-                {!success ? (
                     <Form name='normal_login'
                           className='login-form'
                           onSubmit={handleSubmit}
@@ -47,14 +44,6 @@ const SignUpForm = (props) => {
                         </Form.Item>
                         <Link className='auth__register-link' to='/sign-in'>Войти в аккаунт</Link>
                     </Form>
-                ) : (<div className='auth__success-block'>
-                    <div>
-                        <InfoCircleTwoTone/>
-                    </div>
-                    <h3>Подтвердите свой аккаунт</h3>
-                    <p>На Вашу почту отправлено письмо с ссылкой на подтверждение аккаунта.</p>
-                </div>)
-                }
             </AuthWrapperBlock>
         </>
     )

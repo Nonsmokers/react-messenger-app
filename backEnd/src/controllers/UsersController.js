@@ -69,24 +69,27 @@ class UsersController {
         }
 
         const user = new UserModel(postData)
-        await user.save()
+
+        try {
+            await user.save()
+        } catch (e) {
+            return res.status(400).json(e)
+        }
+
         try {
             res.json(user)
 
             transport.sendMail({
-                from: "admin@test.com",
-                to: postData.email,
-                subject: "Подтверждение почты React Chat Tutorial",
-                html: `Для того, чтобы подтвердить почту, перейдите <a href="http://localhost:3000/user/verify?hash=${user.confirm_hash}">по этой ссылке</a>`,
-            }, (err, info) => {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log(info);
+                    from: "admin@test.com",
+                    to: postData.email,
+                    subject: "Подтверждение почты React Chat Tutorial",
+                    html: `Для того, чтобы подтвердить почту, перейдите <a href="http://localhost:3001/user/verify?hash=${user.confirm_hash}">по этой ссылке</a>`,
+                }, (err, info) => {
+                    err ? console.log(err) : console.log(info);
                 }
-            })
-        } catch (reason) {
-            res.json(reason)
+            )
+        } catch (e) {
+            res.status(500).json(e)
         }
     }
 

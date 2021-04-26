@@ -17,8 +17,7 @@ const USER_ACTIONS = {
 
     fetchUserLogin: (postData) => async dispatch => {
         const response = await usersApi.signIn(postData)
-        console.log(response)
-        console.log(response.status)
+
         if (response.status === 200) {
             const {token} = response.data
 
@@ -51,8 +50,24 @@ const USER_ACTIONS = {
         }
     },
 
-    fetchUserRegister: async (postData) => {
-        await usersApi.signUp(postData)
+    fetchUserRegister: (postData) => async dispatch => {
+        const response = await usersApi.signUp(postData)
+        if (response.status === 400) {
+            openNotification({
+                type: 'error',
+                title: 'Ошибка',
+                text: 'Аккаунт с такой почтой уже создан.'
+            })
+        }
+        if (response.status === 500) {
+            openNotification({
+                type: 'error',
+                title: 'Ошибка',
+                text: 'Возникла серверная ошибка при регистрации. Повторите позже.',
+            });
+        }else{
+            return response
+        }
     },
 
     autoLogout: (time) => {

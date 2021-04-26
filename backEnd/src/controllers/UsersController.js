@@ -83,7 +83,7 @@ class UsersController {
                     from: "admin@test.com",
                     to: postData.email,
                     subject: "Подтверждение почты React Chat Tutorial",
-                    html: `Для того, чтобы подтвердить почту, перейдите <a href="http://localhost:3001/user/verify?hash=${user.confirm_hash}">по этой ссылке</a>`,
+                    html: `Для того, чтобы подтвердить почту, перейдите <a href="http://localhost:3000/sign-up/verify?hash=${user.confirm_hash}">по этой ссылке</a>`,
                 }, (err, info) => {
                     err ? console.log(err) : console.log(info);
                 }
@@ -126,8 +126,6 @@ class UsersController {
     verify = async (req, res) => {
 
         const verifyHash = req.query.hash
-
-        console.log(verifyHash)
 
         if (!verifyHash) {
             return res.status(422).json({errors: 'Hash not found'});

@@ -4,7 +4,7 @@ import Block from '../../common/AuthWrapperBlock/AuthWrapperBlock';
 import usersApi from "../../../api/users";
 import Button from "../../common/Button/Button";
 
-const renderTextInfo = (hash, verified) => {
+const renderTextInfo = ({hash, verified}) => {
     if (hash) {
         if (verified) {
             return {status: "success", message: "Аккаунт успешно подтвержден!"};
@@ -16,7 +16,6 @@ const renderTextInfo = (hash, verified) => {
     }
 };
 
-//todo: исправить верификацию
 const CheckEmailInfo = (props) => {
 
     const [verified, setVerified] = useState(false);
@@ -42,9 +41,7 @@ const CheckEmailInfo = (props) => {
                     setStatus({verified: false, checking: false});
                 });
         }
-    }, []);
-
-    console.log({info, checking, verified, hash});
+    }, [hash]);
 
     return (
         <div className="verify-block">

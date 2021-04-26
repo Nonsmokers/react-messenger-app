@@ -30,8 +30,7 @@ const SignUpForm = (props) => {
                         />
                         <FormField
                             name={'password'} touched={touched} values={values} handleChange={handleChange}
-                            errors={errors} handleBlur={handleBlur} placeholder={'Введите пароль'}
-                            type={'password'}
+                            errors={errors} handleBlur={handleBlur} placeholder={'Введите пароль'} type={'password'}
                         />
                         <FormField
                             name={'password2'} touched={touched} values={values} handleChange={handleChange}

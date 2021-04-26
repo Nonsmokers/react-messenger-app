@@ -5,13 +5,14 @@ import format from 'date-fns/format';
 import isToday from 'date-fns/isToday';
 import Avatar from "../../../common/Avatar/Avatar";
 
-const getMessage = (sendingDate) => {
+const getMessageTime = (sendingDate) => {
     if (isToday(sendingDate)) {
         return format(sendingDate, 'HH:mm');
     } else {
-        return format(sendingDate, 'dd.mm.yy')
+        return format(sendingDate, 'dd.MM.yy')
     }
 }
+
 
 const DialogItem = ({item, onSelectDialog, isMe, currentDialogId, unReaded}) => {
     return (
@@ -28,7 +29,7 @@ const DialogItem = ({item, onSelectDialog, isMe, currentDialogId, unReaded}) => 
                 <div className='dialogs__item--info-title'>
                     <b>{item.partner.fullname}</b>
                     <span>
-                        {getMessage(new Date(item.updatedAt))}
+                        {getMessageTime(new Date(item.updatedAt))}
                     </span>
                 </div>
                 <div className='dialogs__item--info-bottom'>
@@ -37,7 +38,7 @@ const DialogItem = ({item, onSelectDialog, isMe, currentDialogId, unReaded}) => 
                         : <p>{isMe ? 'Вы: ' + 'Прикрепленный файл' : 'Прикрепленный файл'}</p>}
                     {unReaded > 0 ?
                         <div className={'dialogs__item--info-bottom-count'}>{unReaded}</div> :
-                        <MessageStatusIcon isMe={isMe} isReaded={false}/>
+                        <>{!isMe && <MessageStatusIcon isMe={isMe} isReaded={false}/>}</>
                     }
                 </div>
             </div>

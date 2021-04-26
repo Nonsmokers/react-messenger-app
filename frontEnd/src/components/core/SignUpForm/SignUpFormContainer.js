@@ -19,13 +19,11 @@ const SignUpFormContainer = withFormik({
 
         return errors;
     },
-    //todo
+
     handleSubmit: async (values, {setSubmitting, props}) => {
         const res = await props.fetchUserRegister(values)
         if (res && res.status === 200) {
             props.history.push('/sign-up/verify');
-            console.log(res)
-            console.log(props)
         }
         setSubmitting(false)
     },

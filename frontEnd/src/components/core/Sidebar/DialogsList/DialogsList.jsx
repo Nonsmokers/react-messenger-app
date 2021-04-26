@@ -6,8 +6,7 @@ import {Empty} from "antd";
 const DialogsList = ({currentDialogId, onSelectDialog, currentUserId, filtered}) => {
 
     let copyOfArr = [...filtered]
-    copyOfArr.sort((a, b) => a.updatedAt > b.updatedAt ? 1 : -1)
-    console.log(filtered)
+    copyOfArr.sort((a, b) => a.updatedAt < b.updatedAt ? 1 : -1)
 
     return (
         <>

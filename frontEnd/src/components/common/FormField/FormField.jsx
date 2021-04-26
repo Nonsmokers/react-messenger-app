@@ -13,7 +13,7 @@ const FormField = ({touched, name, placeholder, handleChange, handleBlur, errors
                    className='auth__login-input'
                    prefix={name === 'email'
                        ? <MailOutlined className='site-form-item-icon'/>
-                       : name === 'password'
+                       : name === 'password' || name === 'password2'
                            ? <LockOutlined className='site-form-item-icon'/>
                            : <UserOutlined className='site-form-item-icon'/>
                    }

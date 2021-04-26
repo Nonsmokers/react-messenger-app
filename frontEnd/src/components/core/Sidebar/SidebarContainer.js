@@ -10,6 +10,7 @@ const SidebarContainer = ({items, setCurrentDialogId, currentDialogId, fetchDial
     const [filtered, setFiltered] = useState([...items]);
     const [currentUserId, setCurrentUserId] = useState('');
 
+
     const filterUsersByName = (arr, name) => {
         setFiltered(arr.filter((element) => {
             return element.partner.fullname.toLowerCase().includes(name.toLowerCase());

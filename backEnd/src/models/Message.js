@@ -7,7 +7,10 @@ const MessageSchema = new Schema({
         unread: {type: Boolean, default: true},
         attachments: [{type: Schema.Types.ObjectId, ref: "UploadFile"}],
     },
-    {timestamps: true}
+    {
+        timestamps: true,
+        usePushEach: true
+    }
 );
 
 module.exports = model('Message', MessageSchema);

@@ -3,12 +3,9 @@ import {UploadField} from "@navjobs/upload";
 import {CameraOutlined, AudioOutlined, SendOutlined, LoadingOutlined, AudioMutedOutlined} from '@ant-design/icons'
 import {Button, Input} from 'antd';
 
-
 import "./ChatInput.scss";
 import EmojiInput from "../../common/Emoji/Emoji";
 import UploadFile from "../../common/UploadFile/UploadFile";
-
-//TODO: исправить рендер компоненты при получении сообщения
 
 const ChatInput = ({
                        handleSendMessage,
@@ -49,6 +46,7 @@ const ChatInput = ({
                         </>
                     ) : (
                         <UploadField
+                            className={'chat-input__actions--upload-btn'}
                             onFiles={onSelectFiles}
                             containerProps={{
                                 className: 'chat-input__actions--upload-btn'

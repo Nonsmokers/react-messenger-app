@@ -21,7 +21,7 @@ const SidebarContainer = ({items, setCurrentDialogId, currentDialogId, fetchDial
     }, [search]);
 
     useEffect(() => {
-        if(!isReady){
+        if (!isReady) {
             fetchDialogs()
         }
         setFiltered(items)
@@ -48,6 +48,7 @@ const SidebarContainer = ({items, setCurrentDialogId, currentDialogId, fetchDial
                  currentDialogId={currentDialogId}
                  currentUserId={currentUserId}
                  currentUserData={currentUserData}
+                 isReady={isReady}
         />
     );
 }

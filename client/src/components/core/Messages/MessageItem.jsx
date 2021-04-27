@@ -6,7 +6,7 @@ import MessageSendingTime from "../../common/MessageSendingTime/MessageSendingTi
 import MessageAudio from "./MessageAudio/MessageAudio";
 import Avatar from "../../common/Avatar/Avatar";
 import {Button, Image, Popover} from "antd";
-import EllipsisOutlined from "@ant-design/icons";
+import {EllipsisOutlined} from "@ant-design/icons";
 import isAudio from "../../../utils/isAudio";
 
 const MessageItem = ({sender, text, audio, isMe, unread, attachments, isTyping, sendingTime, setPreviewImage}) => {

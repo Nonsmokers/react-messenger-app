@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Form, Modal, Select, Input} from 'antd';
+import {Button, Form, Modal, Select, Input, Tooltip} from 'antd';
 import {FormOutlined} from "@ant-design/icons";
 
 const {Option} = Select;
@@ -17,7 +17,9 @@ const DialogModal = ({
 
     return (
         <>
-            <Button onClick={showModal} type={'link'} shape="circle" icon={<FormOutlined/>}/>
+            <Tooltip title="Создать Диалог">
+                <Button onClick={showModal} type={'link'} shape="circle" icon={<FormOutlined/>}/>
+            </Tooltip>
             <Modal title="Создать Диалог" visible={isModalVisible} onCancel={handleCancel}
                    footer={[
                        <Button key="back" onClick={handleCancel}> Закрыть </Button>,

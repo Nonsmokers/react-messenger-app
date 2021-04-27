@@ -1,6 +1,6 @@
 import React from 'react';
 import {EllipsisOutlined} from '@ant-design/icons';
-import {Button, Popover} from 'antd';
+import {Button, Popover, Tooltip} from 'antd';
 import {Scrollbars} from 'react-custom-scrollbars';
 
 import './HomePage.scss';
@@ -26,7 +26,9 @@ const HomePage = ({currentDialogId, logout}) => {
                             {currentDialogId && <StatusContainer/>}
                             <div>
                                 <Popover trigger="click" placement="rightTop" content={content}>
-                                    <Button type={'link'} shape="circle" icon={<EllipsisOutlined/>}/>
+                                    <Tooltip title="Выйти">
+                                        <Button type={'link'} shape="circle" icon={<EllipsisOutlined/>}/>
+                                    </Tooltip>
                                 </Popover>
                             </div>
                         </>

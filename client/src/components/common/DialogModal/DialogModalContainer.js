@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import usersApi from "../../../api/users";
 import dialogsApi from "../../../api/dialogs";
 import DialogModal from "./DialogModal";
+import openNotification from "../../../utils/openNotification";
 
 const DialogModalContainer = ({currentUserData}) => {
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -31,11 +32,20 @@ const DialogModalContainer = ({currentUserData}) => {
     };
 
     const onAddDialog = async () => {
-        await dialogsApi.create({
+        const dialog = await dialogsApi.create({
             author: currentUserData._id,
             partner: selectedUserId,
             text: messageText
         })
+
+        if (dialog && dialog.status === 403) {
+            openNotification({
+                type: 'error',
+                title: 'Ошибка',
+                text: 'Такой диалог уже существует.'
+            })
+        }
+
         try {
             handleCancel()
         } catch (e) {

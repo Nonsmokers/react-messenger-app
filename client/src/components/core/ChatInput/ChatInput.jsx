@@ -1,7 +1,7 @@
 import React from "react";
 import {UploadField} from "@navjobs/upload";
 import {CameraOutlined, AudioOutlined, SendOutlined, LoadingOutlined, AudioMutedOutlined} from '@ant-design/icons'
-import {Button, Input} from 'antd';
+import {Button, Input, Tooltip} from 'antd';
 
 import "./ChatInput.scss";
 import EmojiInput from "../../common/Emoji/Emoji";
@@ -41,31 +41,40 @@ const ChatInput = ({
                 <div className="chat-input__actions">
                     {isRecording ? (
                         <>
-                            <div className="chat-input__actions-record--dot"/>
-                            <Button onClick={onHideRecording} type={"link"} shape="circle" icon={<AudioMutedOutlined/>}/>
+                            <Tooltip title="Стоп">
+                                <div className="chat-input__actions-record--dot"/>
+                                <Button onClick={onHideRecording} type={"link"} shape="circle"
+                                        icon={<AudioMutedOutlined/>}/>
+                            </Tooltip>
                         </>
                     ) : (
-                        <UploadField
-                            className={'chat-input__actions--upload-btn'}
-                            onFiles={onSelectFiles}
-                            containerProps={{
-                                className: 'chat-input__actions--upload-btn'
-                            }}
-                            uploadProps={{
-                                accept: '.jpg,.gif,.jpeg, .bmp,.png',
-                                multiple: 'multiple'
-                            }}
-                        >
-                            <Button type={'link'} shape="circle" icon={<CameraOutlined/>}/>
-                        </UploadField>)}
-
+                        <Tooltip title="Загрузить">
+                            <UploadField
+                                className={'upload-btn'}
+                                onFiles={onSelectFiles}
+                                containerProps={{
+                                    className: 'chat-input__actions--upload-btn'
+                                }}
+                                uploadProps={{
+                                    accept: '.jpg,.gif,.jpeg, .bmp,.png',
+                                    multiple: 'multiple'
+                                }}
+                            >
+                                <Button type={'link'} shape="circle" icon={<CameraOutlined/>}/>
+                            </UploadField>
+                        </Tooltip>
+                    )}
                     {isLoading ? (
                         <Button type="link" shape="circle" icon={<LoadingOutlined/>}/>
                     ) : isRecording || value || attachments.length ? (
-                        <Button onClick={sendMessage} type={'link'} shape="circle" icon={<SendOutlined/>}/>
+                        <Tooltip title="Отправить">
+                            <Button onClick={sendMessage} type={'link'} shape="circle" icon={<SendOutlined/>}/>
+                        </Tooltip>
                     ) : (
                         <div className="chat-input__record-btn">
-                            <Button onClick={onRecord} type={"link"} shape="circle" icon={<AudioOutlined/>}/>
+                            <Tooltip title="Запись">
+                                <Button onClick={onRecord} type={"link"} shape="circle" icon={<AudioOutlined/>}/>
+                            </Tooltip>
                         </div>
                     )}
                 </div>

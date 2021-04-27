@@ -1,22 +1,24 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
 import Status from "./Status";
 
 const StatusContainer = ({currentDialogId, items, currentUserData, isReady}) => {
 
-    let partner = {};
+    const [partner, setPartner] = useState({});
 
-    if (isReady && currentDialogId) {
-        const currentDialogObj = items.filter(
-            dialog => dialog._id === currentDialogId
-        )[0];
-
-        if (currentDialogObj.author._id === currentUserData._id) {
-            partner = currentDialogObj.partner;
-        } else {
-            partner = currentDialogObj.author;
+    useEffect(() => {
+        if (isReady && currentDialogId) {
+            const currentDialogObj = items.filter(
+                dialog => dialog._id === currentDialogId
+            )[0];
+            if (currentDialogObj.author.id === currentUserData._id) {
+                setPartner(currentDialogObj.partner);
+            } else {
+                setPartner(currentDialogObj.author);
+            }
         }
-    }
+    }, [currentDialogId])
+
 
     return (
         <Status online={partner.isOnline} fullname={partner.fullname}/>

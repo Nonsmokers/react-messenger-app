@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import classnames from 'classnames';
 import MessageStatusIcon from '../../../common/MessageStatusIcon/MessageStatusIcon';
 import format from 'date-fns/format';
@@ -13,8 +13,16 @@ const getMessageTime = (sendingDate) => {
     }
 }
 
+const DialogItem = ({item, onSelectDialog, isMe, currentDialogId, unReaded, currentUserData, isReady}) => {
 
-const DialogItem = ({item, onSelectDialog, isMe, currentDialogId, unReaded}) => {
+    const [partner, setPartner] = useState({});
+
+    useEffect(() => {
+        if (isReady) {
+            item.author.id === currentUserData._id ? setPartner(item.partner) : setPartner(item.author);
+        }
+    }, [currentUserData._id, item.author, item.partner])
+
     return (
         <div className={classnames('dialogs__item', {
             'dialogs__item--online': item.partner.isOnline,
@@ -27,7 +35,7 @@ const DialogItem = ({item, onSelectDialog, isMe, currentDialogId, unReaded}) => 
             </div>
             <div className='dialogs__item--info'>
                 <div className='dialogs__item--info-title'>
-                    <b>{item.partner.fullname}</b>
+                    <b>{partner.fullname}</b>
                     <span>
                         {getMessageTime(new Date(item.updatedAt))}
                     </span>

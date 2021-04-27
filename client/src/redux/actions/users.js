@@ -65,7 +65,7 @@ const USER_ACTIONS = {
                 title: 'Ошибка',
                 text: 'Возникла серверная ошибка при регистрации. Повторите позже.',
             });
-        }else{
+        } else {
             return response
         }
     },
@@ -80,6 +80,7 @@ const USER_ACTIONS = {
 
     logout: () => {
         localStorage.clear()
+
         return {
             type: SET_USER_LOGOUT
         }

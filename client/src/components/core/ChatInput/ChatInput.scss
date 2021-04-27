@@ -20,13 +20,7 @@
     margin-left: 15px;
 
     &--upload-btn {
-      $self: &;
       cursor: pointer !important;
-      .ant-btn .ant-btn-link .ant-btn-circle .ant-btn-icon-only{
-        &:hover {
-          background-color: red;
-        }
-      }
 
       &:hover {
         cursor: pointer !important;
@@ -58,6 +52,15 @@
     &:focus {
       box-shadow: none;
     }
+  }
+}
+
+.upload-btn {
+  cursor: pointer !important;
+
+  &:hover {
+    cursor: pointer !important;
+    padding: 0;
   }
 }
 

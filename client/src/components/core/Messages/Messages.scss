@@ -1,0 +1,19 @@
+@import "src/styles/variables";
+
+.messages{
+  height: 100%;
+  padding: 20px 20px 0;
+  overflow: auto;
+  border-bottom: 1px solid #f7f7f7;
+  >div{
+    padding: 0;
+  }
+  &-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .ant-spin-text{
+      color: $black;
+    }
+  }
+}

@@ -7,7 +7,6 @@ import USER_ACTIONS from './redux/actions/users';
 import HomePageContainer from "./components/pages/Home/HomePageContainer";
 
 const App = ({isAuthenticated, autoLogin}) => {
-console.log('aaa')
     useEffect(() => {
         autoLogin()
     }, [])

@@ -16,6 +16,7 @@ const SidebarContainer = ({items, setCurrentDialogId, currentDialogId, fetchDial
             return element.partner.fullname.toLowerCase().includes(name.toLowerCase());
         }))
     }
+
     useEffect(() => {
         filterUsersByName(items, search)
     }, [search]);
@@ -41,9 +42,9 @@ const SidebarContainer = ({items, setCurrentDialogId, currentDialogId, fetchDial
     }, [currentUserData]);
 
     return (
-        <Sidebar search={search}
+        <Sidebar filtered={filtered}
+                 search={search}
                  setSearch={setSearch}
-                 filtered={filtered}
                  onSelectDialog={setCurrentDialogId}
                  currentDialogId={currentDialogId}
                  currentUserId={currentUserId}

@@ -16,16 +16,16 @@ const getMessageTime = (sendingDate) => {
 const DialogItem = ({item, onSelectDialog, isMe, currentDialogId, unReaded, currentUserData, isReady}) => {
 
     const [partner, setPartner] = useState({});
-
+    console.log(partner)
     useEffect(() => {
         if (isReady) {
             item.author.id === currentUserData._id ? setPartner(item.partner) : setPartner(item.author);
         }
-    }, [currentUserData._id, item.author, item.partner])
+    }, [currentUserData._id, item.author, item.partner, isReady])
 
     return (
         <div className={classnames('dialogs__item', {
-            'dialogs__item--online': item.partner.isOnline,
+            'dialogs__item--online': partner.isOnline,
             'dialogs__item--selected': currentDialogId === item._id
         })}
              onClick={onSelectDialog.bind(this, item._id)}
@@ -42,8 +42,8 @@ const DialogItem = ({item, onSelectDialog, isMe, currentDialogId, unReaded, curr
                 </div>
                 <div className='dialogs__item--info-bottom'>
                     {item.last_message.text && item.last_message.text.length ?
-                        <p>{isMe ? 'Вы: ' + item.last_message.text : item.last_message.text}</p>
-                        : <p>{isMe ? 'Вы: ' + 'Прикрепленный файл' : 'Прикрепленный файл'}</p>}
+                        <p>{isMe ? `Вы: ${item.last_message.text}` : item.last_message.text}</p>
+                        : <p>{isMe ? `Вы: Прикрепленный файл` : 'Прикрепленный файл'}</p>}
                     {unReaded > 0 ?
                         <div className={'dialogs__item--info-bottom-count'}>{unReaded}</div> :
                         <>{!isMe && <MessageStatusIcon isMe={isMe} isReaded={false}/>}</>

@@ -1,5 +1,4 @@
 .chat-input {
-
   display: flex;
   margin: 10px;
   height: 60px;
@@ -52,6 +51,10 @@
     &:focus {
       box-shadow: none;
     }
+  }
+
+  &__attachments {
+    padding-left: 15px;
   }
 }
 

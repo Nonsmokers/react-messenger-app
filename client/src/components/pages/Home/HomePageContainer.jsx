@@ -6,7 +6,9 @@ import USER_ACTIONS from "../../../redux/actions/users";
 
 const HomePageContainer = ({currentDialogId, logout}) => {
     return (
-        <HomePage currentDialogId={currentDialogId} logout={logout}/>
+        <HomePage currentDialogId={currentDialogId}
+                  logout={logout}
+        />
     );
 }
 

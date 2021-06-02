@@ -42,15 +42,17 @@ class MessagesController {
     };
 
     createMessage = async (req, res) => {
+
+        console.log(req)
         const userId = req.user._id;
 
         const postData = {
-            text: req.body.text.text,
-            dialog: req.body.text.dialogId,
-            attachments: req.body.text.attachments,
+            text: req.body.text,
+            dialog: req.body.currentDialogId,
+            attachments: req.body.attachments,
             sender: userId,
         }
-        this.updateReadedStatus(res, userId, req.body.text.dialogId);
+        this.updateReadedStatus(res, userId, req.body.currentDialogId);
 
         const message = new MessageModel(postData)
         await message.save()

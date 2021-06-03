@@ -1,13 +1,12 @@
 ## Deployed React app into Netlify(client) and Heroku(server) hosting is here : [Demo](https://react-vmessenger-app.netlify.app/#/)
 
-The application is currently under development, you can write your wishes or suggestions to me in telegram: https://t.me/alex_vas
-
 ### To test the application, you can login in this account:
 ### E-mail: test1@mail.com, Password: 123123123Qq
 
 # Client:
 - ReactJS
 - Redux
+- Typescript
 - React Router
 - Antd
 - Formik
@@ -53,3 +52,4 @@ Opportunities Real-time messaging, send voice messages, files, photos, smiles an
 
 ![image](https://user-images.githubusercontent.com/55553709/117058423-44879c80-ad27-11eb-8f4a-56ef71cc6b7f.png)
 
+The application is currently under development, you can write your wishes or suggestions to me in telegram: https://t.me/alex_vas
